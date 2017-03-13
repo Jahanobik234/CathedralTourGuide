@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/achievements"
+        android:enabled = "true"
+        android:icon="@drawable/ic_action_achievements"
+        android:title="@string/achievements_title"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/gallery"
+        android:enabled = "true"
+        android:icon="@drawable/ic_action_gallery"
+        android:title="@string/gallery_title"
+        android:visible="true"
+        app:showAsAction="ifRoom"  />
+    <item
+        android:id="@+id/quiz"
+        android:enabled = "true"
+        android:icon="@drawable/ic_action_quiz"
+        android:title="@string/quiz_title"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/search"
+        android:enabled = "true"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/search_title"
+        android:visible="true"
+        app:showAsAction="ifRoom"  />
+
+</menu>
