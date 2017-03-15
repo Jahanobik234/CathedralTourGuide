@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         i = new Intent(MainActivity.this, AfricanHeritage.class);
                         startActivity(i);
                         break;
+                    /*
                     case "Armenian":
                         //i = new Intent(MainActivity.this, Armenian.class);
                         //startActivity(i);
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                         //i = new Intent(MainActivity.this, EarlyAmerican.class);
                         //startActivity(i);
                         break;
+                    */
                 }
             }
         });
@@ -86,16 +88,17 @@ public class MainActivity extends AppCompatActivity {
         ImageButton galleryButton = (ImageButton)findViewById(R.id.gallery);
         ImageButton quizButton = (ImageButton)findViewById(R.id.quiz);
 
+        /*
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, MainActivity.class);
+                Intent i = new Intent(MainActivity.this, MainActivity.class); //CAUSES ERROR
                 startActivity(i);
             }
         });
 
         searchButton.setEnabled(false);
-
+        /*
         achievementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+ */
         quizButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
     }
 
 }

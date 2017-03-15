@@ -21,7 +21,8 @@
         <activity
             android:name=".AfricanHeritage"
             android:label="@string/title_activity_african_heritage"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Quiz"></activity>
     </application>
 
 </manifest>

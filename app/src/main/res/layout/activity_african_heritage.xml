@@ -41,6 +41,6 @@
 
     <include layout="@layout/content_african_heritage" />
 
-    
+
 
 </android.support.design.widget.CoordinatorLayout>
