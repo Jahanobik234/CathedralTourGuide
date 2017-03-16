@@ -23,7 +23,8 @@
             android:label="@string/title_activity_african_heritage"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Quiz" />
-        <activity android:name=".Achievements"></activity>
+        <activity android:name=".Achievements" />
+        <activity android:name=".Gallery"></activity>
     </application>
 
 </manifest>

@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         searchButton.setEnabled(false);
-        /*
+        */
         achievementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+/*
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
