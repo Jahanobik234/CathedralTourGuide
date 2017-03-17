@@ -17,6 +17,11 @@ import static java.security.AccessController.getContext;
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    
+    Button enterButton;
+    Spinner roomSpinner;
+    Intent i;
+    ImageButton searchButton,achievementButton,galleryButton,quizButton;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,18 +48,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        searchButton = (ImageButton)findViewById(R.id.search);
+        achievementButton = (ImageButton)findViewById(R.id.achievements);
+        galleryButton = (ImageButton)findViewById(R.id.gallery);
+        quizButton = (ImageButton)findViewById(R.id.quiz);
 
-        Button enterButton = (Button)findViewById(R.id.selectButton);
+        enterButton = (Button)findViewById(R.id.selectButton);
+        
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                Spinner roomSpinner = (Spinner)findViewById(R.id.roomSpinner);
-                Intent i;
+                roomSpinner = (Spinner)findViewById(R.id.roomSpinner);
+                
                 switch(roomSpinner.getSelectedItem().toString())
                 {
                     case "African Heritage":
-                        i = new Intent(MainActivity.this, AfricanHeritage.class);
+                        i = new Intent(MainActivity.this, Room.class);
+                        i.putExtra("cathedraltourguide.Selection", roomSpinner.getSelectedItem().toString());
                         startActivity(i);
                         break;
                     /*
@@ -83,11 +95,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton searchButton = (ImageButton)findViewById(R.id.search);
-        ImageButton achievementButton = (ImageButton)findViewById(R.id.achievements);
-        ImageButton galleryButton = (ImageButton)findViewById(R.id.gallery);
-        ImageButton quizButton = (ImageButton)findViewById(R.id.quiz);
-
         /*
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         achievementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, Achievements.class);
+                i = new Intent(MainActivity.this, Achievements.class);
                 startActivity(i);
             }
         });
@@ -118,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         quizButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, Quiz.class);
+                i = new Intent(MainActivity.this, Quiz.class);
                 startActivity(i);
             }
         });
