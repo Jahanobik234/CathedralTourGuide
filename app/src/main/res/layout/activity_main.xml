@@ -10,73 +10,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="45dp">
-
-        <TextView
-            android:id="@+id/enterRoomPrompt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/enterNumPrompt" />
-
-        <Spinner
-            android:id="@+id/roomSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/room_names" />
-
-        <Button
-            android:id="@+id/selectButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/enter" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/enterNumPrompt" />
-
-        <EditText
-            android:id="@+id/roomEnter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number" />
-
-        <Button
-            android:id="@+id/enterButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/enter" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tabMenu">
 
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_search"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
             android:layout_weight="1"/>
 
         <ImageButton
             android:id="@+id/achievements"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_weight="1"
             android:src="@drawable/ic_action_achievements" />
 
@@ -84,8 +32,6 @@
             android:id="@+id/gallery"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_weight="1"
             android:src="@drawable/ic_action_gallery" />
 
@@ -93,11 +39,79 @@
             android:id="@+id/quiz"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_weight="1"
             android:src="@drawable/ic_action_quiz" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@id/tabMenu"
+        android:padding="45dp"
+        android:id="@+id/mainContent">
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/enterRoomPrompt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enterNumPrompt" />
+
+                <Spinner
+                    android:id="@+id/roomSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/room_names" />
+
+                <Button
+                    android:id="@+id/selectButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enter" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enterNumPrompt" />
+
+                <EditText
+                    android:id="@+id/roomEnter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number" />
+
+                <Button
+                    android:id="@+id/enterButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enter" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
