@@ -18,7 +18,6 @@ public class Room extends AppCompatActivity {
 
     InputStream stream;
     BufferedReader input;
-    byte[] streamInput;
     StringBuilder large_text;
     String line;
     Drawable image;
@@ -30,7 +29,6 @@ public class Room extends AppCompatActivity {
 
         intro = (TextView) findViewById(R.id.intro);
         flag = (ImageView) findViewById(R.id.flag);
-        streamInput = new byte[100];
 
         Intent i = getIntent();
         String selection = i.getStringExtra("cathedraltourguide.Selection");
