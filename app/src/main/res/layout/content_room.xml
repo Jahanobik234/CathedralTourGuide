@@ -24,7 +24,8 @@
             android:id="@+id/intro"
             android:layout_width="0dp"
             android:layout_height="100dip"
-            android:layout_weight="2"/>
+            android:layout_weight="2"
+            android:text="@string"/>
 
         </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
