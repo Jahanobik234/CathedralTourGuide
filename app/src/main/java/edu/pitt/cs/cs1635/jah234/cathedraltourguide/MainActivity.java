@@ -1,134 +1,102 @@
 package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import static java.security.AccessController.getContext;
-
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
-    
-    Button enterButton;
-    Spinner roomSpinner;
-    Intent i;
-    ImageButton searchButton,achievementButton,galleryButton,quizButton;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-
-    };
+    //ImageButton searchButton,achievementButton,galleryButton,quizButton;
+    BottomNavigationView menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        searchButton = (ImageButton)findViewById(R.id.search);
+
+        menu = (BottomNavigationView) findViewById(R.id.tabMenu);
+        BottomNavigationViewHelper.disableShiftMode(menu);
+
+        if (savedInstanceState == null) {
+            FragmentTransaction handler = getSupportFragmentManager().beginTransaction();
+            handler.add(R.id.mainContent, Search.newInstance());
+            handler.commit();
+            menu.getMenu().findItem(R.id.search).setChecked(true);
+            setTitle("Room Search");
+        }
+
+        /*searchButton = (ImageButton)findViewById(R.id.search);
         achievementButton = (ImageButton)findViewById(R.id.achievements);
         galleryButton = (ImageButton)findViewById(R.id.gallery);
-        quizButton = (ImageButton)findViewById(R.id.quiz);
+        quizButton = (ImageButton)findViewById(R.id.quiz);*/
+        //menu.getMenu().findItem(R.id.search).setChecked(true);
 
-        enterButton = (Button)findViewById(R.id.selectButton);
-        
-        enterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                roomSpinner = (Spinner)findViewById(R.id.roomSpinner);
-                
-                switch(roomSpinner.getSelectedItem().toString())
-                {
-                    case "African Heritage":
-                        i = new Intent(MainActivity.this, Room.class);
-                        i.putExtra("cathedraltourguide.Selection", roomSpinner.getSelectedItem().toString());
-                        startActivity(i);
-                        break;
-                    /*
-                    case "Armenian":
-                        //i = new Intent(MainActivity.this, Armenian.class);
-                        //startActivity(i);
-                        break;
-                    case "Austrian":
-                        //i = new Intent(MainActivity.this, Austrian.class);
-                        //startActivity(i);
-                        break;
-                    case "Chinese":
-                        //i = new Intent(MainActivity.this, Chinese.class);
-                        //startActivity(i);
-                        break;
-                    case "Czechoslovak":
-                       // i = new Intent(MainActivity.this, Czechoslovak.class);
-                        //startActivity(i);
-                        break;
-                    case "Early American":
-                        //i = new Intent(MainActivity.this, EarlyAmerican.class);
-                        //startActivity(i);
-                        break;
-                    */
-                }
-            }
-        });
+        menu.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        FragmentTransaction handler = getSupportFragmentManager().beginTransaction();
 
-        /*
-        searchButton.setOnClickListener(new View.OnClickListener() {
+                        switch (item.getItemId()) {
+                            case R.id.search:
+                                handler.replace(R.id.mainContent, Search.newInstance());
+                                menu.setItemBackgroundResource(R.color.Purple);
+                                setTitle("Room Search");
+                                break;
+                            case R.id.achievements:
+                                handler.replace(R.id.mainContent, Achievements.newInstance());
+                                menu.setItemBackgroundResource(R.color.Yellow);
+                                setTitle("Achievements");
+                                break;
+                            case R.id.gallery:
+                                handler.replace(R.id.mainContent, Gallery.newInstance());
+                                menu.setItemBackgroundResource(R.color.Green);
+                                setTitle("Gallery");
+                                break;
+                            case R.id.quiz:
+                                handler.replace(R.id.mainContent, Quiz.newInstance());
+                                menu.setItemBackgroundResource(R.color.Orange);
+                                setTitle("Quiz");
+                                break;
+                        }
+
+                        handler.setTransition(handler.TRANSIT_FRAGMENT_CLOSE);
+                        handler.commit();
+
+                        return true;
+                    }
+                });
+
+        /*searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, MainActivity.class); //CAUSES ERROR
-                startActivity(i);
+                manager.beginTransaction().replace(R.id.mainContent, Search.newInstance()).commit();
             }
         });
 
-        searchButton.setEnabled(false);
-        */
         achievementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i = new Intent(MainActivity.this, Achievements.class);
-                startActivity(i);
+                manager.beginTransaction().replace(R.id.mainContent, Achievements.newInstance()).commit();
             }
         });
-/*
+
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, Gallery.class);
-                startActivity(i);
+                manager.beginTransaction().replace(R.id.mainContent, Gallery.newInstance()).commit();
             }
         });
- */
+
         quizButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i = new Intent(MainActivity.this, Quiz.class);
-                startActivity(i);
+                manager.beginTransaction().replace(R.id.mainContent, Quiz.newInstance()).commit();
             }
-        });
+        });*/
 
     }
 

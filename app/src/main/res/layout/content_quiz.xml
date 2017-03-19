@@ -8,7 +8,7 @@
     tools:context="edu.pitt.cs.cs1635.jah234.cathedraltourguide.Quiz"
     tools:showIn="@layout/activity_quiz">
 
-    <fragment
+    <!--<fragment
         android:id="@+id/fragment"
         android:name="edu.pitt.cs.cs1635.jah234.cathedraltourguide.QuizFragments.quizAfrHer"
         android:layout_width="wrap_content"
@@ -16,5 +16,5 @@
         android:layout_marginTop="176dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true" />-->
 </RelativeLayout>

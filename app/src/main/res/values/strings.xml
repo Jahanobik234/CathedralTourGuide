@@ -31,4 +31,6 @@
     <string name="your_points">Points Earned: </string>
     <string name="your_achievements">Here\'s what you\'ve done so far:</string>
     <string name="gallery_header">Your Gallery Of Images From Today\'s Visit</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
