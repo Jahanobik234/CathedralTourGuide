@@ -31,4 +31,19 @@
     <string name="your_points">Points Earned: </string>
     <string name="your_achievements">Here\'s what you\'ve done so far:</string>
     <string name="gallery_header">Your Gallery Of Images From Today\'s Visit</string>
+	
+	<string name="audio_button">Play Audio</string>
+    <string name="checklist_button">Jump to Just for Fun</string>
+    <string name="item_list_header">Notable Items in the Room</string>
+    <string name="found_label">Found</string>
+    <string name="default_hint_display">Can\'t find it? \n Tap for hints!</string>
+    <string name="just_for_fun_label">Just for Fun!</string>
+    <string name="default_fact_display">Tap for fun facts!</string>
+    <string name="camera_label">Camera</string>
+    <string name="quiz_label">Take Quiz!</string>
+    <string name="additional_resources">Find more information at:
+                    \n\t www.
+                    \n\t www.
+                    \n\t Book:
+                    \n\t ...</string>
 </resources>
