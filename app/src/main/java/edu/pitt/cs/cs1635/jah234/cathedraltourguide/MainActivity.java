@@ -61,37 +61,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 roomSpinner = (Spinner)findViewById(R.id.roomSpinner);
-                
-                switch(roomSpinner.getSelectedItem().toString())
-                {
-                    case "African Heritage":
-                        i = new Intent(MainActivity.this, Room.class);
-                        i.putExtra("cathedraltourguide.Selection", roomSpinner.getSelectedItem().toString());
-                        startActivity(i);
-                        break;
-                    /*
-                    case "Armenian":
-                        //i = new Intent(MainActivity.this, Armenian.class);
-                        //startActivity(i);
-                        break;
-                    case "Austrian":
-                        //i = new Intent(MainActivity.this, Austrian.class);
-                        //startActivity(i);
-                        break;
-                    case "Chinese":
-                        //i = new Intent(MainActivity.this, Chinese.class);
-                        //startActivity(i);
-                        break;
-                    case "Czechoslovak":
-                       // i = new Intent(MainActivity.this, Czechoslovak.class);
-                        //startActivity(i);
-                        break;
-                    case "Early American":
-                        //i = new Intent(MainActivity.this, EarlyAmerican.class);
-                        //startActivity(i);
-                        break;
-                    */
-                }
+
+                i = new Intent(MainActivity.this, Room.class);
+                i.putExtra("cathedraltourguide.Selection", roomSpinner.getSelectedItem().toString());
+                startActivity(i);
+
             }
         });
 
