@@ -66,47 +66,4 @@
         </ScrollView>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
-
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_search"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"/>
-
-        <ImageButton
-            android:id="@+id/achievements"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_weight="1"
-            android:src="@drawable/ic_action_achievements" />
-
-        <ImageButton
-            android:id="@+id/gallery"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_weight="1"
-            android:src="@drawable/ic_action_gallery" />
-
-        <ImageButton
-            android:id="@+id/quiz"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_weight="1"
-            android:src="@drawable/ic_action_quiz" />
-
-    </LinearLayout>
-
 </RelativeLayout>

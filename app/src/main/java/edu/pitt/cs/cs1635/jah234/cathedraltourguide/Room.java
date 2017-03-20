@@ -25,13 +25,13 @@ public class Room extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent i = getIntent();
+        String selection = i.getStringExtra("cathedraltourguide.Selection");
+        setTitle(selection + " Room");
         setContentView(R.layout.activity_room);
 
         intro = (TextView) findViewById(R.id.intro);
         flag = (ImageView) findViewById(R.id.flag);
-
-        Intent i = getIntent();
-        String selection = i.getStringExtra("cathedraltourguide.Selection");
 
         try
         {
@@ -40,7 +40,7 @@ public class Room extends AppCompatActivity {
             input = new BufferedReader(new InputStreamReader(stream));
             while ((line = input.readLine()) != null)
             {
-                large_text.append(line + "\n");
+                large_text.append(line).append("\n");
             }
             stream.close();
 
