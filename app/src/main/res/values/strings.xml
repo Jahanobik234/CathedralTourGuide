@@ -3,7 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="enterNumPrompt">Enter Room Number</string>
+    <string name="selectPrompt">Select a Room from the List</string>
+    <string name="enterNumPrompt">Enter a Room Number</string>
     <string name="enter">Enter</string>
     <string-array name="room_names">
         <item>African Heritage</item>

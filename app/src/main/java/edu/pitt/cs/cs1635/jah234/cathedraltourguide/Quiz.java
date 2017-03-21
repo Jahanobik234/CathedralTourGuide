@@ -63,9 +63,17 @@ public class Quiz extends Fragment {
         spinnerArrayAdapt = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, roomsAL); //Create Adapter for Spinner
         spinnerArrayAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //Set Drop Down Resource
         spinner.setAdapter(spinnerArrayAdapt); //Set Adapter
-        spinner.setSelection(0); //Select First Item
-
         questions = (LinearLayout) view.findViewById(R.id.linearLayout3);
+
+        if (getArguments() != null)
+        {
+            roomName = getArguments().getString("Room Name");
+            spinner.setSelection(roomsAL.indexOf(roomName));
+        }
+        else
+        {
+            spinner.setSelection(0); //Select First Item
+        }
 
         if (roomName == null)
         {

@@ -1,6 +1,5 @@
 package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,12 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements OnSendDataListener{
 
-    //ImageButton searchButton,achievementButton,galleryButton,quizButton;
     BottomNavigationView menu;
 
     @Override
@@ -32,12 +28,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
             menu.getMenu().findItem(R.id.search).setChecked(true);
             setTitle("Room Search");
         }
-
-        /*searchButton = (ImageButton)findViewById(R.id.search);
-        achievementButton = (ImageButton)findViewById(R.id.achievements);
-        galleryButton = (ImageButton)findViewById(R.id.gallery);
-        quizButton = (ImageButton)findViewById(R.id.quiz);*/
-        //menu.getMenu().findItem(R.id.search).setChecked(true);
 
         menu.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -81,55 +71,45 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                     }
                 });
 
-        /*searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                manager.beginTransaction().replace(R.id.mainContent, Search.newInstance()).commit();
-            }
-        });
-
-        achievementButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                manager.beginTransaction().replace(R.id.mainContent, Achievements.newInstance()).commit();
-            }
-        });
-
-        galleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                manager.beginTransaction().replace(R.id.mainContent, Gallery.newInstance()).commit();
-            }
-        });
-
-        quizButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                manager.beginTransaction().replace(R.id.mainContent, Quiz.newInstance()).commit();
-            }
-        });*/
-
     }
 
     public void send(Bundle data)
     {
+        Fragment newFragment;
+        Bundle args;
+        FragmentTransaction handler;
+
         String action = data.getString("Action");
 
         switch (action)
         {
             case "New Room":
-                Room newFragment = new Room();
-                Bundle args = new Bundle();
+                newFragment = new Room();
+                args = new Bundle();
                 args.putString("Selection", data.getString("Selection"));
                 newFragment.setArguments(args);
 
-                setTitle(data.getString("Selection") + " Room");
-
-                FragmentTransaction handler = getSupportFragmentManager().beginTransaction();
+                handler = getSupportFragmentManager().beginTransaction();
                 handler.replace(R.id.mainContent, newFragment);
-                handler.addToBackStack(null);
                 handler.setTransition(handler.TRANSIT_FRAGMENT_CLOSE);
                 handler.commit();
+
+                setTitle(data.getString("Selection") + " Room");
+                break;
+            case "Room Quiz":
+                newFragment = new Quiz();
+                args = new Bundle();
+                args.putString("Room Name", data.getString("Room Name"));
+                newFragment.setArguments(args);
+
+                handler = getSupportFragmentManager().beginTransaction();
+                handler.replace(R.id.mainContent, newFragment);
+                handler.setTransition(handler.TRANSIT_FRAGMENT_CLOSE);
+                handler.commit();
+
+                menu.setItemBackgroundResource(R.color.Orange);
+                menu.getMenu().findItem(R.id.quiz).setChecked(true);
+                setTitle("Quiz");
                 break;
             default:
                 break;

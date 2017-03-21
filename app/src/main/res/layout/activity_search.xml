@@ -22,7 +22,8 @@
                 android:id="@+id/enterRoomPrompt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/enterNumPrompt" />
+                android:textSize="20sp"
+                android:text="@string/selectPrompt" />
 
             <Spinner
                 android:id="@+id/roomSpinner"
@@ -37,6 +38,18 @@
                 android:text="@string/enter" />
 
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="32sp"
+                android:layout_centerInParent="true"
+                android:text="- OR -"/>
+
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,6 +60,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:text="@string/enterNumPrompt" />
 
             <EditText

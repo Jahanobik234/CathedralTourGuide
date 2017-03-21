@@ -120,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAlignment="center"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:text="@string/default_hint_display" />
             </LinearLayout>
         </LinearLayout>
@@ -173,7 +173,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAlignment="center"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:text="@string/default_hint_display" />
             </LinearLayout>
         </LinearLayout>
@@ -226,7 +226,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAlignment="center"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:text="@string/default_hint_display" />
             </LinearLayout>
         </LinearLayout>
@@ -248,13 +248,12 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
+                <TextView
                     android:id="@+id/fun_facts"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/default_fact_display"
-                    android:textAlignment="center" />
+                    android:text="Fun Facts:"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
