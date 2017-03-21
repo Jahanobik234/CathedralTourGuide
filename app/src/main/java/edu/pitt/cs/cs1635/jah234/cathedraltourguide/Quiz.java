@@ -30,7 +30,6 @@ public class Quiz extends Fragment {
 
     int score;
     ArrayAdapter<String> spinnerArrayAdapt;
-    String[] rooms = {"African Heritage", "Armenian", "Chinese", "Czechoslovak", "Early American"};
     ArrayList<String> roomsAL;
 
     public Quiz() {
@@ -50,7 +49,7 @@ public class Quiz extends Fragment {
         }
         else
         {
-            roomsAL = new ArrayList<>(Arrays.asList(rooms));
+            roomsAL = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_names)));
             roomName = null;
         }
     }

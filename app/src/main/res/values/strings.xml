@@ -13,6 +13,62 @@
         <item>Chinese</item>
         <item>Czechoslovak</item>
         <item>Early American</item>
+        <item>English</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Greek</item>
+        <item>Hungarian</item>
+        <item>Indian</item>
+        <item>Irish</item>
+        <item>Israel Heritage</item>
+        <item>Italian</item>
+        <item>Japanese</item>
+        <item>Korean Heritage</item>
+        <item>Lithuanian</item>
+        <item>Norwegian</item>
+        <item>Polish</item>
+        <item>Romanian</item>
+        <item>Russian</item>
+        <item>Scottish</item>
+        <item>Syria-Lebanon</item>
+        <item>Swedish</item>
+        <item>Swiss</item>
+        <item>Turkish</item>
+        <item>Ukranian</item>
+        <item>Welsh</item>
+        <item>Yugoslav</item>
+    </string-array>
+    <string-array name="room_numbers">
+        <item>330</item>
+        <item>319</item>
+        <item>314</item>
+        <item>136</item>
+        <item>113</item>
+        <item>328</item>
+        <item>144</item>
+        <item>149</item>
+        <item>119</item>
+        <item>137</item>
+        <item>121</item>
+        <item>327</item>
+        <item>127</item>
+        <item>337</item>
+        <item>116</item>
+        <item>317</item>
+        <item>304</item>
+        <item>129</item>
+        <item>151</item>
+        <item>126</item>
+        <item>130</item>
+        <item>153</item>
+        <item>139</item>
+        <item>000</item>
+        <item>135</item>
+        <item>321</item>
+        <item>339</item>
+        <item>341</item>
+        <item>001</item>
+        <item>142</item>
     </string-array>
     <string name="search_title">Search</string>
     <string name="achievements_title">Achievements</string>

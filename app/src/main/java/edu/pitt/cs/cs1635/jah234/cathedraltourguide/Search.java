@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,10 +20,10 @@ import android.widget.Toast;
 
 public class Search extends Fragment {
 
-    Button enterButton;
+    Button selectButton, enterButton;
     Spinner roomSpinner;
+    EditText roomEdit;
     View view;
-    Intent i;
 
     OnSendDataListener sendData;
 
@@ -50,19 +51,31 @@ public class Search extends Fragment {
 
         view = inflater.inflate(R.layout.activity_search, container, false);
 
-        enterButton = (Button) view.findViewById(R.id.selectButton);
+        selectButton = (Button) view.findViewById(R.id.selectButton);
+        enterButton = (Button) view.findViewById(R.id.enterButton);
         roomSpinner = (Spinner) view.findViewById(R.id.roomSpinner);
+        roomEdit = (EditText) view.findViewById(R.id.roomEnter);
+
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Bundle data = new Bundle();
+                data.putString("Action", "New Room");
+                data.putString("Mode", "Name");
+                data.putString("Selection", roomSpinner.getSelectedItem().toString());
+                sendData.send(data);
+            }
+        });
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                //i = new Intent(view.getContext(), Room.class);
-                //i.putExtra("cathedraltourguide.Selection", roomSpinner.getSelectedItem().toString());
-                //startActivity(i);
                 Bundle data = new Bundle();
                 data.putString("Action", "New Room");
-                data.putString("Selection", roomSpinner.getSelectedItem().toString());
+                data.putString("Mode", "Number");
+                data.putString("Selection", roomEdit.getText().toString());
                 sendData.send(data);
             }
         });
