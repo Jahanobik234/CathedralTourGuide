@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 
 public class Gallery extends Fragment {
 
+    public Gallery() {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_gallery, container, false);
-    }
-
-    public static Fragment newInstance() {
-        return new Gallery();
     }
 }

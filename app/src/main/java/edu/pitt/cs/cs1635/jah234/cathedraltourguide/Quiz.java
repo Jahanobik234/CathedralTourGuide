@@ -28,9 +28,14 @@ public class Quiz extends Fragment {
     Button enterButton, submitAnswers;
     LinearLayout questions;
 
+    int score;
     ArrayAdapter<String> spinnerArrayAdapt;
     String[] rooms = {"African Heritage", "Armenian", "Chinese", "Czechoslovak", "Early American"};
     ArrayList<String> roomsAL;
+
+    public Quiz() {
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -160,6 +165,7 @@ public class Quiz extends Fragment {
     private void loadQuestions() {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(view.getContext().getAssets().open(roomName + "_quiz.txt")));
+            score = Integer.parseInt(reader.readLine());
             ((TextView) view.findViewById(R.id.q1)).setText(reader.readLine());
             ((TextView) view.findViewById(R.id.q1a1)).setText(reader.readLine());
             ((TextView) view.findViewById(R.id.q1a2)).setText(reader.readLine());
@@ -194,8 +200,4 @@ public class Quiz extends Fragment {
         super.onRestoreInstanceState(savedInstanceState);
         roomsAL = savedInstanceState.getStringArrayList("RemainingQuizzes");
     }*/
-
-    public static Fragment newInstance() {
-        return new Quiz();
-    }
 }

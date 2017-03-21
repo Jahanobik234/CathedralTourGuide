@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 
 public class Achievements extends Fragment {
 
+    public Achievements(){
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_achievements, container, false);
-    }
-
-    public static Fragment newInstance() {
-        return new Achievements();
     }
 
 }
