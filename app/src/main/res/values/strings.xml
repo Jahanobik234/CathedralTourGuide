@@ -102,4 +102,7 @@
                     \n\t www.
                     \n\t Book:
                     \n\t ...</string>
+	<string name="promptCodeInput">Input Item Code:</string>
+    <string name="wrongCode">Error Incorrect Code Entered!</string>
+    <string name="rightCode">Item Found!</string>
 </resources>
