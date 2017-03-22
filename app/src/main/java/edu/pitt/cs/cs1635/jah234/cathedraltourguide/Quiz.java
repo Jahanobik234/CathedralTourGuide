@@ -135,6 +135,7 @@ public class Quiz extends Fragment {
 
                     AlertDialog userDisplay = userMessage.create();
                     userDisplay.show();
+                    Achievements.alterScore(userScore);
 
                     roomsAL.remove(roomName); //Remove Name From Room So User Cannot Take Again
                     spinnerArrayAdapt = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, roomsAL);
