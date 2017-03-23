@@ -15,7 +15,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -133,9 +138,21 @@ public class Quiz extends Fragment {
                         }
                     });
 
+                    try {
+                        FileOutputStream fileout = getContext().openFileOutput("userAchievements.txt", getContext().MODE_PRIVATE);
+                        OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+                        outputWriter.append("Completed " + roomName + " Quiz - Earned " + userScore + " Points");
+                        outputWriter.close(); //Close Writer
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
                     AlertDialog userDisplay = userMessage.create();
                     userDisplay.show();
-                    Achievements.alterScore(userScore);
+                    MainActivity.alterScore(userScore);
 
                     roomsAL.remove(roomName); //Remove Name From Room So User Cannot Take Again
                     spinnerArrayAdapt = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, roomsAL);

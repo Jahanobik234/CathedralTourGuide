@@ -51,20 +51,19 @@
             android:layout_height="@android:dimen/app_icon_size" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/listPrompt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/your_achievements" />
 
-        <ScrollView
+        <TextView
+            android:id="@+id/userAchievements"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:maxLines="1000"
+            android:scrollbars="vertical"
+            android:text="TextView" />
 
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
-        </ScrollView>
     </LinearLayout>
 
 </RelativeLayout>

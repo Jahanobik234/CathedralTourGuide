@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
 
     BottomNavigationView menu;
     ArrayList<String> nameList, numList;
+    private static int userScore = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +165,15 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
             default:
                 super.onBackPressed();
         }
+    }
+
+    public static void alterScore(int value)
+    {
+        userScore+= value;
+    }
+    public static int getScore()
+    {
+        return userScore;
     }
 
 }
