@@ -139,7 +139,7 @@ public class Quiz extends Fragment {
                     });
 
                     try {
-                        FileOutputStream fileout = getContext().openFileOutput("userAchievements.txt", getContext().MODE_PRIVATE);
+                        FileOutputStream fileout = getContext().openFileOutput("userAchievements.txt", getContext().MODE_APPEND);
                         OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
                         outputWriter.append("Completed " + roomName + " Quiz - Earned " + userScore + " Points");
                         outputWriter.close(); //Close Writer
@@ -158,11 +158,11 @@ public class Quiz extends Fragment {
                     spinnerArrayAdapt = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, roomsAL);
                     spinnerArrayAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(spinnerArrayAdapt);
-                    //spinner.setSelection(0);
+                    spinner.setSelection(0);
                     ((RadioGroup) view.findViewById(R.id.q1answers)).clearCheck();
                     ((RadioGroup) view.findViewById(R.id.q2answers)).clearCheck();
                     ((RadioGroup) view.findViewById(R.id.q3answers)).clearCheck();
-                    //enterButton.performClick();
+                    enterButton.performClick();
                 }
 
                 else //Not All Questions Answered, Alert User

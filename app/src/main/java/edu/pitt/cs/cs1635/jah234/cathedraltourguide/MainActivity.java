@@ -9,6 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,6 +32,15 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
 
         nameList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_names)));
         numList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_numbers)));
+
+        try {
+            FileOutputStream fileout = this.openFileOutput("userAchievements.txt", this.MODE_PRIVATE);
+            OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+            outputWriter.write("");
+            outputWriter.close(); //Close Writer
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         menu = (BottomNavigationView) findViewById(R.id.tabMenu);
         BottomNavigationViewHelper.disableShiftMode(menu);
