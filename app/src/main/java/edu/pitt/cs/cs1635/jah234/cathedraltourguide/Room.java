@@ -87,9 +87,9 @@ public class Room extends Fragment {
         found3 = (Button) view.findViewById(R.id.found3);
         openCamera = (Button) view.findViewById(R.id.camera);
         audio_intro = (Button) view.findViewById(R.id.audio_intro);
-        mpIntro = MediaPlayer.create(getContext(), R.raw.test_audio_file);
+        mpIntro = MediaPlayer.create(getContext(), R.raw.african_heritage_audio_architecture);
         history_audio = (Button) view.findViewById(R.id.history_audio);
-        mpHistory = MediaPlayer.create(getContext(), R.raw.test_audio_file_2);
+        mpHistory = MediaPlayer.create(getContext(), R.raw.african_heritage_audio_display_case);
 
 
         selection = getArguments().getString("Selection");
