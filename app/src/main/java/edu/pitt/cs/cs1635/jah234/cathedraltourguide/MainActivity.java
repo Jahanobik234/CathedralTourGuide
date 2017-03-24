@@ -22,7 +22,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements OnSendDataListener{
 
     BottomNavigationView menu;
-    ArrayList<String> nameList, numList;
+    public static ArrayList<String> nameList, numList, quizzesTaken;
     private static int userScore = 0;
 
     @Override
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
 
         nameList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_names)));
         numList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_numbers)));
+        quizzesTaken = new ArrayList<>();
 
         try {
             FileOutputStream fileout = this.openFileOutput("userAchievements.txt", this.MODE_PRIVATE);

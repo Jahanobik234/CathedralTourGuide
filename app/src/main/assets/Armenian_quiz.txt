@@ -1,16 +1,16 @@
 0
-This is the first question for Armenian?
-Q1A1
-Q1A2
-Q1A3
-This is the second question for Armenian?
-Q2A1
-Q2A2
-Q2A3
-This is the third question for Armenian?
-Q3A1
-Q3A2
-Q3A3
-Q1A1
-Q2A2
-Q3A3
+What year was the Armenian alphabet created?
+10 A.D.
+1200 B.C.
+404 A.D.
+What type of animal is carved into the podium?
+Mammal
+Fish
+Bird
+What is the name of the Armenian cross?
+Goshavank
+Khatchkar
+Julfa
+404 A.D.
+Bird
+Khatchkar

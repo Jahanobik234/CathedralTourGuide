@@ -89,6 +89,8 @@ public class Quiz extends Fragment {
         }
 
         enterButton = (Button)view.findViewById(R.id.quizEnter);
+        submitAnswers = (Button)view.findViewById(R.id.submitAnswers);
+
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,13 +100,21 @@ public class Quiz extends Fragment {
                 //Setting the Appropriate Question/Answer Fields
                 loadQuestions();
 
+                if(MainActivity.quizzesTaken.contains(roomName))
+                {
+                    submitAnswers.setEnabled(false); //Disable Button
+                }
+                else
+                {
+                    submitAnswers.setEnabled(true); //Enable Button
+                }
+
 
             }
         });
 
         //enterButton.performClick(); //Click To Get First Entry's Fields
 
-        submitAnswers = (Button)view.findViewById(R.id.submitAnswers);
         submitAnswers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,10 +148,12 @@ public class Quiz extends Fragment {
                         }
                     });
 
+                    MainActivity.quizzesTaken.add(roomName); //Add To Quizzes Taken
+
                     try {
                         FileOutputStream fileout = getContext().openFileOutput("userAchievements.txt", getContext().MODE_APPEND);
                         OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-                        outputWriter.append("Completed " + roomName + " Quiz - Earned " + userScore + " Points");
+                        outputWriter.append("Completed " + roomName + " Quiz - Earned " + userScore + " Points\n");
                         outputWriter.close(); //Close Writer
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();

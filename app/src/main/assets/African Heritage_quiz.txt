@@ -1,16 +1,16 @@
 0
-This is the first question for African Heritage?
-Q1A1
-Q1A2
-Q1A3
-This is the second question for African Heritage?
-Q2A1
-Q2A2
-Q2A3
-This is the third question for African Heritage?
-Q3A1
-Q3A2
-Q3A3
-Q1A1
-Q2A2
-Q3A3
+Which temple is the African Heritage Room based upon?
+Asante
+Igbo
+Kweku
+How many languages are spoken in Africa?
+1
+100
+2,500
+Which is not something you could find in the display case?
+Mask
+Tusks
+Koran
+Asante
+2,500
+Tusks
