@@ -39,7 +39,6 @@ public class Achievements extends Fragment {
 
             while ((read=InputRead.read(inputBuffer))>0) {
                 sb.append(String.copyValueOf(inputBuffer,0,read));
-                sb.append("\n"); //Append Newline
             }
 
             userAccomplishments.setText(sb.toString());
