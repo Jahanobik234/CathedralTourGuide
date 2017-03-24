@@ -2,6 +2,7 @@ package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.content.DialogInterface;
 import android.widget.EditText;
 import android.app.AlertDialog;
@@ -30,11 +31,13 @@ public class Room extends Fragment {
     final int itemCode2 = 222;
     final int itemCode3 = 333;
 
+    MediaPlayer mpIntro, mpHistory;
+
     ScrollView scrollview;
     TextView history_info, list_header;
     ImageView item_pic_1, item_pic_2, item_pic_3;
     Button found1, found2, found3;
-    Button audio, jump_to_bottom_screen, openCamera;
+    Button audio_intro, history_audio, jump_to_bottom_screen, openCamera;
 
     int index1 = 0, index2 = 0, index3 = 0;
     InputStream stream;
@@ -83,6 +86,10 @@ public class Room extends Fragment {
         found2 = (Button) view.findViewById(R.id.found2);
         found3 = (Button) view.findViewById(R.id.found3);
         openCamera = (Button) view.findViewById(R.id.camera);
+        audio_intro = (Button) view.findViewById(R.id.audio_intro);
+        mpIntro = MediaPlayer.create(getContext(), R.raw.test_audio_file);
+        history_audio = (Button) view.findViewById(R.id.history_audio);
+        mpHistory = MediaPlayer.create(getContext(), R.raw.test_audio_file_2);
 
 
         selection = getArguments().getString("Selection");
@@ -153,6 +160,7 @@ public class Room extends Fragment {
             }
         });
 
+        // When the user clicks on the button it will jump to the bottom of the screen
         jump_to_bottom_screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,6 +168,7 @@ public class Room extends Fragment {
             }
         });
 
+        // Button that opens up the camera functionality
         openCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,6 +177,7 @@ public class Room extends Fragment {
             }
         });
 
+        //
         found1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,6 +210,7 @@ public class Room extends Fragment {
                 // Show input alert dialog
                 alertDialog.show();
 
+                // Don't let the dialog box close if the user submits an invalid item code
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
                 {
                     @Override
@@ -207,16 +218,22 @@ public class Room extends Fragment {
                     {
                         Boolean closeDialog = false;
 
+                        // Try to parse user input into integer, if it doesn't work set the default
+                        // value of 0, indicates invalid input.
                         int input;
                         try {
                             input = Integer.parseInt(userInput.getText().toString());
                         } catch (NumberFormatException numbEx) {
                             input = 0;
                         }
+                        // Give user feedback on their input, present a message telling the user that the code is invalid.
                         if(input != itemCode1) {
                             TextView promptMessage = (TextView) promptUserInputView.findViewById(R.id.promptInput);
                             promptMessage.setText(R.string.wrongCode);
                         }
+                        // If the code is correct, set the button text to indicate that the item has been found
+                        // and disable the button so the user can't find the item again. Also allow
+                        // the dialog box to be closed if the input is correct.
                         else {
                             // TODO - Found items aren't saved after the user leaves the room page, might need to edit the text page or add some indicator of found
                             found1.setText(R.string.rightCode);
@@ -366,6 +383,57 @@ public class Room extends Fragment {
                             alertDialog.dismiss();
                     }
                 });
+            }
+        });
+        audio_intro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // If the user taps the audio button and the audio is already playing then pause it.
+                // Change the text to play audio.
+                if (mpIntro.isPlaying()) {
+                    audio_intro.setText(R.string.audio_button_play);
+                    mpIntro.pause();
+                }
+                // If the user taps the audio button and the audio isn't playing then pause any other
+                // running audio files then play the audio that the user selected.
+                else {
+                    if (mpHistory.isPlaying()) {
+                        history_audio.setText(R.string.audio_button_play);
+                        mpHistory.pause();
+                    }
+                    audio_intro.setText(R.string.audio_button_pause);
+                    mpIntro.start();
+                }
+            }
+        });
+
+        mpIntro.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                audio_intro.setText(R.string.audio_button_play);
+            }
+        });
+
+        history_audio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mpHistory.isPlaying()) {
+                    history_audio.setText(R.string.audio_button_play);
+                    mpHistory.pause();
+                }
+                else {
+                    if (mpIntro.isPlaying()) {
+                        audio_intro.setText(R.string.audio_button_play);
+                        mpIntro.pause();
+                    }
+                    history_audio.setText(R.string.audio_button_pause);
+                    mpHistory.start();
+                }
+            }
+        });
+
+        mpHistory.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                history_audio.setText(R.string.audio_button_play);
             }
         });
         return view;

@@ -14,7 +14,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,11 +53,11 @@
                 android:text="@string/checklist_button" />
 
             <Button
-                android:id="@+id/audio"
+                android:id="@+id/audio_intro"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/audio_button" />
+                android:text="@string/audio_button_play" />
 
 
         </LinearLayout>
@@ -65,7 +66,14 @@
             android:id="@+id/history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="30sp"
             android:text="HistoryTempText" />
+
+        <Button
+            android:id="@+id/history_audio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/audio_button_play" />
 
         <TextView
             android:id="@+id/list_header"
