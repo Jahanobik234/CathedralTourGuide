@@ -43,7 +43,7 @@ public class Achievements extends Fragment {
 
             userAccomplishments.setText(sb.toString());
         }
-         catch (Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
 

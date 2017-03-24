@@ -8,242 +8,305 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:scrollbarSize="5dip"
+    android:padding="3dp"
     android:id="@+id/scrollbar"
     tools:context="edu.pitt.cs.cs1635.jah234.cathedraltourguide.Room">
 
     <LinearLayout
+        android:id="@+id/fullScreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:weightSum="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:id="@+id/flag"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"/>
-            <!--tools:layout_editor_absoluteX="84dp"
-            tools:layout_editor_absoluteY="150dp" -->
-
-            <TextView
-                android:id="@+id/intro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-            <!--tools:layout_editor_absoluteX="72dp"
-            tools:layout_editor_absoluteY="51dp"-->
-
-        </LinearLayout>
+        android:padding="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="3dp">
+
+
+            <Button
+                android:id="@+id/jumpmid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Jump to Notable Items"
+                android:background="@drawable/round_corner"
+                android:layout_margin="3dp"/>
 
             <Button
                 android:id="@+id/jumpdown"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/checklist_button" />
+                android:text="@string/checklist_button"
+                android:background="@drawable/round_corner"
+                android:layout_margin="3dp"/>
 
-            <Button
-                android:id="@+id/audio_intro"
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/mainInfo"
+            android:padding="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <ImageView
+                    android:id="@+id/flag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/audio_intro"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/round_corner"
+                    android:text="@string/audio_button_play" />
+                <Button
+                    android:id="@+id/history_audio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_corner"
+                    android:layout_margin="3dp"
+                    android:text="@string/audio_button_play"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HistoryTempText" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#000000"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:id="@+id/objectInfo">
+
+            <TextView
+                android:id="@+id/list_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text="@string/item_list_header" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/audio_button_play" />
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:padding="3dp">
 
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:text="HistoryTempText" />
-
-        <Button
-            android:id="@+id/history_audio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/audio_button_play" />
-
-        <TextView
-            android:id="@+id/list_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:text="@string/item_list_header" />
-
-        <!--Object Layout-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/item_pic_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@mipmap/ic_launcher_round" />
-
-                <Button
-                    android:id="@+id/found1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="@string/found_label" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="186dp"
-                android:layout_height="201dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/item1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="NameofObject1"
-                    android:textAlignment="center"
-                    android:textSize="25sp" />
-
-                <Button
-                    android:id="@+id/hint1"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:text="@string/default_hint_display" />
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <!--Object Layout-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/item_pic_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    app:srcCompat="@mipmap/ic_launcher_round" />
+                    android:orientation="vertical"
+                    android:padding="3dp">
 
-                <Button
-                    android:id="@+id/found2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="@string/found_label" />
+                    <ImageView
+                        android:id="@+id/item_pic_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@mipmap/ic_launcher_round" />
 
+                    <Button
+                        android:id="@+id/found1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="@string/found_label"
+                        android:background="@drawable/round_corner"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="186dp"
+                    android:layout_height="201dp"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:id="@+id/item1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="NameofObject1"
+                        android:textAlignment="center"
+                        android:textSize="25sp" />
+
+                    <Button
+                        android:id="@+id/hint1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        android:text="@string/default_hint_display"
+                        android:background="@drawable/round_corner"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="186dp"
-                android:layout_height="201dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/item2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="NameofObject2"
-                    android:textAlignment="center"
-                    android:textSize="25sp" />
-
-                <Button
-                    android:id="@+id/hint2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:text="@string/default_hint_display" />
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <!--Object Layout-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
-
-            <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:padding="3dp">
 
-                <ImageView
-                    android:id="@+id/item_pic_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@mipmap/ic_launcher_round" />
+                    android:orientation="vertical"
+                    android:padding="3dp">
 
-                <Button
-                    android:id="@+id/found3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="@string/found_label" />
+                    <ImageView
+                        android:id="@+id/item_pic_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@mipmap/ic_launcher_round" />
 
+                    <Button
+                        android:id="@+id/found2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="@string/found_label"
+                        android:background="@drawable/round_corner"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="186dp"
+                    android:layout_height="201dp"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:id="@+id/item2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="NameofObject2"
+                        android:textAlignment="center"
+                        android:textSize="25sp" />
+
+                    <Button
+                        android:id="@+id/hint2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        android:text="@string/default_hint_display"
+                        android:background="@drawable/round_corner"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="186dp"
-                android:layout_height="201dp"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:padding="3dp">
 
-                <TextView
-                    android:id="@+id/item3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="NameofObject3"
-                    android:textAlignment="center"
-                    android:textSize="25sp" />
-
-                <Button
-                    android:id="@+id/hint3"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:text="@string/default_hint_display" />
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <ImageView
+                        android:id="@+id/item_pic_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@mipmap/ic_launcher_round" />
+
+                    <Button
+                        android:id="@+id/found3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="@string/found_label"
+                        android:background="@drawable/round_corner"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="186dp"
+                    android:layout_height="201dp"
+                    android:orientation="vertical"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:id="@+id/item3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="NameofObject3"
+                        android:textAlignment="center"
+                        android:textSize="25sp" />
+
+                    <Button
+                        android:id="@+id/hint3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        android:text="@string/default_hint_display"
+                        android:background="@drawable/round_corner"/>
+                </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#000000" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:id="@+id/moreInfo">
 
             <TextView
                 android:id="@+id/extra_info_features"
@@ -254,33 +317,68 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/fun_facts"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:text="Fun Facts:"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="3"
+                    android:padding="3dp">
 
                     <Button
                         android:id="@+id/camera"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/camera_label" />
+                        android:text="@string/camera_label"
+                        android:background="@drawable/round_corner"
+                        android:layout_margin="5dp"
+                        android:visibility="gone"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@color/colorBlack"
+                        android:layout_margin="3dp">
+
+                        <Button
+                            android:id="@+id/leftButton"
+                            android:layout_width="0dp"
+                            android:layout_height="120dp"
+                            android:layout_weight="1"
+                            android:text=""/>
+
+                        <ImageSwitcher
+                            android:id="@+id/imageSwitch"
+                            android:layout_width="0dp"
+                            android:layout_height="120dp"
+                            android:clickable="true"
+                            android:layout_weight="4"/>
+
+                        <Button
+                            android:id="@+id/rightButton"
+                            android:layout_width="0dp"
+                            android:layout_height="120dp"
+                            android:layout_weight="1"
+                            android:text=""/>
+                    </LinearLayout>
 
                     <Button
                         android:id="@+id/take_quiz"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/quiz_label" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/quiz_label"
+                        android:background="@drawable/round_corner"
+                        android:layout_margin="5dp"/>
 
                 </LinearLayout>
             </LinearLayout>

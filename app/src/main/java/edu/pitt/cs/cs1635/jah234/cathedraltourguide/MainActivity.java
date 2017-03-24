@@ -1,10 +1,15 @@
 package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,7 +27,8 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements OnSendDataListener{
 
     BottomNavigationView menu;
-    public static ArrayList<String> nameList, numList, quizzesTaken;
+    ArrayList<String> nameList, numList;
+    public static ArrayList<String> quizzesTaken;
     private static int userScore = 0;
 
     @Override
@@ -53,45 +59,51 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
             handler.commit();
             menu.getMenu().findItem(R.id.search).setChecked(true);
             setTitle("Room Search");
+            getPermissionToWrite();
         }
 
         menu.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        int colorId;
+                        String title;
                         Fragment newFragment;
                         FragmentTransaction handler = getSupportFragmentManager().beginTransaction();
 
                         switch (item.getItemId()) {
                             case R.id.search:
                                 newFragment = new Search();
-                                menu.setItemBackgroundResource(R.color.Purple);
-                                setTitle("Room Search");
+                                colorId = R.color.Purple;
+                                title = "Room Search";
                                 break;
                             case R.id.achievements:
                                 newFragment = new Achievements();
-                                menu.setItemBackgroundResource(R.color.Yellow);
-                                setTitle("Achievements");
+                                colorId = R.color.Yellow;
+                                title = "Achievements";
                                 break;
                             case R.id.gallery:
                                 newFragment = new Gallery();
-                                menu.setItemBackgroundResource(R.color.Green);
-                                setTitle("Gallery");
+                                colorId = R.color.Green;
+                                title = "Gallery";
                                 break;
                             case R.id.quiz:
                                 newFragment = new Quiz();
-                                menu.setItemBackgroundResource(R.color.Orange);
-                                setTitle("Quiz");
+                                colorId = R.color.Orange;
+                                title = "Quiz";
                                 break;
                             default:
                                 newFragment = new Search();
-                                menu.setItemBackgroundResource(R.color.Purple);
+                                colorId = R.color.Purple;
+                                title = "Room Search";
                                 break;
                         }
 
                         handler.replace(R.id.mainContent, newFragment);
                         handler.setTransition(handler.TRANSIT_FRAGMENT_CLOSE);
                         handler.commit();
+                        menu.setItemBackgroundResource(colorId);
+                        setTitle(title);
 
                         return true;
                     }
@@ -111,29 +123,46 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
         {
             case "New Room":
                 String roomNum, roomName;
+                int index;
 
                 newFragment = new Room();
                 args = new Bundle();
                 if (data.getString("Mode").equals("Name"))
                 {
                     roomName = data.getString("Selection");
-                    roomNum = numList.get(nameList.indexOf(roomName));
+                    index = nameList.indexOf(roomName);
+                    if (index != -1)
+                        roomNum = numList.get(index);
+                    else
+                        roomNum = "";
                 }
                 else
                 {
                     roomNum = data.getString("Selection");
-                    roomName = nameList.get(numList.indexOf(roomNum));
+                    index = numList.indexOf(roomNum);
+                    if (index != -1)
+                        roomName = nameList.get(index);
+                    else
+                        roomName = "";
                 }
-                args.putString("Selection", roomName);
 
-                newFragment.setArguments(args);
+                if (index == -1)
+                {
+                    Toast.makeText(MainActivity.this, "Sorry. Room Cannot be Found", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    args.putString("Selection", roomName);
 
-                handler = getSupportFragmentManager().beginTransaction();
-                handler.replace(R.id.mainContent, newFragment);
-                handler.setTransition(handler.TRANSIT_FRAGMENT_CLOSE);
-                handler.commit();
+                    newFragment.setArguments(args);
 
-                setTitle(roomName + " Room (Room " + roomNum + ")");
+                    handler = getSupportFragmentManager().beginTransaction();
+                    handler.replace(R.id.mainContent, newFragment);
+                    handler.setTransition(handler.TRANSIT_FRAGMENT_CLOSE);
+                    handler.commit();
+
+                    setTitle(roomName + " Room (Room " + roomNum + ")");
+                }
                 break;
             case "Room Quiz":
                 newFragment = new Quiz();
@@ -152,6 +181,22 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                 break;
             default:
                 break;
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public void getPermissionToWrite() {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+
+        if (requestCode == 0) {
+            if (!(grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED))
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 

@@ -35,7 +35,8 @@
                 android:id="@+id/selectButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/enter" />
+                android:text="@string/enter"
+                android:background="@drawable/round_corner"/>
 
         </LinearLayout>
         <RelativeLayout
@@ -74,7 +75,8 @@
                 android:id="@+id/enterButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/enter" />
+                android:text="@string/enter"
+                android:background="@drawable/round_corner"/>
 
         </LinearLayout>
 

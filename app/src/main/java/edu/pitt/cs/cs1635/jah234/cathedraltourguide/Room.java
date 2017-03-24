@@ -1,9 +1,13 @@
 package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.widget.EditText;
 import android.app.AlertDialog;
 import android.graphics.drawable.Drawable;
@@ -13,19 +17,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import static android.app.Activity.RESULT_OK;
+import static android.os.Environment.getExternalStorageDirectory;
 
 public class Room extends Fragment {
 
     TextView intro;
     ImageView flag;
     View view;
+    ImageSwitcher gallery;
 
     final int itemCode1 = 111;
     final int itemCode2 = 222;
@@ -34,20 +51,19 @@ public class Room extends Fragment {
     MediaPlayer mpIntro, mpHistory;
 
     ScrollView scrollview;
-    TextView history_info, list_header;
-    ImageView item_pic_1, item_pic_2, item_pic_3;
-    Button found1, found2, found3;
-    Button audio_intro, history_audio, jump_to_bottom_screen, openCamera;
+    LinearLayout fullScreen, objectInfo, moreInfo;
+    TextView history_info;
+    Button found1, found2, found3, leftImage, rightImage, jump_to_mid_screen, jump_to_bottom_screen, quiz, hint1, hint2, hint3, audio_intro, history_audio;
 
-    int index1 = 0, index2 = 0, index3 = 0;
+    int index1 = 0, index2 = 0, index3 = 0, imageIndex = 0;
     InputStream stream;
     BufferedReader input;
     StringBuilder large_text;
-    String line;
+    String line, selection, filePath;
     Drawable image;
-    String selection;
     String[] hint = new String[9];
-    Button quiz, hint1, hint2, hint3;
+    File storageDir;
+    ArrayList<Uri> array;
 
     OnSendDataListener sendData;
 
@@ -67,6 +83,21 @@ public class Room extends Fragment {
         {
             throw new ClassCastException(context.toString() + " must implement OnSendDataListener");
         }
+
+        array = new ArrayList<>();
+        storageDir = new File(getExternalStorageDirectory().getPath() + "/DCIM/CathedralLearningTour");
+        if (!storageDir.exists()) {
+            Toast.makeText(getContext(), "making directory", Toast.LENGTH_LONG).show();
+            storageDir.mkdirs();
+        }
+        if (storageDir.canWrite())
+        {
+            File[] files = storageDir.listFiles();
+            for (int i = 0; i< files.length; i++)
+            {
+                array.add(Uri.fromFile(files[i]));
+            }
+        }
     }
 
     @Override
@@ -80,12 +111,18 @@ public class Room extends Fragment {
         hint2 = (Button) view.findViewById(R.id.hint2);
         hint3 = (Button) view.findViewById(R.id.hint3);
         quiz = (Button) view.findViewById(R.id.take_quiz);
+        jump_to_mid_screen = (Button) view.findViewById(R.id.jumpmid);
         jump_to_bottom_screen = (Button) view.findViewById(R.id.jumpdown);
         scrollview = (ScrollView) view.findViewById(R.id.scrollbar);
         found1 = (Button) view.findViewById(R.id.found1);
         found2 = (Button) view.findViewById(R.id.found2);
         found3 = (Button) view.findViewById(R.id.found3);
-        openCamera = (Button) view.findViewById(R.id.camera);
+        leftImage = (Button) view.findViewById(R.id.leftButton);
+        rightImage = (Button) view.findViewById(R.id.rightButton);
+        gallery = (ImageSwitcher) view.findViewById(R.id.imageSwitch);
+        fullScreen = (LinearLayout) view.findViewById(R.id.fullScreen);
+        objectInfo = (LinearLayout) view.findViewById(R.id.objectInfo);
+        moreInfo = (LinearLayout) view.findViewById(R.id.moreInfo);
         audio_intro = (Button) view.findViewById(R.id.audio_intro);
         mpIntro = MediaPlayer.create(getContext(), R.raw.african_heritage_audio_architecture);
         history_audio = (Button) view.findViewById(R.id.history_audio);
@@ -119,11 +156,31 @@ public class Room extends Fragment {
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            fullScreen.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "Sorry. This Page Isn't Ready Yet", Toast.LENGTH_LONG).show();
         }
 
         intro.setText(large_text);
         flag.setImageDrawable(image);
+
+        gallery.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                ImageView myView = new ImageView(getContext());
+                myView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                myView.setLayoutParams(new ImageSwitcher.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT));
+                return myView;
+            }
+        });
+
+        if (array.size() > 0)
+        {
+            gallery.setImageURI(array.get(0));
+        }
+        else
+        {
+            gallery.setImageResource(R.mipmap.ic_camera);
+        }
 
         hint1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,24 +217,69 @@ public class Room extends Fragment {
             }
         });
 
-        // When the user clicks on the button it will jump to the bottom of the screen
+        jump_to_mid_screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollview.scrollTo(0, objectInfo.getTop());
+            }
+        });
+
         jump_to_bottom_screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scrollview.fullScroll(ScrollView.FOCUS_DOWN);
+                scrollview.scrollTo(0, moreInfo.getTop());
             }
         });
 
-        // Button that opens up the camera functionality
-        openCamera.setOnClickListener(new View.OnClickListener() {
+        gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageIndex == array.size() && getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))
+                {
+                    try
+                    {
+                        takePicture();
+                    }
+                    catch (IOException e)
+                    {
+                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+
+        leftImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivity(intent);
+                Toast.makeText(getContext(), "Previous Image", Toast.LENGTH_LONG).show();
+                if (array.size() != 0 && imageIndex > 0)
+                {
+                    imageIndex--;
+                    gallery.setImageURI(array.get(imageIndex));
+                }
             }
         });
 
-        //
+        rightImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Next Image", Toast.LENGTH_LONG).show();
+                if (array.size() != 0 && imageIndex <= array.size())
+                {
+                    imageIndex++;
+                    if (imageIndex == array.size())
+                    {
+                        gallery.setImageResource(R.mipmap.ic_camera);
+                    }
+                    else
+                    {
+                        gallery.setImageURI(array.get(imageIndex));
+                    }
+                }
+            }
+        });
+
         found1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,7 +312,6 @@ public class Room extends Fragment {
                 // Show input alert dialog
                 alertDialog.show();
 
-                // Don't let the dialog box close if the user submits an invalid item code
                 alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
                 {
                     @Override
@@ -218,22 +319,16 @@ public class Room extends Fragment {
                     {
                         Boolean closeDialog = false;
 
-                        // Try to parse user input into integer, if it doesn't work set the default
-                        // value of 0, indicates invalid input.
                         int input;
                         try {
                             input = Integer.parseInt(userInput.getText().toString());
                         } catch (NumberFormatException numbEx) {
                             input = 0;
                         }
-                        // Give user feedback on their input, present a message telling the user that the code is invalid.
                         if(input != itemCode1) {
                             TextView promptMessage = (TextView) promptUserInputView.findViewById(R.id.promptInput);
                             promptMessage.setText(R.string.wrongCode);
                         }
-                        // If the code is correct, set the button text to indicate that the item has been found
-                        // and disable the button so the user can't find the item again. Also allow
-                        // the dialog box to be closed if the input is correct.
                         else {
                             // TODO - Found items aren't saved after the user leaves the room page, might need to edit the text page or add some indicator of found
                             found1.setText(R.string.rightCode);
@@ -437,6 +532,31 @@ public class Room extends Fragment {
             }
         });
         return view;
+    }
+
+    private void takePicture() throws IOException {
+
+        String imageFileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File photoFile = new File(storageDir.getPath() + "/" + imageFileName + ".jpg");
+        filePath = photoFile.getAbsolutePath();
+        Toast.makeText(getContext(), filePath, Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+
+        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
+            startActivityForResult(intent, 1);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            File file = new File(filePath);
+            Uri imgUri = Uri.fromFile(file);
+            gallery.setImageURI(imgUri);
+            array.add(imgUri);
+        }
     }
 }
 

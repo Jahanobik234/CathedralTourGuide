@@ -77,6 +77,8 @@ public class Search extends Fragment {
                 data.putString("Mode", "Number");
                 data.putString("Selection", roomEdit.getText().toString());
                 sendData.send(data);
+
+                roomEdit.setText("");
             }
         });
 
