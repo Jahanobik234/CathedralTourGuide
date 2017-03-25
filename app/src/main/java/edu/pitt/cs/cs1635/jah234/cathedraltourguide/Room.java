@@ -576,10 +576,7 @@ public class Room extends Fragment {
 
     private Uri getFileUri(File file)
     {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
-            return FileProvider.getUriForFile(getContext(), "edu.pitt.cs.cs1635.jah234.cathedraltourguide", file);
-        else
-            return Uri.fromFile(file);
+        return FileProvider.getUriForFile(getContext(), "edu.pitt.cs.cs1635.jah234.cathedraltourguide.fileprovider", file);
     }
 }
 
