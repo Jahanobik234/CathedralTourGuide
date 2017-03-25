@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.widget.EditText;
 import android.app.AlertDialog;
 import android.graphics.drawable.Drawable;
@@ -59,10 +61,10 @@ public class Room extends Fragment {
     InputStream stream;
     BufferedReader input;
     StringBuilder large_text;
-    String line, selection, filePath;
+    String line, selection;
     Drawable image;
     String[] hint = new String[9];
-    File storageDir;
+    File imageDir, photoFile;
     ArrayList<Uri> array;
 
     OnSendDataListener sendData;
@@ -84,20 +86,27 @@ public class Room extends Fragment {
             throw new ClassCastException(context.toString() + " must implement OnSendDataListener");
         }
 
+        selection = getArguments().getString("Selection");
+
         array = new ArrayList<>();
-        storageDir = new File(getExternalStorageDirectory().getPath() + "/DCIM/CathedralLearningTour");
-        if (!storageDir.exists()) {
-            Toast.makeText(getContext(), "making directory", Toast.LENGTH_LONG).show();
-            storageDir.mkdirs();
-        }
-        if (storageDir.canWrite())
+        imageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath() + "/CathedralLearningTour/" + selection);
+
+        if (!imageDir.exists())
         {
-            File[] files = storageDir.listFiles();
+            if (!imageDir.mkdir())
+                Toast.makeText(getContext(), "Error: Failed to Make Save Directory in " + imageDir.getPath(), Toast.LENGTH_LONG).show();
+        }
+
+        if (imageDir.canWrite())
+        {
+            File[] files = imageDir.listFiles();
             for (int i = 0; i< files.length; i++)
             {
-                array.add(Uri.fromFile(files[i]));
+                array.add(getFileUri(files[i]));
             }
         }
+        else
+            Toast.makeText(getContext(), "Error: Cannot Write to " + imageDir.getPath(), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -127,9 +136,6 @@ public class Room extends Fragment {
         mpIntro = MediaPlayer.create(getContext(), R.raw.african_heritage_audio_architecture);
         history_audio = (Button) view.findViewById(R.id.history_audio);
         mpHistory = MediaPlayer.create(getContext(), R.raw.african_heritage_audio_display_case);
-
-
-        selection = getArguments().getString("Selection");
 
         try
         {
@@ -234,17 +240,25 @@ public class Room extends Fragment {
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imageIndex == array.size() && getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))
+                if (imageIndex == array.size()) {
+                    if (getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                        try {
+                            takePicture();
+                        } catch (IOException e) {
+                            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "No Camera Detected", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
                 {
-                    try
-                    {
-                        takePicture();
-                    }
-                    catch (IOException e)
-                    {
-                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
-                    }
-
+                    Intent i = new Intent(getContext(), Image.class);
+                    i.putExtra("Uri", array.get(imageIndex).toString());
+                    //i.putExtra("Uri", array.get(imageIndex).getPath());
+                    i.putExtra("Room", selection);
+                    i.putExtra("From", "Room");
+                    startActivity(i);
                 }
             }
         });
@@ -537,12 +551,12 @@ public class Room extends Fragment {
     private void takePicture() throws IOException {
 
         String imageFileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File photoFile = new File(storageDir.getPath() + "/" + imageFileName + ".jpg");
-        filePath = photoFile.getAbsolutePath();
-        Toast.makeText(getContext(), filePath, Toast.LENGTH_LONG).show();
+        photoFile = new File(imageDir.getPath(), imageFileName + ".jpg");
+        //filePath = photoFile.getAbsolutePath();
+        Toast.makeText(getContext(), photoFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getFileUri(photoFile));
 
         if (intent.resolveActivity(getContext().getPackageManager()) != null) {
             startActivityForResult(intent, 1);
@@ -552,11 +566,20 @@ public class Room extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            File file = new File(filePath);
-            Uri imgUri = Uri.fromFile(file);
+            Uri imgUri = getFileUri(photoFile);
+            //File file = new File(filePath);
+            //Uri imgUri = Uri.fromFile(file);
             gallery.setImageURI(imgUri);
             array.add(imgUri);
         }
+    }
+
+    private Uri getFileUri(File file)
+    {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
+            return FileProvider.getUriForFile(getContext(), "edu.pitt.cs.cs1635.jah234.cathedraltourguide", file);
+        else
+            return Uri.fromFile(file);
     }
 }
 
