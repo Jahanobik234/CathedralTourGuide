@@ -1,16 +1,50 @@
-0
-This is the first question for Armenian?
-Q1A1
-Q1A2
-Q1A3
-This is the second question for Armenian?
-Q2A1
-Q2A2
-Q2A3
-This is the third question for Armenian?
-Q3A1
-Q3A2
-Q3A3
-Q1A1
-Q2A2
-Q3A3
+This is question 1 for Armenian?
+A
+B
+C
+A
+This is question 2 for Armenian?
+A
+B
+C
+B
+This is question 3 for Armenian?
+A
+B
+C
+C
+This is question 4 for Armenian?
+A
+B
+C
+A
+This is question 5 for Armenian?
+A
+B
+C
+B
+This is question 6 for Armenian?
+A
+B
+C
+C
+This is question 7 for Armenian?
+A
+B
+C
+A
+This is question 8 for Armenian?
+A
+B
+C
+B
+This is question 9 for Armenian?
+A
+B
+C
+C
+This is question 10 for Armenian?
+A
+B
+C
+A

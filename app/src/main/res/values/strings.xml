@@ -81,7 +81,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_quiz">Quiz</string>
     <string name="quiz_prompt">Take Quizzes Based On Rooms</string>
-    <string name="achievements_header">Your Achievements!</string>
+    <string name="achievements_header">Welcome to the Cathedral of Learning National Room Tour App (or TourCathy for short). Browse a room, take pictures, test your knowledge, and earn points along the way! What are the points for? For fun, of course! And bragging rights, but mostly fun. Or you can just use this app as a reference as you take a tour of the rooms at your own leisure. Have fun exploring and learning different cultures!</string>
     <string name="your_points">Points Earned: </string>
     <string name="your_achievements">Here\'s what you\'ve done so far:</string>
     <string name="gallery_header">Your Gallery Of Images From Today\'s Visit</string>
@@ -104,4 +104,6 @@
     <string name="rightCode">Item Found!</string>
     <string name="audio_button_play">Play Audio</string>
     <string name="audio_button_pause">Pause Audio</string>
+    <string name="item_list_intro">You can find the following three objects in the room. Each one you find will add 10 points that go towards your achievements. If you need help finding an item, click on a hint next to it. There will be three hints to help you find it, but be careful. Each time you click for a hint, you lose 3 points. So if you need all three hints, you\'ll only get 1 point for finding it. If you think you found it, click on the item\'s Found button and enter the code next to the item.</string>
+    <string name="quizIntro">Welcome to Quizzes! Test your knowledge by answering 3 questions about a Nationality Room. All the answers can be found in the room, so keep looking. For each question you get right, you\'ll add 10 points to your total to go towards your achievements. If you get a question wrong, you can always take the quiz again, but only the first try adds to your total points, so make it count!</string>
 </resources>

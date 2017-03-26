@@ -1,16 +1,50 @@
-0
-This is the first question for African Heritage?
-Q1A1
-Q1A2
-Q1A3
-This is the second question for African Heritage?
-Q2A1
-Q2A2
-Q2A3
-This is the third question for African Heritage?
-Q3A1
-Q3A2
-Q3A3
-Q1A1
-Q2A2
-Q3A3
+This is question 1 for African Heritage?
+A
+B
+C
+A
+This is question 2 for African Heritage?
+A
+B
+C
+B
+This is question 3 for African Heritage?
+A
+B
+C
+C
+This is question 4 for African Heritage?
+A
+B
+C
+A
+This is question 5 for African Heritage?
+A
+B
+C
+B
+This is question 6 for African Heritage?
+A
+B
+C
+C
+This is question 7 for African Heritage?
+A
+B
+C
+A
+This is question 8 for African Heritage?
+A
+B
+C
+B
+This is question 9 for African Heritage?
+A
+B
+C
+C
+This is question 10 for African Heritage?
+A
+B
+C
+A

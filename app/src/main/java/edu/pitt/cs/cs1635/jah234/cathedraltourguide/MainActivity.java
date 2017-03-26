@@ -2,6 +2,8 @@ package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,10 +14,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,11 +34,12 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnSendDataListener{
 
+    FrameLayout main;
     BottomNavigationView menu;
     ArrayList<String> nameList, numList;
 
-    public static ArrayList<String> quizzesTaken;
-    private static int userScore = 0;
+    //public static ArrayList<String> quizzesTaken;
+    //private static int userScore = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,27 +48,45 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
 
         nameList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_names)));
         numList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_numbers)));
-        quizzesTaken = new ArrayList<>();
+        //quizzesTaken = new ArrayList<>();
 
-        try {
+        /*try {
             FileOutputStream fileout = this.openFileOutput("userAchievements.txt", this.MODE_PRIVATE);
             OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
             outputWriter.write("");
             outputWriter.close(); //Close Writer
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
+        /*try {
+            inFile = openFileInput("save_data.bin");
+            if (inFile.read(quizScores) < 30)
+            {
+                Log.e("File Read Quiz", "Not Enough Bytes");
+            }
+            else if (inFile.read(achievementChecklist) < 55)
+            {
+                Log.e("File Read Achievements", "Not Enough Bytes");
+            }
+
+        } catch (FileNotFoundException nfe) {
+            new File(getFilesDir(), "save_data.bin");
+        } catch (IOException ioe) {
+            Log.e("IOException", ioe.toString());
+        }*/
+
+        main = (FrameLayout) findViewById(R.id.mainContent);
         menu = (BottomNavigationView) findViewById(R.id.tabMenu);
         BottomNavigationViewHelper.disableShiftMode(menu);
 
         if (savedInstanceState == null) {
-            Search startFragment = new Search();
+            Achievements startFragment = new Achievements();
             FragmentTransaction handler = getSupportFragmentManager().beginTransaction();
             handler.add(R.id.mainContent, startFragment);
             handler.commit();
-            menu.getMenu().findItem(R.id.search).setChecked(true);
-            setTitle("Room Search");
+            menu.getMenu().findItem(R.id.achievements).setChecked(true);
+            setTitle("Your Achievements");
             getPermissionToWrite();
         }
 
@@ -75,15 +100,15 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                         FragmentTransaction handler = getSupportFragmentManager().beginTransaction();
 
                         switch (item.getItemId()) {
-                            case R.id.search:
-                                newFragment = new Search();
-                                colorId = R.color.Purple;
-                                title = "Room Search";
-                                break;
                             case R.id.achievements:
                                 newFragment = new Achievements();
                                 colorId = R.color.Yellow;
                                 title = "Achievements";
+                                break;
+                            case R.id.search:
+                                newFragment = new Search();
+                                colorId = R.color.Purple;
+                                title = "Room Search";
                                 break;
                             case R.id.gallery:
                                 newFragment = new Gallery();
@@ -111,6 +136,17 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                         return true;
                     }
                 });
+
+        main.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(MainActivity.this, "Deleting Saved Data", Toast.LENGTH_LONG).show();
+                SharedPreferences.Editor editor = getSharedPreferences("saved_data", MODE_PRIVATE).edit();
+                editor.clear();
+                editor.commit();
+                return true;
+            }
+        });
 
     }
 
@@ -229,13 +265,9 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
         }
     }
 
-    public static void alterScore(int value)
-    {
-        userScore+= value;
-    }
-    public static int getScore()
+    /*public static int getScore()
     {
         return userScore;
-    }
+    }*/
 
 }

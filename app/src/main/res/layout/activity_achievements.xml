@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.pitt.cs.cs1635.jah234.cathedraltourguide.Achievements">
 
     <LinearLayout
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteY="8dp"
-        android:id="@+id/linearLayout4">
+        android:id="@+id/linearLayout4"
+        android:padding="3dp">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/achievements_header"
-            android:textSize="24sp" />
-
-        <Space
+            android:textSize="16sp"
+            android:padding="3dp"/>
+        <View
             android:layout_width="match_parent"
-            android:layout_height="@android:dimen/app_icon_size" />
+            android:layout_height="2dp"
+            android:background="#000000" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="3dp">
 
             <TextView
                 android:id="@+id/userPointsPrompt"
@@ -36,13 +36,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/your_points"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/points"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:textSize="20sp"/>
 
         </LinearLayout>
 
@@ -50,19 +51,36 @@
             android:layout_width="match_parent"
             android:layout_height="@android:dimen/app_icon_size" />
 
-        <TextView
-            android:id="@+id/listPrompt"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/your_achievements" />
+            android:layout_height="match_parent"
+            android:scrollbarSize="5dip"
+            android:padding="3dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/userAchievements"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1000"
-            android:scrollbars="vertical"
-            android:text="TextView" />
+                <TextView
+                    android:id="@+id/listPrompt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/your_achievements"
+                    android:textSize="20sp"
+                    android:padding="3dp"/>
+
+                <TextView
+                    android:id="@+id/userAchievements"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1000"
+                    android:scrollbars="vertical"
+                    android:textSize="17sp"
+                    android:padding="3dp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 

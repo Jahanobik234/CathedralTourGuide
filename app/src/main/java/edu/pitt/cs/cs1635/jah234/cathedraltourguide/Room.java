@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,7 +56,8 @@ public class Room extends Fragment {
     ScrollView scrollview;
     LinearLayout fullScreen, objectInfo, moreInfo;
     TextView history_info;
-    Button found1, found2, found3, leftImage, rightImage, jump_to_mid_screen, jump_to_bottom_screen, quiz, hint1, hint2, hint3, audio_intro, history_audio;
+    Button found1, found2, found3, jump_to_mid_screen, jump_to_bottom_screen, quiz, hint1, hint2, hint3, audio_intro, history_audio;
+    ImageButton leftImage, rightImage;
 
     int index1 = 0, index2 = 0, index3 = 0, imageIndex = 0;
     InputStream stream;
@@ -126,8 +128,8 @@ public class Room extends Fragment {
         found1 = (Button) view.findViewById(R.id.found1);
         found2 = (Button) view.findViewById(R.id.found2);
         found3 = (Button) view.findViewById(R.id.found3);
-        leftImage = (Button) view.findViewById(R.id.leftButton);
-        rightImage = (Button) view.findViewById(R.id.rightButton);
+        leftImage = (ImageButton) view.findViewById(R.id.leftButton);
+        rightImage = (ImageButton) view.findViewById(R.id.rightButton);
         gallery = (ImageSwitcher) view.findViewById(R.id.imageSwitch);
         fullScreen = (LinearLayout) view.findViewById(R.id.fullScreen);
         objectInfo = (LinearLayout) view.findViewById(R.id.objectInfo);
@@ -185,7 +187,7 @@ public class Room extends Fragment {
         }
         else
         {
-            gallery.setImageResource(R.mipmap.ic_camera);
+            gallery.setImageResource(R.drawable.ic_add);
         }
 
         hint1.setOnClickListener(new View.OnClickListener() {
@@ -266,31 +268,33 @@ public class Room extends Fragment {
         leftImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Previous Image", Toast.LENGTH_LONG).show();
                 if (array.size() != 0 && imageIndex > 0)
                 {
                     imageIndex--;
                     gallery.setImageURI(array.get(imageIndex));
                 }
+                else
+                    Toast.makeText(getContext(), "End of Gallery", Toast.LENGTH_SHORT).show();
             }
         });
 
         rightImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Next Image", Toast.LENGTH_LONG).show();
-                if (array.size() != 0 && imageIndex <= array.size())
+                if (array.size() != 0 && imageIndex < array.size())
                 {
                     imageIndex++;
                     if (imageIndex == array.size())
                     {
-                        gallery.setImageResource(R.mipmap.ic_camera);
+                        gallery.setImageResource(R.drawable.ic_add);
                     }
                     else
                     {
                         gallery.setImageURI(array.get(imageIndex));
                     }
                 }
+                else
+                    Toast.makeText(getContext(), "End of Gallery", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -552,8 +556,6 @@ public class Room extends Fragment {
 
         String imageFileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         photoFile = new File(imageDir.getPath(), imageFileName + ".jpg");
-        //filePath = photoFile.getAbsolutePath();
-        Toast.makeText(getContext(), photoFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, getFileUri(photoFile));
