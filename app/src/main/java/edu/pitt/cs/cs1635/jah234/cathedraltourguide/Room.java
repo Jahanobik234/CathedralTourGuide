@@ -89,11 +89,11 @@ public class Room extends Fragment {
         selection = getArguments().getString("Selection");
 
         array = new ArrayList<>();
-        imageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath() + "/CathedralLearningTour/" + selection);
+        imageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CathedralLearningTour/" + selection);
 
         if (!imageDir.exists())
         {
-            if (!imageDir.mkdir())
+            if (!imageDir.mkdirs())
                 Toast.makeText(getContext(), "Error: Failed to Make Save Directory in " + imageDir.getPath(), Toast.LENGTH_LONG).show();
         }
 
