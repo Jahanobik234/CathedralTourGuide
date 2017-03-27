@@ -4,6 +4,7 @@ package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
  * Created by A on 3/26/2017.
  */
 
+//Question object to help handle questions and answers randomly
 public class Question {
 
     private String question, choice1, choice2, choice3, answer;

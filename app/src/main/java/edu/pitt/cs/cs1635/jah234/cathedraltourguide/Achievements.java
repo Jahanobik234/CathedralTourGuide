@@ -21,60 +21,51 @@ import java.util.Set;
 
 public class Achievements extends Fragment {
 
-    View view;
-    TextView scoreField, userAccomplishments;
-    String[] achievementList;
+    View view; //Everything you can see
+    TextView scoreField, userAccomplishments; //relevant objects you can see in view
 
-    SharedPreferences keyPair;
+    SharedPreferences keyPair; //holds saved data
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
+        //keyPair = saved data
+        //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
         keyPair = getContext().getSharedPreferences("saved_data", Context.MODE_PRIVATE);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_achievements, container, false);
-        TextView scoreField = (TextView)view.findViewById(R.id.points);
-        TextView userAccomplishments = (TextView)view.findViewById(R.id.userAchievements);
+        view = inflater.inflate(R.layout.activity_achievements, container, false); //creates what we can see
 
-        //scoreField.setText(String.valueOf(MainActivity.getScore())); //Set User Score
+        //initialize objects in view
+        scoreField = (TextView)view.findViewById(R.id.points);
+        userAccomplishments = (TextView)view.findViewById(R.id.userAchievements);
+
+        //set score to saved value
         scoreField.setText(Integer.toString(keyPair.getInt("Total Score", 0)));
 
-        //userAccomplishments.setMovementMethod(new ScrollingMovementMethod()); //For Scrolling
-
-        //FileInputStream fileIn= null;
+        //stringbuilder to make appending text together easier
         StringBuilder sb = new StringBuilder();
-        /*try {
-            fileIn = getContext().openFileInput("userAchievements.txt");
-            InputStreamReader InputRead = new InputStreamReader(fileIn);
 
-            char[] inputBuffer= new char[150];
-            int read;
-
-            while ((read=InputRead.read(inputBuffer))>0) {
-                sb.append(String.copyValueOf(inputBuffer,0,read));
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
+        //find set of data stored in saved data
         if (keyPair.getStringSet("achievementSet", null) != null) {
+
+            //convert Set into ArraySet so that individual indices can be referenced
             ArraySet<String> achievementSet = new ArraySet<>();
-                achievementSet.addAll(keyPair.getStringSet("achievementSet", null));
+            achievementSet.addAll(keyPair.getStringSet("achievementSet", null));
 
-                for (int i = 0; i < achievementSet.size(); i++) {
-                    sb.append(achievementSet.valueAt(i));
-                }
+            //append each value
+            for (int i = 0; i < achievementSet.size(); i++)
+                sb.append(achievementSet.valueAt(i));
 
-                userAccomplishments.setText(sb.toString());
+            //set list of accomplishments to block of text
+            userAccomplishments.setText(sb.toString());
         }
 
+        //always return view
         return view;
     }
 

@@ -9,12 +9,17 @@ import android.view.ViewGroup;
 
 public class Gallery extends Fragment {
 
+    View view;
+
     public Gallery() {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_gallery, container, false);
+        view = inflater.inflate(R.layout.activity_gallery, container, false); //creates what we can see
+
+        //always return view
+        return view;
     }
 }

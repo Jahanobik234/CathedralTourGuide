@@ -20,14 +20,17 @@ import android.widget.Toast;
 
 public class Image extends AppCompatActivity{
 
+    //Relevant objects we can see
     ImageView image;
     TextView link;
     EditText comment;
     Button save, delete;
 
+    //variables pulled from intent extras
     String root, room;
     Uri file;
 
+    //holds saved data
     SharedPreferences keyPair;
 
     @Override
@@ -35,27 +38,34 @@ public class Image extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
 
+        //initialize objects in view
         image = (ImageView) findViewById(R.id.image);
         link = (TextView) findViewById(R.id.link);
         comment = (EditText) findViewById(R.id.comment);
         save = (Button) findViewById(R.id.save);
         delete = (Button) findViewById(R.id.delete);
 
+        //pulls variables from intent extras
         Intent i = getIntent();
         root = i.getStringExtra("From");
         room = i.getStringExtra("Room");
-        file = Uri.parse(i.getStringExtra("Uri"));
+        file = Uri.parse(i.getStringExtra("Uri")); //identifier for a file
 
+        //keyPair = comment data, kept separate for reasons I'll explain in detail if you want to know
+        //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
         keyPair = getSharedPreferences("comment_data", MODE_PRIVATE);
 
-        image.setImageURI(file);
-        setTitle(parseDate(file.getLastPathSegment()));
-        link.setText("Taken in " + room + " Room (Click to Go To)");
 
+        image.setImageURI(file); //shows image
+        setTitle(parseDate(file.getLastPathSegment())); //parseDate method below
+        link.setText("Taken in " + room + " Room (Click to Go To)"); //shows link that takes you to room
+
+        //comments are saved in storage as (filename)comment
         if (!keyPair.getString(file.getLastPathSegment() + "comment", "").equals("")){
-            comment.setText(keyPair.getString(file.getLastPathSegment() + "comment", null));
+            comment.setText(keyPair.getString(file.getLastPathSegment() + "comment", ""));
         }
 
+        //still working on it
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +73,7 @@ public class Image extends AppCompatActivity{
             }
         });
 
+        //puts what's currently in comment box into storage
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +84,7 @@ public class Image extends AppCompatActivity{
             }
         });
 
+        //still working on it
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +112,7 @@ public class Image extends AppCompatActivity{
     }
 
     private String parseDate(String date) {
+        //filenames are saved as yyyyMMdd_hhmmss.jpg
         String year = date.substring(0, 4);
         String month = date.substring(4, 6);
         String day = date.substring(6, 8);

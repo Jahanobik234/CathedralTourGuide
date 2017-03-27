@@ -36,6 +36,8 @@ public class Search extends Fragment {
     {
         super.onAttach(context);
 
+        //checks that the activity that called this implemented OnSendDataListener, which it should
+        //needed to send data back to MainActivity
         try
         {
             sendData = (OnSendDataListener) context;
@@ -49,13 +51,15 @@ public class Search extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_search, container, false);
+        view = inflater.inflate(R.layout.activity_search, container, false); //creates things to see
 
+        //initialize (only a few, thank god) objects
         selectButton = (Button) view.findViewById(R.id.selectButton);
         enterButton = (Button) view.findViewById(R.id.enterButton);
         roomSpinner = (Spinner) view.findViewById(R.id.roomSpinner);
         roomEdit = (EditText) view.findViewById(R.id.roomEnter);
 
+        //send data back to MainActivity
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -68,6 +72,7 @@ public class Search extends Fragment {
             }
         });
 
+        //send data back to MainActivity
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

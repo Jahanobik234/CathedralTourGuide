@@ -79,6 +79,8 @@ public class Room extends Fragment {
     {
         super.onAttach(context);
 
+        //checks that the activity that called this implemented OnSendDataListener, which it should
+        //needed to send data back to MainActivity
         try
         {
             sendData = (OnSendDataListener) context;
@@ -88,20 +90,28 @@ public class Room extends Fragment {
             throw new ClassCastException(context.toString() + " must implement OnSendDataListener");
         }
 
+        //initializes value of current room
         selection = getArguments().getString("Selection");
 
+        //array holds Uri of images taken with camera
         array = new ArrayList<>();
+
+        //folder to put new images in
         imageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CathedralLearningTour/" + selection);
 
+        //checks if exist
         if (!imageDir.exists())
         {
+            //checks if make succeeded
             if (!imageDir.mkdirs())
+                //should never go here
                 Toast.makeText(getContext(), "Error: Failed to Make Save Directory in " + imageDir.getPath(), Toast.LENGTH_LONG).show();
         }
 
+        //checks if can write to folder, which it should if we made the folder, but just in case
         if (imageDir.canWrite())
         {
-            File[] files = imageDir.listFiles();
+            File[] files = imageDir.listFiles(); //grabs all images currently in folder, puts in array
             for (int i = 0; i< files.length; i++)
             {
                 array.add(getFileUri(files[i]));
@@ -114,8 +124,9 @@ public class Room extends Fragment {
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_room, container, false);
+        view = inflater.inflate(R.layout.activity_room, container, false); //creates stuff we can see
 
+        //initializes a lot of objects
         intro = (TextView) view.findViewById(R.id.intro);
         flag = (ImageView) view.findViewById(R.id.flag);
         hint1 = (Button) view.findViewById(R.id.hint1);
@@ -139,24 +150,25 @@ public class Room extends Fragment {
         history_audio = (Button) view.findViewById(R.id.history_audio);
         mpHistory = MediaPlayer.create(getContext(), R.raw.african_heritage_audio_display_case);
 
+        //tries to grab relevant info from assets
         try
         {
-            stream = getContext().getAssets().open(selection + "_intro.txt");
-            large_text = new StringBuilder(stream.available());
-            input = new BufferedReader(new InputStreamReader(stream));
-            while ((line = input.readLine()) != null)
+            stream = getContext().getAssets().open(selection + "_intro.txt"); //creates new inputStream
+            large_text = new StringBuilder(stream.available()); //creates stringbuilder to store info from stream
+            input = new BufferedReader(new InputStreamReader(stream)); //creates new bufferedreader
+            while ((line = input.readLine()) != null) //keep reading lines
             {
                 large_text.append(line).append("\n");
             }
             stream.close();
 
-            stream = getContext().getAssets().open(selection + "_flag.png");
-            image = Drawable.createFromStream(stream, null);
+            stream = getContext().getAssets().open(selection + "_flag.png"); //creates new inputStream
+            image = Drawable.createFromStream(stream, null); //creates drawable from stream
             stream.close();
 
-            stream = getContext().getAssets().open(selection + "_hint.txt");
-            input = new BufferedReader(new InputStreamReader(stream));
-            for (int i=0; i< 9; i++)
+            stream = getContext().getAssets().open(selection + "_hint.txt"); //creates new inputStream
+            input = new BufferedReader(new InputStreamReader(stream)); //creates new bufferedreader
+            for (int i=0; i< 9; i++) //reads all hints
             {
                 hint[i] = input.readLine();
             }
@@ -164,6 +176,7 @@ public class Room extends Fragment {
         }
         catch (Exception e)
         {
+            //otherwise, nothing to show
             fullScreen.setVisibility(View.GONE);
             Toast.makeText(getContext(), "Sorry. This Page Isn't Ready Yet", Toast.LENGTH_LONG).show();
         }
@@ -171,6 +184,7 @@ public class Room extends Fragment {
         intro.setText(large_text);
         flag.setImageDrawable(image);
 
+        //sets up imageswitcher
         gallery.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
@@ -181,15 +195,17 @@ public class Room extends Fragment {
             }
         });
 
+        //checks if any images currently in array = currently in folder
         if (array.size() > 0)
         {
-            gallery.setImageURI(array.get(0));
+            gallery.setImageURI(array.get(0)); //if so, show first image
         }
         else
         {
-            gallery.setImageResource(R.drawable.ic_add);
+            gallery.setImageResource(R.drawable.ic_add); //if not, show the icon indicating take a picture
         }
 
+        //cycle through three hints
         hint1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,6 +214,8 @@ public class Room extends Fragment {
                 index1 = (index1 + 1) % 3;
             }
         });
+
+        //cycle through three hints
         hint2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,6 +224,8 @@ public class Room extends Fragment {
                 index2 = (index2 + 1) % 3;
             }
         });
+
+        //cycle through three hints
         hint3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,6 +235,7 @@ public class Room extends Fragment {
             }
         });
 
+        //tell MainActivity go to Quiz fragment
         quiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,6 +246,7 @@ public class Room extends Fragment {
             }
         });
 
+        //scroll down to notable items
         jump_to_mid_screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,6 +254,7 @@ public class Room extends Fragment {
             }
         });
 
+        //scroll down to just for fun
         jump_to_bottom_screen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,25 +262,26 @@ public class Room extends Fragment {
             }
         });
 
+        //if gallery image is clicked
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imageIndex == array.size()) {
-                    if (getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                if (imageIndex == array.size()) { //clicked is camera icon
+                    if (getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) { //check if system has camera
                         try {
-                            takePicture();
+                            takePicture(); //take a picture
                         } catch (IOException e) {
-                            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show(); //some error happend
                         }
                     } else {
                         Toast.makeText(getContext(), "No Camera Detected", Toast.LENGTH_SHORT).show();
                     }
                 }
-                else
+                else //clicked is saved image
                 {
+                    //load Image Activity showing this image larger
                     Intent i = new Intent(getContext(), Image.class);
                     i.putExtra("Uri", array.get(imageIndex).toString());
-                    //i.putExtra("Uri", array.get(imageIndex).getPath());
                     i.putExtra("Room", selection);
                     i.putExtra("From", "Room");
                     startActivity(i);
@@ -265,10 +289,11 @@ public class Room extends Fragment {
             }
         });
 
+        //scroll to earlier images
         leftImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (array.size() != 0 && imageIndex > 0)
+                if (array.size() != 0 && imageIndex > 0) //array bounds checker
                 {
                     imageIndex--;
                     gallery.setImageURI(array.get(imageIndex));
@@ -278,15 +303,16 @@ public class Room extends Fragment {
             }
         });
 
+        //scroll to later images
         rightImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (array.size() != 0 && imageIndex < array.size())
+                if (array.size() != 0 && imageIndex < array.size()) //array bounds checker
                 {
                     imageIndex++;
                     if (imageIndex == array.size())
                     {
-                        gallery.setImageResource(R.drawable.ic_add);
+                        gallery.setImageResource(R.drawable.ic_add); //if last, show camera icon instead of image
                     }
                     else
                     {
@@ -298,6 +324,7 @@ public class Room extends Fragment {
             }
         });
 
+        //found first item
         found1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -365,6 +392,7 @@ public class Room extends Fragment {
             }
         });
 
+        //found second item
         found2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -432,6 +460,7 @@ public class Room extends Fragment {
             }
         });
 
+        //found third item
         found3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -498,6 +527,8 @@ public class Room extends Fragment {
                 });
             }
         });
+
+        //plays intro audio
         audio_intro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -526,6 +557,7 @@ public class Room extends Fragment {
             }
         });
 
+        //plays history audio
         history_audio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -549,15 +581,17 @@ public class Room extends Fragment {
                 history_audio.setText(R.string.audio_button_play);
             }
         });
+
+        //always return view
         return view;
     }
 
     private void takePicture() throws IOException {
 
-        String imageFileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        photoFile = new File(imageDir.getPath(), imageFileName + ".jpg");
+        String imageFileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()); //create new image file name
+        photoFile = new File(imageDir.getPath(), imageFileName + ".jpg"); //create path of new image file
 
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); //call camera activity
         intent.putExtra(MediaStore.EXTRA_OUTPUT, getFileUri(photoFile));
 
         if (intent.resolveActivity(getContext().getPackageManager()) != null) {
@@ -565,17 +599,17 @@ public class Room extends Fragment {
         }
     }
 
+    //action complete
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            Uri imgUri = getFileUri(photoFile);
-            //File file = new File(filePath);
-            //Uri imgUri = Uri.fromFile(file);
-            gallery.setImageURI(imgUri);
-            array.add(imgUri);
+            Uri imgUri = getFileUri(photoFile); //create Uri (some identifier for images) of new image file
+            gallery.setImageURI(imgUri); //shows in gallery
+            array.add(imgUri); //saves in array
         }
     }
 
+    //getUriForFile params: context, authority (just copy exactly), file object
     private Uri getFileUri(File file)
     {
         return FileProvider.getUriForFile(getContext(), "edu.pitt.cs.cs1635.jah234.cathedraltourguide.fileprovider", file);
