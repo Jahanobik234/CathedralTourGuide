@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,8 @@ public class Quiz extends Fragment {
     String roomName;
     Spinner spinner;
     Button enterButton, submitAnswers;
-    LinearLayout questionLayout, correctLayout1, incorrectLayout1, correctLayout2, incorrectLayout2, correctLayout3, incorrectLayout3;
+    LinearLayout correctLayout1, incorrectLayout1, correctLayout2, incorrectLayout2, correctLayout3, incorrectLayout3;
+    ScrollView questionLayout;
     RadioGroup q1answers, q2answers, q3answers;
     TextView quizIntro;
 
@@ -72,7 +74,7 @@ public class Quiz extends Fragment {
         spinnerArrayAdapt = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, roomsAL); //Create Adapter for Spinner
         spinnerArrayAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //Set Drop Down Resource
         spinner.setAdapter(spinnerArrayAdapt); //Set Adapter
-        questionLayout = (LinearLayout) view.findViewById(R.id.linearLayout3);
+        questionLayout = (ScrollView) view.findViewById(R.id.linearLayout3);
         correctLayout1 = (LinearLayout) view.findViewById(R.id.correctLayout1);
         incorrectLayout1 = (LinearLayout) view.findViewById(R.id.incorrectLayout1);
         correctLayout2 = (LinearLayout) view.findViewById(R.id.correctLayout2);
