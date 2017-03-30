@@ -45,7 +45,7 @@ import static android.app.Activity.RESULT_OK;
 public class Room extends Fragment {
 
     TextView intro;
-    ImageView flag;
+    ImageView flag, item_pic1, item_pic2, item_pic3;
     View view;
     ImageSwitcher gallery;
 
@@ -62,7 +62,7 @@ public class Room extends Fragment {
     BufferedReader input;
     StringBuilder large_text;
     String line, selection, itemCode1, itemCode2, itemCode3;
-    Drawable image;
+    Drawable flag_image, pic1_image, pic2_image, pic3_image;
     String[] hint = new String[9];
     File imageDir, photoFile;
     LinkedList<Uri> array;
@@ -142,6 +142,9 @@ public class Room extends Fragment {
         hint1 = (Button) view.findViewById(R.id.hint1);
         hint2 = (Button) view.findViewById(R.id.hint2);
         hint3 = (Button) view.findViewById(R.id.hint3);
+        item_pic1 = (ImageView)view.findViewById(R.id.item_pic_1);
+        item_pic2 = (ImageView)view.findViewById(R.id.item_pic_2);
+        item_pic3 = (ImageView)view.findViewById(R.id.item_pic_3);
         quiz = (Button) view.findViewById(R.id.take_quiz);
         jump_to_mid_screen = (Button) view.findViewById(R.id.jumpmid);
         jump_to_bottom_screen = (Button) view.findViewById(R.id.jumpdown);
@@ -173,7 +176,17 @@ public class Room extends Fragment {
             stream.close();
 
             stream = getContext().getAssets().open(selection + "_flag.png"); //creates new inputStream
-            image = Drawable.createFromStream(stream, null); //creates drawable from stream
+            flag_image = Drawable.createFromStream(stream, null); //creates drawable from stream
+            stream.close();
+
+            stream = getContext().getAssets().open(selection + "_obj_1.JPG"); //creates new inputStream
+            pic1_image = Drawable.createFromStream(stream, null); //creates drawable from stream
+            stream.close();
+            stream = getContext().getAssets().open(selection + "_obj_2.JPG"); //creates new inputStream
+            pic2_image = Drawable.createFromStream(stream, null); //creates drawable from stream
+            stream.close();
+            stream = getContext().getAssets().open(selection + "_obj_3.JPG"); //creates new inputStream
+            pic3_image = Drawable.createFromStream(stream, null); //creates drawable from stream
             stream.close();
 
             stream = getContext().getAssets().open(selection + "_hint.txt"); //creates new inputStream
@@ -195,7 +208,11 @@ public class Room extends Fragment {
         }
 
         intro.setText(large_text);
-        flag.setImageDrawable(image);
+        flag.setImageDrawable(flag_image);
+        //item_pic1.setImageDrawable(pic1_image);
+        //item_pic2.setImageDrawable(pic2_image);
+        //item_pic3.setImageDrawable(pic3_image);
+
 
         //sets up imageswitcher
         gallery.setFactory(new ViewSwitcher.ViewFactory() {
