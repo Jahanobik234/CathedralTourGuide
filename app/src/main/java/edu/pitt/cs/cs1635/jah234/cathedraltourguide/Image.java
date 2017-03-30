@@ -69,7 +69,9 @@ public class Image extends AppCompatActivity{
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent result = new Intent("RESULT_ACTION");
+                setResult(3, result);
+                finish();
             }
         });
 
@@ -100,8 +102,9 @@ public class Image extends AppCompatActivity{
                 confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Intent result = new Intent("RESULT_ACTION");
-                        //setResult(Image.RESULT_OK, result);
+                        Intent result = new Intent("RESULT_ACTION");
+                        setResult(2, result);
+                        finish();
                         Toast.makeText(Image.this, "Deleted", Toast.LENGTH_SHORT).show();
                     }
                 });

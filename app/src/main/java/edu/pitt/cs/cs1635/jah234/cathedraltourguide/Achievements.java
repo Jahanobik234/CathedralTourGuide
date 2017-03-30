@@ -59,7 +59,7 @@ public class Achievements extends Fragment {
 
             //append each value
             for (int i = 0; i < achievementSet.size(); i++)
-                sb.append(achievementSet.valueAt(i));
+                sb.append(achievementSet.valueAt(i) + "\n");
 
             //set list of accomplishments to block of text
             userAccomplishments.setText(sb.toString());

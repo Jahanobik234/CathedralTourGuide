@@ -4,12 +4,14 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v4.util.ArraySet;
 import android.widget.EditText;
 import android.app.AlertDialog;
 import android.graphics.drawable.Drawable;
@@ -34,11 +36,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Set;
 
 import static android.app.Activity.RESULT_OK;
-import static android.os.Environment.getExternalStorageDirectory;
 
 public class Room extends Fragment {
 
@@ -46,10 +48,6 @@ public class Room extends Fragment {
     ImageView flag;
     View view;
     ImageSwitcher gallery;
-
-    final int itemCode1 = 111;
-    final int itemCode2 = 222;
-    final int itemCode3 = 333;
 
     MediaPlayer mpIntro, mpHistory;
 
@@ -63,13 +61,15 @@ public class Room extends Fragment {
     InputStream stream;
     BufferedReader input;
     StringBuilder large_text;
-    String line, selection;
+    String line, selection, itemCode1, itemCode2, itemCode3;
     Drawable image;
     String[] hint = new String[9];
     File imageDir, photoFile;
-    ArrayList<Uri> array;
+    LinkedList<Uri> array;
 
     OnSendDataListener sendData;
+
+    SharedPreferences keyPair; //holds saved data
 
     public Room() {
     }
@@ -94,7 +94,7 @@ public class Room extends Fragment {
         selection = getArguments().getString("Selection");
 
         //array holds Uri of images taken with camera
-        array = new ArrayList<>();
+        array = new LinkedList<>();
 
         //folder to put new images in
         imageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CathedralLearningTour/" + selection);
@@ -119,6 +119,16 @@ public class Room extends Fragment {
         }
         else
             Toast.makeText(getContext(), "Error: Cannot Write to " + imageDir.getPath(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        //keyPair = saved data
+        //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
+        keyPair = getContext().getSharedPreferences("saved_data", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -168,6 +178,9 @@ public class Room extends Fragment {
 
             stream = getContext().getAssets().open(selection + "_hint.txt"); //creates new inputStream
             input = new BufferedReader(new InputStreamReader(stream)); //creates new bufferedreader
+            itemCode1 = input.readLine();
+            itemCode2 = input.readLine();
+            itemCode3 = input.readLine();
             for (int i=0; i< 9; i++) //reads all hints
             {
                 hint[i] = input.readLine();
@@ -205,13 +218,38 @@ public class Room extends Fragment {
             gallery.setImageResource(R.drawable.ic_add); //if not, show the icon indicating take a picture
         }
 
+        if (keyPair.getInt(selection + "Item1", -1) != -1)
+        {
+            found1.setText(R.string.rightCode);
+            found1.setEnabled(false);
+            hint1.setEnabled(false);
+        }
+
+        if (keyPair.getInt(selection + "Item2", -1) != -1)
+        {
+            found2.setText(R.string.rightCode);
+            found2.setEnabled(false);
+            hint2.setEnabled(false);
+        }
+
+        if (keyPair.getInt(selection + "Item3", -1) != -1)
+        {
+            found3.setText(R.string.rightCode);
+            found3.setEnabled(false);
+            hint3.setEnabled(false);
+        }
+
         //cycle through three hints
         hint1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = hint[index1] + "\n\nStill Can't Find it?\nTap for Another Hint!";
+                int index = keyPair.getInt(selection + "Hint1", 0);
+                String text = hint[index % 3] + "\n\nStill Can't Find it?\nTap for Another Hint!";
                 hint1.setText(text);
-                index1 = (index1 + 1) % 3;
+                index++;
+                SharedPreferences.Editor editor = keyPair.edit();
+                editor.putInt(selection + "Hint1", index);
+                editor.commit();
             }
         });
 
@@ -219,9 +257,13 @@ public class Room extends Fragment {
         hint2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = hint[index2 + 3] + "\n\nStill Can't Find it?\nTap for Another Hint!";
+                int index = keyPair.getInt(selection + "Hint2", 0);
+                String text = hint[(index % 3) + 3] + "\n\nStill Can't Find it?\nTap for Another Hint!";
                 hint2.setText(text);
-                index2 = (index2 + 1) % 3;
+                index++;
+                SharedPreferences.Editor editor = keyPair.edit();
+                editor.putInt(selection + "Hint2", index);
+                editor.commit();
             }
         });
 
@@ -229,9 +271,13 @@ public class Room extends Fragment {
         hint3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = hint[index3 + 6] + "\n\nStill Can't Find it?\nTap for Another Hint!";
+                int index = keyPair.getInt(selection + "Hint3", 0);
+                String text = hint[(index % 3) + 6] + "\n\nStill Can't Find it?\nTap for Another Hint!";
                 hint3.setText(text);
-                index3 = (index3 + 1) % 3;
+                index++;
+                SharedPreferences.Editor editor = keyPair.edit();
+                editor.putInt(selection + "Hint3", index);
+                editor.commit();
             }
         });
 
@@ -284,7 +330,7 @@ public class Room extends Fragment {
                     i.putExtra("Uri", array.get(imageIndex).toString());
                     i.putExtra("Room", selection);
                     i.putExtra("From", "Room");
-                    startActivity(i);
+                    startActivityForResult(i, 2);
                 }
             }
         });
@@ -336,59 +382,83 @@ public class Room extends Fragment {
 
                 alertDialogBuilder.setView(promptUserInputView);
 
+                final TextView promptMessage = (TextView) promptUserInputView.findViewById(R.id.promptInput);
                 final EditText userInput = (EditText) promptUserInputView.findViewById(R.id.userInputItemCode);
 
                 alertDialogBuilder
-                    .setCancelable(false)
-                    .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
+                        .setCancelable(false)
+                        .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                if(userInput.getText().toString().equals(itemCode1)) {
+                                    found1.setText(R.string.rightCode);
+                                    found1.setEnabled(false);
+                                    hint1.setEnabled(false);
 
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
-                            dialog.cancel();
-                        }
-                    });
+                                    SharedPreferences.Editor editor = keyPair.edit();
+                                    int score = 10 - 3 * keyPair.getInt(selection + "Hint1", 0);
+                                    if (score < 0)
+                                        score = 0;
+                                    editor.putInt(selection + "Item1", score);
+                                    if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
+                                    {
+                                        editor.putInt("Total Score", score); //adds new if not
+                                    }
+                                    else
+                                    {
+                                        editor.putInt("Total Score", (score + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
+                                    }
+                                    Set<String> temp = keyPair.getStringSet("achievementSet", null); //pulls list of achievements if exists
+                                    if (temp == null)
+                                    {
+                                        temp = new ArraySet<>(); //makes new one if not
+                                    }
+                                    temp.add("Found Item1 of " + selection + " Room: " + Integer.toString(score) + " Points"); //adds to list
+                                    editor.putStringSet("achievementSet", temp); //puts set in storage
+                                    editor.apply();
+
+                                    dialog.dismiss();
+
+                                    AlertDialog.Builder confirm = new AlertDialog.Builder(getContext());
+                                    confirm.setTitle("Item Found!");
+                                    confirm.setMessage("You used " + keyPair.getInt(selection + "Hint1", 0) + " hints and earned " + keyPair.getInt(selection + "Item1", 10) + " points");
+                                    confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog confirmDisplay = confirm.create();
+                                    confirmDisplay.show();
+                                }
+                                else
+                                {
+                                    promptMessage.setText(R.string.wrongCode);
+
+                                    AlertDialog.Builder confirm = new AlertDialog.Builder(getContext());
+                                    confirm.setTitle("Incorrect");
+                                    confirm.setMessage("Sorry, that is not the correct code for this item");
+                                    confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog confirmDisplay = confirm.create();
+                                    confirmDisplay.show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
 
                 // create alert dialog
                 final AlertDialog alertDialog = alertDialogBuilder.create();
 
                 // Show input alert dialog
                 alertDialog.show();
-
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        Boolean closeDialog = false;
-
-                        int input;
-                        try {
-                            input = Integer.parseInt(userInput.getText().toString());
-                        } catch (NumberFormatException numbEx) {
-                            input = 0;
-                        }
-                        if(input != itemCode1) {
-                            TextView promptMessage = (TextView) promptUserInputView.findViewById(R.id.promptInput);
-                            promptMessage.setText(R.string.wrongCode);
-                        }
-                        else {
-                            // TODO - Found items aren't saved after the user leaves the room page, might need to edit the text page or add some indicator of found
-                            found1.setText(R.string.rightCode);
-                            found1.setEnabled(false);
-
-                            hint1.setText("Temporary Item Found Text Disable Button");
-                            hint1.setEnabled(false);
-
-                            closeDialog = true;
-                        }
-
-                        if(closeDialog)
-                            alertDialog.dismiss();
-                    }
-                });
             }
         });
 
@@ -404,6 +474,7 @@ public class Room extends Fragment {
 
                 alertDialogBuilder.setView(promptUserInputView);
 
+                final TextView promptMessage = (TextView) promptUserInputView.findViewById(R.id.promptInput);
                 final EditText userInput = (EditText) promptUserInputView.findViewById(R.id.userInputItemCode);
 
                 alertDialogBuilder
@@ -411,6 +482,63 @@ public class Room extends Fragment {
                         .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
 
+                                if(userInput.getText().toString().equals(itemCode2)) {
+                                    found2.setText(R.string.rightCode);
+                                    found2.setEnabled(false);
+                                    hint2.setEnabled(false);
+
+                                    SharedPreferences.Editor editor = keyPair.edit();
+                                    int score = 10 - 3 * keyPair.getInt(selection + "Hint2", 0);
+                                    if (score < 0)
+                                        score = 0;
+                                    editor.putInt(selection + "Item2", score);
+                                    if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
+                                    {
+                                        editor.putInt("Total Score", score); //adds new if not
+                                    }
+                                    else
+                                    {
+                                        editor.putInt("Total Score", (score + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
+                                    }
+                                    Set<String> temp = keyPair.getStringSet("achievementSet", null); //pulls list of achievements if exists
+                                    if (temp == null)
+                                    {
+                                        temp = new ArraySet<>(); //makes new one if not
+                                    }
+                                    temp.add("Found Item2 of " + selection + " Room: " + Integer.toString(score) + " Points"); //adds to list
+                                    editor.putStringSet("achievementSet", temp); //puts set in storage
+                                    editor.apply();
+
+                                    dialog.dismiss();
+
+                                    AlertDialog.Builder confirm = new AlertDialog.Builder(getContext());
+                                    confirm.setTitle("Item Found!");
+                                    confirm.setMessage("You used " + keyPair.getInt(selection + "Hint2", 0) + " hints and earned " + keyPair.getInt(selection + "Item2", 10) + " points");
+                                    confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog confirmDisplay = confirm.create();
+                                    confirmDisplay.show();
+                                }
+                                else
+                                {
+                                    promptMessage.setText(R.string.wrongCode);
+
+                                    AlertDialog.Builder confirm = new AlertDialog.Builder(getContext());
+                                    confirm.setTitle("Incorrect");
+                                    confirm.setMessage("Sorry, that is not the correct code for this item");
+                                    confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog confirmDisplay = confirm.create();
+                                    confirmDisplay.show();
+                                }
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -424,39 +552,6 @@ public class Room extends Fragment {
 
                 // Show input alert dialog
                 alertDialog.show();
-
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        Boolean closeDialog = false;
-
-                        int input;
-                        try {
-                            input = Integer.parseInt(userInput.getText().toString());
-                        } catch (NumberFormatException numbEx) {
-                            input = 0;
-                        }
-                        if(input != itemCode2) {
-                            TextView promptMessage = (TextView) promptUserInputView.findViewById(R.id.promptInput);
-                            promptMessage.setText(R.string.wrongCode);
-                        }
-                        else {
-                            // TODO - Found items aren't saved after the user leaves the room page, might need to edit the text page or add some indicator of found
-                            found2.setText(R.string.rightCode);
-                            found2.setEnabled(false);
-
-                            hint2.setText("Temporary Item Found Text Disable Button");
-                            hint2.setEnabled(false);
-
-                            closeDialog = true;
-                        }
-
-                        if(closeDialog)
-                            alertDialog.dismiss();
-                    }
-                });
             }
         });
 
@@ -472,13 +567,70 @@ public class Room extends Fragment {
 
                 alertDialogBuilder.setView(promptUserInputView);
 
+                final TextView promptMessage = (TextView) promptUserInputView.findViewById(R.id.promptInput);
                 final EditText userInput = (EditText) promptUserInputView.findViewById(R.id.userInputItemCode);
 
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
+                                if(userInput.getText().toString().equals(itemCode3)) {
+                                    found3.setText(R.string.rightCode);
+                                    found3.setEnabled(false);
+                                    hint3.setEnabled(false);
 
+                                    SharedPreferences.Editor editor = keyPair.edit();
+                                    int score = 10 - 3 * keyPair.getInt(selection + "Hint3", 0);
+                                    if (score < 0)
+                                        score = 0;
+                                    editor.putInt(selection + "Item3", score);
+                                    if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
+                                    {
+                                        editor.putInt("Total Score", score); //adds new if not
+                                    }
+                                    else
+                                    {
+                                        editor.putInt("Total Score", (score + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
+                                    }
+                                    Set<String> temp = keyPair.getStringSet("achievementSet", null); //pulls list of achievements if exists
+                                    if (temp == null)
+                                    {
+                                        temp = new ArraySet<>(); //makes new one if not
+                                    }
+                                    temp.add("Found Item3 of " + selection + " Room: " + Integer.toString(score) + " Points"); //adds to list
+                                    editor.putStringSet("achievementSet", temp); //puts set in storage
+                                    editor.apply();
+
+                                    dialog.dismiss();
+
+                                    AlertDialog.Builder confirm = new AlertDialog.Builder(getContext());
+                                    confirm.setTitle("Item Found!");
+                                    confirm.setMessage("You used " + keyPair.getInt(selection + "Hint3", 0) + " hints and earned " + keyPair.getInt(selection + "Item3", 10) + " points");
+                                    confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog confirmDisplay = confirm.create();
+                                    confirmDisplay.show();
+                                }
+                                else
+                                {
+                                    promptMessage.setText(R.string.wrongCode);
+
+                                    AlertDialog.Builder confirm = new AlertDialog.Builder(getContext());
+                                    confirm.setTitle("Incorrect");
+                                    confirm.setMessage("Sorry, that is not the correct code for this item");
+                                    confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog confirmDisplay = confirm.create();
+                                    confirmDisplay.show();
+                                }
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -492,39 +644,6 @@ public class Room extends Fragment {
 
                 // Show input alert dialog
                 alertDialog.show();
-
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        Boolean closeDialog = false;
-
-                        int input;
-                        try {
-                            input = Integer.parseInt(userInput.getText().toString());
-                        } catch (NumberFormatException numbEx) {
-                            input = 0;
-                        }
-                        if(input != itemCode3) {
-                            TextView promptMessage = (TextView) promptUserInputView.findViewById(R.id.promptInput);
-                            promptMessage.setText(R.string.wrongCode);
-                        }
-                        else {
-                            // TODO - Found items aren't saved after the user leaves the room page, might need to edit the text page or add some indicator of found
-                            found3.setText(R.string.rightCode);
-                            found3.setEnabled(false);
-
-                            hint3.setText("Temporary Item Found Text Disable Button");
-                            hint3.setEnabled(false);
-
-                            closeDialog = true;
-                        }
-
-                        if(closeDialog)
-                            alertDialog.dismiss();
-                    }
-                });
             }
         });
 
@@ -606,6 +725,20 @@ public class Room extends Fragment {
             Uri imgUri = getFileUri(photoFile); //create Uri (some identifier for images) of new image file
             gallery.setImageURI(imgUri); //shows in gallery
             array.add(imgUri); //saves in array
+        }
+        if (requestCode == 2 && resultCode == 2)
+        {
+            File temp = new File(imageDir, array.remove(imageIndex).getLastPathSegment());
+            if (!temp.delete())
+                Toast.makeText(getContext(), temp.getPath(), Toast.LENGTH_SHORT).show();
+            if (imageIndex == array.size())
+            {
+                gallery.setImageResource(R.drawable.ic_add); //if last, show camera icon instead of image
+            }
+            else
+            {
+                gallery.setImageURI(array.get(imageIndex));
+            }
         }
     }
 

@@ -186,23 +186,11 @@ public class Quiz extends Fragment {
                         incorrectLayout3.setVisibility(View.VISIBLE);
                     }
 
-                    //make dialog box to notify user
-                    AlertDialog.Builder userMessage = new AlertDialog.Builder(getContext());
-                    userMessage.setTitle("Results for " + roomName + " Quiz");
-                    userMessage.setMessage("You've earned " + userScore + " points for this quiz. Check out " +
-                            "the Achievements page for your progress!");
-                    userMessage.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-
                     //store results to save data
                     SharedPreferences.Editor editor = keyPair.edit();
                     if (keyPair.getInt(roomName, -1) == -1) //returning -1 means this is the first time attempting submission of points
                     {
-                        Set<String> temp = keyPair.getStringSet("achievmentSet", null); //pulls list of achievements if exists
+                        Set<String> temp = keyPair.getStringSet("achievementSet", null); //pulls list of achievements if exists
                         if (temp == null)
                         {
                             temp = new ArraySet<>(); //makes new one if not
@@ -228,14 +216,25 @@ public class Quiz extends Fragment {
                     editor.putString(roomName + " A3", questions[indices[2]].getAnswer());
                     editor.commit(); //finalize saves
 
+                    //make dialog box to notify user
+                    AlertDialog.Builder userMessage = new AlertDialog.Builder(getContext());
+                    userMessage.setTitle("Results for " + roomName + " Quiz");
+                    userMessage.setMessage("You've earned " + userScore + " points for this quiz. Check out " +
+                            "the Achievements page for your progress!");
+                    userMessage.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            q1answers.clearCheck();
+                            q2answers.clearCheck();
+                            q3answers.clearCheck();
+                            quizIntro.setVisibility(View.VISIBLE); //makes intro visible again
+                            questionLayout.setVisibility(View.GONE); //makes questions invisible again
+                        }
+                    });
+
                     AlertDialog userDisplay = userMessage.create();
                     userDisplay.show();
-
-                    q1answers.clearCheck();
-                    q2answers.clearCheck();
-                    q3answers.clearCheck();
-                    quizIntro.setVisibility(View.VISIBLE); //makes intro visible again
-                    questionLayout.setVisibility(View.GONE); //makes questions invisible again
                 }
 
                 else //Not All Questions Answered, Alert User
