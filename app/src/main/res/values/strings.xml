@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CathedralTourGuide</string>
+    <string name="app_name">TourCathy</string>
     <string name="selectPrompt">Select a Room from the List</string>
     <string name="enterNumPrompt">Enter a Room Number</string>
     <string name="enter">Enter</string>
