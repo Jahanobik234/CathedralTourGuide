@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                                 title = "Achievements";
                                 break;
                             case R.id.search:
-                                newFragment = new Search();
+                                //newFragment = new Search();
+                                newFragment = new NationalitySelector();
                                 colorId = R.color.Purple;
                                 title = "Room Search";
                                 break;
