@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.pitt.cs.cs1635.jah234.cathedraltourguide.NationalitySelector">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/roomsList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/selectRoom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/enter" />
+
+</LinearLayout>

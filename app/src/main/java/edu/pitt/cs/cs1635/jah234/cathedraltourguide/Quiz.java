@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.ArraySet;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
@@ -30,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Set;
+
+
 
 public class Quiz extends Fragment {
 
@@ -128,13 +132,15 @@ public class Quiz extends Fragment {
 
         //set value of roomName, make questions and choices visible, make intro info invisible, loadQuestions method below
         enterButton.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
+
                 roomName = spinner.getSelectedItem().toString();
                 questionLayout.setVisibility(View.VISIBLE);
                 quizIntro.setVisibility(View.GONE);
                 loadQuestions();
-
 
             }
         });
