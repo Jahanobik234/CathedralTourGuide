@@ -1,19 +1,8 @@
 package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
-import android.app.ActionBar;
 import android.content.Context;
-import android.content.Intent;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
-import android.support.v4.util.ArraySet;
-import android.widget.EditText;
-import android.app.AlertDialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,47 +10,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.Set;
-
-import static android.app.Activity.RESULT_OK;
 
 public class Room_Info extends Fragment {
 
-    TextView intro;
+    TextView intro, history;
     View view;
     ImageView flag;
+    LinearLayout fullScreen;
 
     MediaPlayer mpIntro, mpHistory;
 
-    ScrollView scrollview;
-    LinearLayout fullScreen, objectInfo, moreInfo;
-    TextView history_info;
-    Button found1, found2, found3, jump_to_mid_screen, jump_to_bottom_screen, quiz, hint1, hint2, hint3, audio_intro, history_audio;
+    Button audio_intro, history_audio;
 
-    int index1 = 0, index2 = 0, index3 = 0, imageIndex = 0;
     InputStream stream;
     BufferedReader input;
     StringBuilder large_text;
-    String line, selection, itemCode1, itemCode2, itemCode3;
-    Drawable flag_image, pic1_image, pic2_image, pic3_image;
-    String[] hint = new String[9];
+    String line, selection;
+    Drawable flag_image;
 
     OnSendDataListener sendData;
 
@@ -103,22 +76,16 @@ public class Room_Info extends Fragment {
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_room, container, false); //creates stuff we can see
+        view = inflater.inflate(R.layout.activity_room_info, container, false); //creates stuff we can see
 
         //initializes a lot of objects
         intro = (TextView) view.findViewById(R.id.intro);
         flag = (ImageView) view.findViewById(R.id.flag);
-        quiz = (Button) view.findViewById(R.id.take_quiz);
-        jump_to_mid_screen = (Button) view.findViewById(R.id.jumpmid);
-        jump_to_bottom_screen = (Button) view.findViewById(R.id.jumpdown);
-        scrollview = (ScrollView) view.findViewById(R.id.scrollbar);
-        fullScreen = (LinearLayout) view.findViewById(R.id.fullScreen);
-        objectInfo = (LinearLayout) view.findViewById(R.id.objectInfo);
-        moreInfo = (LinearLayout) view.findViewById(R.id.moreInfo);
         audio_intro = (Button) view.findViewById(R.id.audio_intro);
         mpIntro = MediaPlayer.create(getContext(), R.raw.african_heritage_audio_architecture);
         history_audio = (Button) view.findViewById(R.id.history_audio);
         mpHistory = MediaPlayer.create(getContext(), R.raw.african_heritage_audio_display_case);
+        fullScreen = (LinearLayout) view.findViewById(R.id.fullScreen);
 
         //tries to grab relevant info from assets
         try
@@ -140,38 +107,12 @@ public class Room_Info extends Fragment {
         {
             //otherwise, nothing to show
             fullScreen.setVisibility(View.GONE);
-            Toast.makeText(getContext(), "Sorry. This Page Isn't Ready Yet", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Sorry. This Page isn't Ready Yet", Toast.LENGTH_SHORT).show();
         }
 
         intro.setText(large_text);
         flag.setImageDrawable(flag_image);
 
-        //tell MainActivity go to Quiz fragment
-        quiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle data = new Bundle();
-                data.putString("Action", "Room Quiz");
-                data.putString("Room Name", selection);
-                sendData.send(data);
-            }
-        });
-
-        //scroll down to notable items
-        jump_to_mid_screen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollview.scrollTo(0, objectInfo.getTop());
-            }
-        });
-
-        //scroll down to just for fun
-        jump_to_bottom_screen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollview.scrollTo(0, moreInfo.getTop());
-            }
-        });
         //plays intro audio
         audio_intro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,7 +167,7 @@ public class Room_Info extends Fragment {
             }
         });
 
-        //always return view
+        //always return view*/
         return view;
     }
 }

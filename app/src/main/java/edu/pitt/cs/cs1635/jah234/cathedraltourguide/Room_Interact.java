@@ -1,66 +1,50 @@
 package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
-import android.app.ActionBar;
 import android.content.Context;
-import android.content.Intent;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
-import android.support.v4.util.ArraySet;
-import android.widget.EditText;
-import android.app.AlertDialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.ArraySet;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.Set;
 
-import static android.app.Activity.RESULT_OK;
-
 public class Room_Interact extends Fragment {
 
-    TextView intro;
-    ImageView flag, item_pic1, item_pic2, item_pic3;
+    ImageView item_pic1, item_pic2, item_pic3;
     View view;
     ImageSwitcher gallery;
 
-    ScrollView scrollview;
-    LinearLayout fullScreen, objectInfo, moreInfo;
-    TextView history_info;
-    Button found1, found2, found3, jump_to_mid_screen, jump_to_bottom_screen, quiz, hint1, hint2, hint3, audio_intro, history_audio;
+    LinearLayout objectInfo;
+
+    Button found1, found2, found3, quiz, hint1, hint2, hint3;
     ImageButton leftImage, rightImage;
 
-    int index1 = 0, index2 = 0, index3 = 0, imageIndex = 0;
+    int imageIndex = 0;
     InputStream stream;
     BufferedReader input;
     StringBuilder large_text;
     String line, selection, itemCode1, itemCode2, itemCode3;
-    Drawable flag_image, pic1_image, pic2_image, pic3_image;
+    Drawable pic1_image, pic2_image, pic3_image;
     String[] hint = new String[9];
     File imageDir, photoFile;
     LinkedList<Uri> array;
@@ -92,7 +76,7 @@ public class Room_Interact extends Fragment {
         selection = getArguments().getString("Selection");
 
         //array holds Uri of images taken with camera
-        array = new LinkedList<>();
+        /*array = new LinkedList<>();
 
         //folder to put new images in
         imageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CathedralLearningTour/" + selection);
@@ -116,7 +100,7 @@ public class Room_Interact extends Fragment {
             }
         }
         else
-            Toast.makeText(getContext(), "Error: Cannot Write to " + imageDir.getPath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Error: Cannot Write to " + imageDir.getPath(), Toast.LENGTH_LONG).show();*/
     }
 
     @Override
@@ -132,7 +116,7 @@ public class Room_Interact extends Fragment {
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_room, container, false); //creates stuff we can see
+        view = inflater.inflate(R.layout.activity_room_interact, container, false); //creates stuff we can see
 
         //initializes a lot of objects
         hint1 = (Button) view.findViewById(R.id.hint1);
@@ -141,35 +125,18 @@ public class Room_Interact extends Fragment {
         item_pic1 = (ImageView)view.findViewById(R.id.item_pic_1);
         item_pic2 = (ImageView)view.findViewById(R.id.item_pic_2);
         item_pic3 = (ImageView)view.findViewById(R.id.item_pic_3);
-        quiz = (Button) view.findViewById(R.id.take_quiz);
-        jump_to_mid_screen = (Button) view.findViewById(R.id.jumpmid);
-        jump_to_bottom_screen = (Button) view.findViewById(R.id.jumpdown);
-        scrollview = (ScrollView) view.findViewById(R.id.scrollbar);
+        //quiz = (Button) view.findViewById(R.id.take_quiz);
         found1 = (Button) view.findViewById(R.id.found1);
         found2 = (Button) view.findViewById(R.id.found2);
         found3 = (Button) view.findViewById(R.id.found3);
-        leftImage = (ImageButton) view.findViewById(R.id.leftButton);
-        rightImage = (ImageButton) view.findViewById(R.id.rightButton);
-        gallery = (ImageSwitcher) view.findViewById(R.id.imageSwitch);
-        fullScreen = (LinearLayout) view.findViewById(R.id.fullScreen);
         objectInfo = (LinearLayout) view.findViewById(R.id.objectInfo);
-        moreInfo = (LinearLayout) view.findViewById(R.id.moreInfo);
-        audio_intro = (Button) view.findViewById(R.id.audio_intro);
-        history_audio = (Button) view.findViewById(R.id.history_audio);
+        //leftImage = (ImageButton) view.findViewById(R.id.leftButton);
+        //rightImage = (ImageButton) view.findViewById(R.id.rightButton);
+        //gallery = (ImageSwitcher) view.findViewById(R.id.imageSwitch);
 
         //tries to grab relevant info from assets
         try
         {
-            stream = getContext().getAssets().open(selection + "_obj_1.JPG"); //creates new inputStream
-            pic1_image = Drawable.createFromStream(stream, null); //creates drawable from stream
-            stream.close();
-            stream = getContext().getAssets().open(selection + "_obj_2.JPG"); //creates new inputStream
-            pic2_image = Drawable.createFromStream(stream, null); //creates drawable from stream
-            stream.close();
-            stream = getContext().getAssets().open(selection + "_obj_3.JPG"); //creates new inputStream
-            pic3_image = Drawable.createFromStream(stream, null); //creates drawable from stream
-            stream.close();
-
             stream = getContext().getAssets().open(selection + "_hint.txt"); //creates new inputStream
             input = new BufferedReader(new InputStreamReader(stream)); //creates new bufferedreader
             itemCode1 = input.readLine();
@@ -184,8 +151,8 @@ public class Room_Interact extends Fragment {
         catch (Exception e)
         {
             //otherwise, nothing to show
-            fullScreen.setVisibility(View.GONE);
-            Toast.makeText(getContext(), "Sorry. This Page Isn't Ready Yet", Toast.LENGTH_LONG).show();
+            objectInfo.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "Sorry. This Page isn't Ready Yet", Toast.LENGTH_SHORT).show();
         }
 
         //item_pic1.setImageDrawable(pic1_image);
@@ -194,7 +161,7 @@ public class Room_Interact extends Fragment {
 
 
         //sets up imageswitcher
-        gallery.setFactory(new ViewSwitcher.ViewFactory() {
+        /*gallery.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
                 ImageView myView = new ImageView(getContext());
@@ -212,7 +179,7 @@ public class Room_Interact extends Fragment {
         else
         {
             gallery.setImageResource(R.drawable.ic_add); //if not, show the icon indicating take a picture
-        }
+        }*/
 
         if (keyPair.getInt(selection + "Item1", -1) != -1)
         {
@@ -278,7 +245,7 @@ public class Room_Interact extends Fragment {
         });
 
         //tell MainActivity go to Quiz fragment
-        quiz.setOnClickListener(new View.OnClickListener() {
+        /*quiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle data = new Bundle();
@@ -286,25 +253,9 @@ public class Room_Interact extends Fragment {
                 data.putString("Room Name", selection);
                 sendData.send(data);
             }
-        });
+        });*/
 
-        //scroll down to notable items
-        jump_to_mid_screen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollview.scrollTo(0, objectInfo.getTop());
-            }
-        });
-
-        //scroll down to just for fun
-        jump_to_bottom_screen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollview.scrollTo(0, moreInfo.getTop());
-            }
-        });
-
-        //if gallery image is clicked
+        /*//if gallery image is clicked
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -364,7 +315,7 @@ public class Room_Interact extends Fragment {
                 else
                     Toast.makeText(getContext(), "End of Gallery", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         //found first item
         found1.setOnClickListener(new View.OnClickListener() {
@@ -643,11 +594,11 @@ public class Room_Interact extends Fragment {
             }
         });
 
-        //always return view
+        //always return view*/
         return view;
     }
 
-    private void takePicture() throws IOException {
+    /*private void takePicture() throws IOException {
 
         String imageFileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()); //create new image file name
         photoFile = new File(imageDir.getPath(), imageFileName + ".jpg"); //create path of new image file
@@ -688,6 +639,6 @@ public class Room_Interact extends Fragment {
     private Uri getFileUri(File file)
     {
         return FileProvider.getUriForFile(getContext(), "edu.pitt.cs.cs1635.jah234.cathedraltourguide.fileprovider", file);
-    }
+    }*/
 }
 

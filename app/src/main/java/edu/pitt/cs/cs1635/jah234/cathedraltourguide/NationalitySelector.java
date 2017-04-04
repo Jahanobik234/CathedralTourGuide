@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,8 +26,27 @@ public class NationalitySelector extends Fragment
     ArrayList<String> roomNames;
     ArrayList<Integer> flagID;
 
+    OnSendDataListener sendData;
+
     public NationalitySelector() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+
+        //checks that the activity that called this implemented OnSendDataListener, which it should
+        //needed to send data back to MainActivity
+        try
+        {
+            sendData = (OnSendDataListener) context;
+        }
+        catch (ClassCastException e)
+        {
+            throw new ClassCastException(context.toString() + " must implement OnSendDataListener");
+        }
     }
 
 
@@ -47,7 +67,16 @@ public class NationalitySelector extends Fragment
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
 
-        adapter = new RoomAdapter();
+        adapter = new RoomAdapter(roomNames, new RoomAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String room) {
+                Bundle data = new Bundle();
+                data.putString("Action", "New Room");
+                data.putString("Mode", "Name");
+                data.putString("Selection", room);
+                sendData.send(data);
+            }
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(itemDecoration);
         return view;

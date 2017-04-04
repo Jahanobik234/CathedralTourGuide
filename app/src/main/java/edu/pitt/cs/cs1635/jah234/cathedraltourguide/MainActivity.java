@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
         {
             //Room fragment
             case "class edu.pitt.cs.cs1635.jah234.cathedraltourguide.Room":
-                newFragment = new Search();
+                newFragment = new NationalitySelector();
 
                 handler = getSupportFragmentManager().beginTransaction();
                 handler.replace(R.id.mainContent, newFragment);
