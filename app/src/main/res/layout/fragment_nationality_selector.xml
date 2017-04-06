@@ -5,6 +5,21 @@
     android:orientation="vertical"
     tools:context="edu.pitt.cs.cs1635.jah234.cathedraltourguide.NationalitySelector">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp">
+        <EditText
+            android:id="@+id/searchRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_search"/>
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/roomsList"
         android:layout_width="match_parent"

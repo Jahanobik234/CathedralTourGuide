@@ -39,11 +39,11 @@ public class Room_Interact extends Fragment {
     Button found1, found2, found3, quiz, hint1, hint2, hint3;
     ImageButton leftImage, rightImage;
 
-    int imageIndex = 0;
+    int position, index1, index2, index3, imageIndex = 0;
     InputStream stream;
     BufferedReader input;
     StringBuilder large_text;
-    String line, selection, itemCode1, itemCode2, itemCode3;
+    String room, itemCode1, itemCode2, itemCode3;
     Drawable pic1_image, pic2_image, pic3_image;
     String[] hint = new String[9];
     File imageDir, photoFile;
@@ -73,7 +73,9 @@ public class Room_Interact extends Fragment {
         }
 
         //initializes value of current room
-        selection = getArguments().getString("Selection");
+        position = getArguments().getInt("Position");
+
+        keyPair = getContext().getSharedPreferences("saved_data", Context.MODE_PRIVATE);
 
         //array holds Uri of images taken with camera
         /*array = new LinkedList<>();
@@ -104,16 +106,6 @@ public class Room_Interact extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        //keyPair = saved data
-        //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
-        keyPair = getContext().getSharedPreferences("saved_data", Context.MODE_PRIVATE);
-    }
-
-    @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.activity_room_interact, container, false); //creates stuff we can see
@@ -137,7 +129,9 @@ public class Room_Interact extends Fragment {
         //tries to grab relevant info from assets
         try
         {
-            stream = getContext().getAssets().open(selection + "_hint.txt"); //creates new inputStream
+            room = getResources().obtainTypedArray(R.array.room_names).getString(position);
+
+            InputStream stream = getResources().openRawResource(getResources().obtainTypedArray(R.array.room_hint).getResourceId(position, 0)); //creates new inputStream
             input = new BufferedReader(new InputStreamReader(stream)); //creates new bufferedreader
             itemCode1 = input.readLine();
             itemCode2 = input.readLine();
@@ -147,6 +141,10 @@ public class Room_Interact extends Fragment {
                 hint[i] = input.readLine();
             }
             stream.close();
+
+            item_pic1.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3, 0));
+            item_pic2.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3 + 1, 0));
+            item_pic3.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3 + 2, 0));
         }
         catch (Exception e)
         {
@@ -181,21 +179,21 @@ public class Room_Interact extends Fragment {
             gallery.setImageResource(R.drawable.ic_add); //if not, show the icon indicating take a picture
         }*/
 
-        if (keyPair.getInt(selection + "Item1", -1) != -1)
+        if (keyPair.getInt(position + "Item1", -1) != -1)
         {
             found1.setText(R.string.rightCode);
             found1.setEnabled(false);
             hint1.setEnabled(false);
         }
 
-        if (keyPair.getInt(selection + "Item2", -1) != -1)
+        if (keyPair.getInt(position + "Item2", -1) != -1)
         {
             found2.setText(R.string.rightCode);
             found2.setEnabled(false);
             hint2.setEnabled(false);
         }
 
-        if (keyPair.getInt(selection + "Item3", -1) != -1)
+        if (keyPair.getInt(position + "Item3", -1) != -1)
         {
             found3.setText(R.string.rightCode);
             found3.setEnabled(false);
@@ -206,13 +204,13 @@ public class Room_Interact extends Fragment {
         hint1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int index = keyPair.getInt(selection + "Hint1", 0);
-                String text = hint[index % 3] + "\n\nStill Can't Find it?\nTap for Another Hint!";
+                //int index = keyPair.getInt(position + "Hint1", 0);
+                String text = hint[index1 % 3] + "\n\nStill Can't Find it?\nTap for Another Hint!";
                 hint1.setText(text);
-                index++;
-                SharedPreferences.Editor editor = keyPair.edit();
-                editor.putInt(selection + "Hint1", index);
-                editor.commit();
+                index1++;
+                /*SharedPreferences.Editor editor = keyPair.edit();
+                editor.putInt(position + "Hint1", index);
+                editor.commit();*/
             }
         });
 
@@ -220,13 +218,13 @@ public class Room_Interact extends Fragment {
         hint2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int index = keyPair.getInt(selection + "Hint2", 0);
-                String text = hint[(index % 3) + 3] + "\n\nStill Can't Find it?\nTap for Another Hint!";
+                //int index = keyPair.getInt(position + "Hint2", 0);
+                String text = hint[(index2 % 3) + 3] + "\n\nStill Can't Find it?\nTap for Another Hint!";
                 hint2.setText(text);
-                index++;
-                SharedPreferences.Editor editor = keyPair.edit();
-                editor.putInt(selection + "Hint2", index);
-                editor.commit();
+                index2++;
+                /*SharedPreferences.Editor editor = keyPair.edit();
+                editor.putInt(position + "Hint2", index);
+                editor.commit();*/
             }
         });
 
@@ -234,13 +232,13 @@ public class Room_Interact extends Fragment {
         hint3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int index = keyPair.getInt(selection + "Hint3", 0);
-                String text = hint[(index % 3) + 6] + "\n\nStill Can't Find it?\nTap for Another Hint!";
+                //int index = keyPair.getInt(position + "Hint3", 0);
+                String text = hint[(index3 % 3) + 6] + "\n\nStill Can't Find it?\nTap for Another Hint!";
                 hint3.setText(text);
-                index++;
-                SharedPreferences.Editor editor = keyPair.edit();
-                editor.putInt(selection + "Hint3", index);
-                editor.commit();
+                index3++;
+                /*SharedPreferences.Editor editor = keyPair.edit();
+                editor.putInt(position + "Hint3", index);
+                editor.commit();*/
             }
         });
 
@@ -342,24 +340,24 @@ public class Room_Interact extends Fragment {
                                     hint1.setEnabled(false);
 
                                     SharedPreferences.Editor editor = keyPair.edit();
-                                    int score = 10 - 3 * keyPair.getInt(selection + "Hint1", 0);
+                                    /*int score = 10 - 3 * keyPair.getInt(position + "Hint1", 0);
                                     if (score < 0)
-                                        score = 0;
-                                    editor.putInt(selection + "Item1", score);
+                                        score = 0;*/
+                                    editor.putInt(position + "Item1", 10);
                                     if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
                                     {
-                                        editor.putInt("Total Score", score); //adds new if not
+                                        editor.putInt("Total Score", 10); //adds new if not
                                     }
                                     else
                                     {
-                                        editor.putInt("Total Score", (score + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
+                                        editor.putInt("Total Score", (10 + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
                                     }
                                     Set<String> temp = keyPair.getStringSet("achievementSet", null); //pulls list of achievements if exists
                                     if (temp == null)
                                     {
                                         temp = new ArraySet<>(); //makes new one if not
                                     }
-                                    temp.add("Found Item1 of " + selection + " Room: " + Integer.toString(score) + " Points"); //adds to list
+                                    temp.add("Found Item1 of " + room + " Room: 10 Points"); //adds to list
                                     editor.putStringSet("achievementSet", temp); //puts set in storage
                                     editor.apply();
 
@@ -367,7 +365,7 @@ public class Room_Interact extends Fragment {
 
                                     AlertDialog.Builder confirm = new AlertDialog.Builder(getContext());
                                     confirm.setTitle("Item Found!");
-                                    confirm.setMessage("You used " + keyPair.getInt(selection + "Hint1", 0) + " hints and earned " + keyPair.getInt(selection + "Item1", 10) + " points");
+                                    confirm.setMessage("You earned 10 points");
                                     confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
@@ -435,24 +433,24 @@ public class Room_Interact extends Fragment {
                                     hint2.setEnabled(false);
 
                                     SharedPreferences.Editor editor = keyPair.edit();
-                                    int score = 10 - 3 * keyPair.getInt(selection + "Hint2", 0);
+                                    /*int score = 10 - 3 * keyPair.getInt(position + "Hint2", 0);
                                     if (score < 0)
-                                        score = 0;
-                                    editor.putInt(selection + "Item2", score);
+                                        score = 0;*/
+                                    editor.putInt(position + "Item2", 10);
                                     if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
                                     {
-                                        editor.putInt("Total Score", score); //adds new if not
+                                        editor.putInt("Total Score", 10); //adds new if not
                                     }
                                     else
                                     {
-                                        editor.putInt("Total Score", (score + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
+                                        editor.putInt("Total Score", (10 + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
                                     }
                                     Set<String> temp = keyPair.getStringSet("achievementSet", null); //pulls list of achievements if exists
                                     if (temp == null)
                                     {
                                         temp = new ArraySet<>(); //makes new one if not
                                     }
-                                    temp.add("Found Item2 of " + selection + " Room: " + Integer.toString(score) + " Points"); //adds to list
+                                    temp.add("Found Item2 of " + room + " Room: 10 Points"); //adds to list
                                     editor.putStringSet("achievementSet", temp); //puts set in storage
                                     editor.apply();
 
@@ -460,7 +458,7 @@ public class Room_Interact extends Fragment {
 
                                     AlertDialog.Builder confirm = new AlertDialog.Builder(getContext());
                                     confirm.setTitle("Item Found!");
-                                    confirm.setMessage("You used " + keyPair.getInt(selection + "Hint2", 0) + " hints and earned " + keyPair.getInt(selection + "Item2", 10) + " points");
+                                    confirm.setMessage("You earned 10 points");
                                     confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
@@ -527,24 +525,24 @@ public class Room_Interact extends Fragment {
                                     hint3.setEnabled(false);
 
                                     SharedPreferences.Editor editor = keyPair.edit();
-                                    int score = 10 - 3 * keyPair.getInt(selection + "Hint3", 0);
+                                    /*int score = 10 - 3 * keyPair.getInt(position + "Hint3", 0);
                                     if (score < 0)
-                                        score = 0;
-                                    editor.putInt(selection + "Item3", score);
+                                        score = 0;*/
+                                    editor.putInt(position + "Item3", 10);
                                     if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
                                     {
-                                        editor.putInt("Total Score", score); //adds new if not
+                                        editor.putInt("Total Score", 10); //adds new if not
                                     }
                                     else
                                     {
-                                        editor.putInt("Total Score", (score + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
+                                        editor.putInt("Total Score", (10 + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
                                     }
                                     Set<String> temp = keyPair.getStringSet("achievementSet", null); //pulls list of achievements if exists
                                     if (temp == null)
                                     {
                                         temp = new ArraySet<>(); //makes new one if not
                                     }
-                                    temp.add("Found Item3 of " + selection + " Room: " + Integer.toString(score) + " Points"); //adds to list
+                                    temp.add("Found Item3 of " + room + " Room: 10 Points"); //adds to list
                                     editor.putStringSet("achievementSet", temp); //puts set in storage
                                     editor.apply();
 
@@ -552,7 +550,7 @@ public class Room_Interact extends Fragment {
 
                                     AlertDialog.Builder confirm = new AlertDialog.Builder(getContext());
                                     confirm.setTitle("Item Found!");
-                                    confirm.setMessage("You used " + keyPair.getInt(selection + "Hint3", 0) + " hints and earned " + keyPair.getInt(selection + "Item3", 10) + " points");
+                                    confirm.setMessage("You earned 10 points");
                                     confirm.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {

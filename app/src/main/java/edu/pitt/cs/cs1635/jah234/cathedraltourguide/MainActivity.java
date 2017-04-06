@@ -147,50 +147,13 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                 int index; //index of room in arrays
 
                 newFragment = new Room();
-                args = new Bundle();
 
-                if (data.getString("Mode").equals("Name")) //selected room from spinner
-                {
-                    //grabs name of room
-                    roomName = data.getString("Selection");
+                newFragment.setArguments(data);
 
-                    //grabs corresponding room number
-                    index = nameList.indexOf(roomName);
-                    if (index != -1)
-                        roomNum = numList.get(index);
-                    else
-                        roomNum = "";
-                }
-                else //entered room number into edittext
-                {
-                    //grabs room number
-                    roomNum = data.getString("Selection");
-
-                    //grabs corresponding room name
-                    index = numList.indexOf(roomNum);
-                    if (index != -1)
-                        roomName = nameList.get(index);
-                    else
-                        roomName = "";
-                }
-
-                if (index == -1) //if entered room number is incorrect
-                {
-                    Toast.makeText(MainActivity.this, "Sorry. Room Cannot be Found", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    args.putString("Selection", roomName);
-
-                    newFragment.setArguments(args);
-
-                    handler = getSupportFragmentManager().beginTransaction();
-                    handler.replace(R.id.mainContent, newFragment);
-                    handler.setTransition(handler.TRANSIT_FRAGMENT_CLOSE);
-                    handler.commit();
-
-                    setTitle(roomName + " Room (Room " + roomNum + ")");
-                }
+                handler = getSupportFragmentManager().beginTransaction();
+                handler.replace(R.id.mainContent, newFragment);
+                handler.setTransition(handler.TRANSIT_FRAGMENT_CLOSE);
+                handler.commit();
                 break;
             //called from Room fragment, loads Quiz fragment and goes straight to specific quiz
             case "Room Quiz":

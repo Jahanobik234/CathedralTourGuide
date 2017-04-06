@@ -9,14 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<ImageView
+        <ImageView
             android:id="@+id/card_flag"
             android:layout_width="@android:dimen/notification_large_icon_width"
-            android:layout_height="@android:dimen/app_icon_size" />-->
+            android:layout_height="@android:dimen/app_icon_size" />
 
         <TextView
             android:id="@+id/card_name"
             android:layout_width="match_parent"
-            android:layout_height="@android:dimen/app_icon_size" />
+            android:layout_height="match_parent"
+            android:textSize="18sp"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

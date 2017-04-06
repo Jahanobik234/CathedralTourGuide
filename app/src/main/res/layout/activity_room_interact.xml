@@ -9,7 +9,6 @@
     android:layout_alignParentStart="true"
     android:scrollbarSize="5dip"
     android:padding="3dp"
-    android:id="@+id/scrollbar"
     tools:context="edu.pitt.cs.cs1635.jah234.cathedraltourguide.Room">
 
     <LinearLayout

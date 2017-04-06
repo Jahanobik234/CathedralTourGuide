@@ -53,7 +53,7 @@ public class Room extends Fragment{
 
     OnSendDataListener sendData;
 
-    String selection;
+    String selection, number;
 
     public void onAttach(Context context)
     {
@@ -71,7 +71,8 @@ public class Room extends Fragment{
         }
 
         //initializes value of current room
-        selection = getArguments().getString("Selection");
+        //selection = getArguments().getString("Selection");
+        //number = getArguments().getString("Number");
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,8 +95,6 @@ public class Room extends Fragment{
         @Override
         public Fragment getItem(int i) {
             Fragment newFragment;
-            Bundle args = new Bundle();
-            args.putString("Selection", selection);
 
             switch (i) {
                 case 0:
@@ -109,7 +108,7 @@ public class Room extends Fragment{
 
             }
 
-            newFragment.setArguments(args);
+            newFragment.setArguments(getArguments());
             return newFragment;
         }
 
@@ -122,9 +121,9 @@ public class Room extends Fragment{
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return selection + " Room Info";
+                    return "Information";
                 case 1:
-                    return selection + " Room Interact";
+                    return "Notable Items";
 
             }
             return selection + " Room";

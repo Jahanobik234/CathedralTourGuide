@@ -9,7 +9,6 @@
     android:layout_alignParentStart="true"
     android:scrollbarSize="5dip"
     android:padding="3dp"
-    android:id="@+id/scrollbar"
     tools:context="edu.pitt.cs.cs1635.jah234.cathedraltourguide.Room">
 
     <LinearLayout
@@ -22,51 +21,135 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="3dp">
+
+            <ImageView
+                android:id="@+id/flag"
+                android:layout_width="120dp"
+                android:layout_height="80dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/roomName"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:id="@+id/roomNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/app_icon_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="3dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
-                <ImageView
-                    android:id="@+id/flag"
+                <ImageButton
+                    android:id="@+id/audio_intro"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_corner"
+                    android:src="@drawable/ic_action_play"/>
 
                 <TextView
-                    android:id="@+id/intro"
+                    android:id="@+id/intro_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="00:00"
+                    android:layout_alignParentRight="true"
+                    android:textSize="24sp"
+                    android:layout_centerVertical="true"/>
+
+                <SeekBar
+                    android:id="@+id/intro_seekBar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/audio_intro"
+                    android:layout_toLeftOf="@id/intro_timer"
+                    android:layout_centerVertical="true"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/audio_intro"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/round_corner"
-                    android:text="Play Intro Audio" />
-                <Button
-                    android:id="@+id/history_audio"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_corner"
-                    android:layout_margin="3dp"
-                    android:text="Play History Audio"
-                    android:layout_weight="1"/>
-            </LinearLayout>
+            </RelativeLayout>
 
             <TextView
+                android:id="@+id/intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/app_icon_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="3dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <ImageButton
+                    android:id="@+id/history_audio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_corner"
+                    android:src="@drawable/ic_action_play"/>
+
+                <TextView
+                    android:id="@+id/history_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="00:00"
+                    android:layout_alignParentRight="true"
+                    android:textSize="24sp"
+                    android:layout_centerVertical="true"/>
+
+                <SeekBar
+                    android:id="@+id/history_seekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/history_audio"
+                    android:layout_toLeftOf="@id/history_timer"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="HistoryTempText" />
@@ -86,8 +169,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="3dp"
-            android:id="@+id/moreInfo">
+            android:padding="3dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
