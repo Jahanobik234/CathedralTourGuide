@@ -98,30 +98,30 @@
         <item>@drawable/chinese_flag</item>
         <item>@drawable/czechoslovak_flag</item>
         <item>@drawable/earlyamerican_flag</item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>@drawable/english_flag</item>
+        <item>@drawable/french_flag</item>
+        <item>@drawable/german_flag</item>
+        <item>@drawable/greek_flag</item>
+        <item>@drawable/hungarian_flag</item>
+        <item>@drawable/indian_flag</item>
+        <item>@drawable/irish_flag</item>
+        <item>@drawable/israel_flag</item>
+        <item>@drawable/italian_flag</item>
+        <item>@drawable/japanese_flag</item>
+        <item>@drawable/koreanheritage_flag</item>
+        <item>@drawable/lithuanian_flag</item>
+        <item>@drawable/norwegian_flag</item>
+        <item>@drawable/polish_flag</item>
+        <item>@drawable/romanian_flag</item>
+        <item>@drawable/russian_flag</item>
+        <item>@drawable/scottish_flag</item>
+        <item>@drawable/syrialebanon_flag</item>
+        <item>@drawable/swedish_flag</item>
+        <item>@drawable/swiss_flag</item>
+        <item>@drawable/turkish_flag</item>
+        <item>@drawable/ukranian_flag</item>
+        <item>@drawable/welsh_flag</item>
+        <item>@drawable/yugoslav_flag</item>
     </array>
     <array name="room_text">
         <item>@raw/african_heritage_text</item>
