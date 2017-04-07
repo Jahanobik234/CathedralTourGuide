@@ -82,7 +82,7 @@ public class NationalitySelector extends Fragment
         recyclerView.setLayoutManager(layoutManager);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
 
-        adapter = new RoomAdapter(fRooms, new RoomAdapter.OnItemClickListener() {
+        adapter = new RoomAdapter(getContext(), fRooms, new RoomAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Bundle data = new Bundle();

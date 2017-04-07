@@ -1,5 +1,6 @@
 package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,9 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 
 /**
@@ -21,6 +25,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 {
     private ArrayList<RoomCardInfo> rooms;
     //private ArrayList<String> roomNames;
+    private Context context;
 
     private final OnItemClickListener listener;
 
@@ -28,9 +33,10 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         void onItemClick(int position);
     }
 
-    public RoomAdapter(ArrayList<RoomCardInfo> rooms, OnItemClickListener listener) {
+    public RoomAdapter(Context context, ArrayList<RoomCardInfo> rooms, OnItemClickListener listener) {
         this.listener = listener;
         this.rooms = rooms;
+        this.context = context;
     }
 
     public static class RoomViewHolder extends RecyclerView.ViewHolder
@@ -69,9 +75,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     {
         viewHolder.roomName.setText(rooms.get(i).getName() + " Room\nRoom " + rooms.get(i).getNumber());
         if (rooms.get(i).getFlagID() == 0)
-            viewHolder.flagImage.setImageResource(R.drawable.africanheritage_flag);
+            Glide.with(context).load(R.drawable.africanheritage_flag)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(viewHolder.flagImage);
         else
-            viewHolder.flagImage.setImageResource(rooms.get(i).getFlagID());
+            Glide.with(context).load(rooms.get(i).getFlagID())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(viewHolder.flagImage);
         viewHolder.bind(i, listener);
 
     }

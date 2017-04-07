@@ -3,6 +3,7 @@ package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 /**
  * Created by A on 3/25/2017.
  */
@@ -22,7 +26,6 @@ public class Image extends AppCompatActivity{
 
     //Relevant objects we can see
     ImageView image;
-    TextView link;
     EditText comment;
     Button save, delete;
 
@@ -40,15 +43,14 @@ public class Image extends AppCompatActivity{
 
         //initialize objects in view
         image = (ImageView) findViewById(R.id.image);
-        link = (TextView) findViewById(R.id.link);
         comment = (EditText) findViewById(R.id.comment);
         save = (Button) findViewById(R.id.save);
         delete = (Button) findViewById(R.id.delete);
 
         //pulls variables from intent extras
         Intent i = getIntent();
-        root = i.getStringExtra("From");
-        room = i.getStringExtra("Room");
+        //root = i.getStringExtra("From");
+        //room = i.getStringExtra("Room");
         file = Uri.parse(i.getStringExtra("Uri")); //identifier for a file
 
         //keyPair = comment data, kept separate for reasons I'll explain in detail if you want to know
@@ -56,32 +58,34 @@ public class Image extends AppCompatActivity{
         keyPair = getSharedPreferences("comment_data", MODE_PRIVATE);
 
 
-        image.setImageURI(file); //shows image
+        Glide.with(this).load(file)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(image);
         setTitle(parseDate(file.getLastPathSegment())); //parseDate method below
-        link.setText("Taken in " + room + " Room (Click to Go To)"); //shows link that takes you to room
+        //link.setText("Taken in " + room + " Room (Click to Go To)"); //shows link that takes you to room
 
         //comments are saved in storage as (filename)comment
-        if (!keyPair.getString(file.getLastPathSegment() + "comment", "").equals("")){
+        /*if (!keyPair.getString(file.getLastPathSegment() + "comment", "").equals("")){
             comment.setText(keyPair.getString(file.getLastPathSegment() + "comment", ""));
-        }
+        }*/
 
         //still working on it
-        link.setOnClickListener(new View.OnClickListener() {
+        /*link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent result = new Intent("RESULT_ACTION");
                 setResult(3, result);
                 finish();
             }
-        });
+        });*/
 
         //puts what's currently in comment box into storage
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = keyPair.edit();
+                /*SharedPreferences.Editor editor = keyPair.edit();
                 editor.putString(file.getLastPathSegment() + "comment", comment.getText().toString());
-                editor.commit();
+                editor.commit();*/
                 Toast.makeText(Image.this, "Saved", Toast.LENGTH_SHORT).show();
             }
         });
@@ -103,9 +107,9 @@ public class Image extends AppCompatActivity{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent result = new Intent("RESULT_ACTION");
-                        setResult(2, result);
+                        //result.putExtra("Uri", file);
+                        setResult(RESULT_OK, result);
                         finish();
-                        Toast.makeText(Image.this, "Deleted", Toast.LENGTH_SHORT).show();
                     }
                 });
                 AlertDialog confirmDisplay = confirm.create();

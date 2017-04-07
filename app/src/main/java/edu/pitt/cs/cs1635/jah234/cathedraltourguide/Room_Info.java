@@ -18,6 +18,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -115,7 +118,10 @@ public class Room_Info extends Fragment {
             //stream = getContext().getAssets().open(selection + "_flag.png"); //creates new inputStream
             //flag_image = Drawable.createFromStream(stream, null); //creates drawable from stream
             //flag.setImageDrawable(Drawable.createFromStream(stream, null));
-            flag.setImageResource(getResources().obtainTypedArray(R.array.room_flag).getResourceId(position, 0));
+            //flag.setImageResource(getResources().obtainTypedArray(R.array.room_flag).getResourceId(position, 0));
+            Glide.with(getContext()).load(getResources().obtainTypedArray(R.array.room_flag).getResourceId(position, 0))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(flag);
 
             mpIntro = MediaPlayer.create(getContext(), getResources().obtainTypedArray(R.array.room_audio).getResourceId(position * 2, 0));
             mpHistory = MediaPlayer.create(getContext(), getResources().obtainTypedArray(R.array.room_audio).getResourceId(position * 2 + 1, 0));

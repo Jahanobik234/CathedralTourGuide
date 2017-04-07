@@ -21,6 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -32,22 +35,16 @@ public class Room_Interact extends Fragment {
 
     ImageView item_pic1, item_pic2, item_pic3;
     View view;
-    ImageSwitcher gallery;
 
     LinearLayout objectInfo;
 
     Button found1, found2, found3, quiz, hint1, hint2, hint3;
-    ImageButton leftImage, rightImage;
 
     int position, index1, index2, index3, imageIndex = 0;
     InputStream stream;
     BufferedReader input;
-    StringBuilder large_text;
     String room, itemCode1, itemCode2, itemCode3;
-    Drawable pic1_image, pic2_image, pic3_image;
     String[] hint = new String[9];
-    File imageDir, photoFile;
-    LinkedList<Uri> array;
 
     OnSendDataListener sendData;
 
@@ -76,33 +73,6 @@ public class Room_Interact extends Fragment {
         position = getArguments().getInt("Position");
 
         keyPair = getContext().getSharedPreferences("saved_data", Context.MODE_PRIVATE);
-
-        //array holds Uri of images taken with camera
-        /*array = new LinkedList<>();
-
-        //folder to put new images in
-        imageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CathedralLearningTour/" + selection);
-
-        //checks if exist
-        if (!imageDir.exists())
-        {
-            //checks if make succeeded
-            if (!imageDir.mkdirs())
-                //should never go here
-                Toast.makeText(getContext(), "Error: Failed to Make Save Directory in " + imageDir.getPath(), Toast.LENGTH_LONG).show();
-        }
-
-        //checks if can write to folder, which it should if we made the folder, but just in case
-        if (imageDir.canWrite())
-        {
-            File[] files = imageDir.listFiles(); //grabs all images currently in folder, puts in array
-            for (int i = 0; i< files.length; i++)
-            {
-                array.add(getFileUri(files[i]));
-            }
-        }
-        else
-            Toast.makeText(getContext(), "Error: Cannot Write to " + imageDir.getPath(), Toast.LENGTH_LONG).show();*/
     }
 
     @Override
@@ -122,9 +92,6 @@ public class Room_Interact extends Fragment {
         found2 = (Button) view.findViewById(R.id.found2);
         found3 = (Button) view.findViewById(R.id.found3);
         objectInfo = (LinearLayout) view.findViewById(R.id.objectInfo);
-        //leftImage = (ImageButton) view.findViewById(R.id.leftButton);
-        //rightImage = (ImageButton) view.findViewById(R.id.rightButton);
-        //gallery = (ImageSwitcher) view.findViewById(R.id.imageSwitch);
 
         //tries to grab relevant info from assets
         try
@@ -142,9 +109,18 @@ public class Room_Interact extends Fragment {
             }
             stream.close();
 
-            item_pic1.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3, 0));
+            Glide.with(getContext()).load(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3, 0))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(item_pic1);
+            Glide.with(getContext()).load(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3 + 1, 0))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(item_pic2);
+            Glide.with(getContext()).load(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3 + 2, 0))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(item_pic3);
+            /*item_pic1.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3, 0));
             item_pic2.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3 + 1, 0));
-            item_pic3.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3 + 2, 0));
+            item_pic3.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3 + 2, 0));*/
         }
         catch (Exception e)
         {
@@ -152,32 +128,6 @@ public class Room_Interact extends Fragment {
             objectInfo.setVisibility(View.GONE);
             Toast.makeText(getContext(), "Sorry. This Page isn't Ready Yet", Toast.LENGTH_SHORT).show();
         }
-
-        //item_pic1.setImageDrawable(pic1_image);
-        //item_pic2.setImageDrawable(pic2_image);
-        //item_pic3.setImageDrawable(pic3_image);
-
-
-        //sets up imageswitcher
-        /*gallery.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                ImageView myView = new ImageView(getContext());
-                myView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                myView.setLayoutParams(new ImageSwitcher.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT));
-                return myView;
-            }
-        });
-
-        //checks if any images currently in array = currently in folder
-        if (array.size() > 0)
-        {
-            gallery.setImageURI(array.get(0)); //if so, show first image
-        }
-        else
-        {
-            gallery.setImageResource(R.drawable.ic_add); //if not, show the icon indicating take a picture
-        }*/
 
         if (keyPair.getInt(position + "Item1", -1) != -1)
         {
@@ -250,68 +200,6 @@ public class Room_Interact extends Fragment {
                 data.putString("Action", "Room Quiz");
                 data.putString("Room Name", selection);
                 sendData.send(data);
-            }
-        });*/
-
-        /*//if gallery image is clicked
-        gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (imageIndex == array.size()) { //clicked is camera icon
-                    if (getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) { //check if system has camera
-                        try {
-                            takePicture(); //take a picture
-                        } catch (IOException e) {
-                            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show(); //some error happend
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "No Camera Detected", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else //clicked is saved image
-                {
-                    //load Image Activity showing this image larger
-                    Intent i = new Intent(getContext(), Image.class);
-                    i.putExtra("Uri", array.get(imageIndex).toString());
-                    i.putExtra("Room", selection);
-                    i.putExtra("From", "Room");
-                    startActivityForResult(i, 2);
-                }
-            }
-        });
-
-        //scroll to earlier images
-        leftImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (array.size() != 0 && imageIndex > 0) //array bounds checker
-                {
-                    imageIndex--;
-                    gallery.setImageURI(array.get(imageIndex));
-                }
-                else
-                    Toast.makeText(getContext(), "End of Gallery", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //scroll to later images
-        rightImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (array.size() != 0 && imageIndex < array.size()) //array bounds checker
-                {
-                    imageIndex++;
-                    if (imageIndex == array.size())
-                    {
-                        gallery.setImageResource(R.drawable.ic_add); //if last, show camera icon instead of image
-                    }
-                    else
-                    {
-                        gallery.setImageURI(array.get(imageIndex));
-                    }
-                }
-                else
-                    Toast.makeText(getContext(), "End of Gallery", Toast.LENGTH_SHORT).show();
             }
         });*/
 
@@ -595,48 +483,5 @@ public class Room_Interact extends Fragment {
         //always return view*/
         return view;
     }
-
-    /*private void takePicture() throws IOException {
-
-        String imageFileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()); //create new image file name
-        photoFile = new File(imageDir.getPath(), imageFileName + ".jpg"); //create path of new image file
-
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); //call camera activity
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, getFileUri(photoFile));
-
-        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
-            startActivityForResult(intent, 1);
-        }
-    }
-
-    //action complete
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            Uri imgUri = getFileUri(photoFile); //create Uri (some identifier for images) of new image file
-            gallery.setImageURI(imgUri); //shows in gallery
-            array.add(imgUri); //saves in array
-        }
-        if (requestCode == 2 && resultCode == 2)
-        {
-            File temp = new File(imageDir, array.remove(imageIndex).getLastPathSegment());
-            if (!temp.delete())
-                Toast.makeText(getContext(), temp.getPath(), Toast.LENGTH_SHORT).show();
-            if (imageIndex == array.size())
-            {
-                gallery.setImageResource(R.drawable.ic_add); //if last, show camera icon instead of image
-            }
-            else
-            {
-                gallery.setImageURI(array.get(imageIndex));
-            }
-        }
-    }
-
-    //getUriForFile params: context, authority (just copy exactly), file object
-    private Uri getFileUri(File file)
-    {
-        return FileProvider.getUriForFile(getContext(), "edu.pitt.cs.cs1635.jah234.cathedraltourguide.fileprovider", file);
-    }*/
 }
 
