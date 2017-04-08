@@ -3,6 +3,7 @@ package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -35,6 +37,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static edu.pitt.cs.cs1635.jah234.cathedraltourguide.R.id.roomName;
 
 public class MainActivity extends AppCompatActivity implements OnSendDataListener{
 
@@ -235,7 +239,27 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_help:
+                final AlertDialog.Builder userMessage = new AlertDialog.Builder(this);
+                userMessage.setTitle("Help");
+                userMessage.setMessage("Welcome to TourCathy, an application that allows you to" +
+                        "have an interactive experience with the Nationality Rooms.\n\n" +
+                        "To visit a room's page, click on Search in the bottom bar and select the room" +
+                        "you wish to visit.\n\n" +
+                        "To view your gallery, click on the Gallery in the bottom bar.\n\n" +
+                        "To earn achievement points, take quizzes by clicking on Quiz in the\n" +
+                        "bottom bar and selecting the room you wished to be tested on. Be careful,\n" +
+                        "only your first attempt will be remembered! You can also earn points by\n" +
+                        "finding objects in the Object Hunt section of the room. This hunt can be found\n" +
+                        "under each given room's page. Have fun, and happy learning!");
+                userMessage.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
 
+                AlertDialog userDisplay = userMessage.create();
+                userDisplay.show();
                 return true;
 
             default:
