@@ -16,10 +16,19 @@
     <string name="default_hint_display">Can\'t find it? \n Tap for hints!</string>
     <string name="action_help">Help</string>
     <string name="additional_resources">Find more information at:
-                    \n\t www.
+                    \n\t <b>Website</b>
+                    \n\t\t http://www.nationalityrooms.pitt.edu/
                     \n\t www.
                     \n\t Book:
-                    \n\t ...</string>
+                    \n\t <b>Information desk</b>
+                    \n\t\t Information center phone number: 412-624-6000
+                    \n\t\t Sundays from 11:00 AM - 4:00 PM
+                    \n\t\t Mondays through Saturdays 9:00 AM - 4:00 PM
+                    \n\t <b>Hours for touring</b>
+                    \n\t\t Monday - Friday: 9:00 AM - 2:30 PM (last tour)
+                    \n\t\t Saturday: 9:00 AM - 2:30 PM (last tour)
+                    \n\t\t Sunday/ Holidays:  11:00 AM - 2:30 PM (last tour)
+    </string>
     <string name="promptCodeInput">Input Item Code:</string>
     <string name="wrongCode">Error Incorrect Code Entered!</string>
     <string name="rightCode">Item Found!</string>
