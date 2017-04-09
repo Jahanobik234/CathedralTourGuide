@@ -126,7 +126,7 @@
     </array>
     <array name="room_text">
         <item>@raw/african_heritage_text</item>
-        <item>@raw/austrian_text</item> <!--Placeholder for armenian room-->
+        <item></item> <!--Placeholder for armenian room-->
         <item>@raw/austrian_text</item>
         <item></item>
         <item></item>
@@ -160,8 +160,8 @@
     <array name="room_audio">
         <item>@raw/african_heritage_audio_architecture</item>
         <item>@raw/african_heritage_audio_display_case</item>
-        <item>@raw/austrian_audio_architecture</item> <!--Placeholder for armenian room-->
-        <item>@raw/austrian_audio_display_case</item> <!--Placeholder for armenian room-->
+        <item></item> <!--Placeholder for armenian room-->
+        <item></item> <!--Placeholder for armenian room-->
         <item>@raw/austrian_audio_architecture</item>
         <item>@raw/austrian_audio_display_case</item>
         <item></item>
@@ -220,7 +220,7 @@
     </array>
     <array name="room_hint">
         <item>@raw/african_heritage_hint</item>
-        <item>@raw/austrian_hint</item> <!--Placeholder for armenian room-->
+        <item></item> <!--Placeholder for armenian room-->
         <item>@raw/austrian_hint</item>
         <item></item>
         <item></item>
@@ -255,9 +255,9 @@
         <item>@drawable/africanheritage_obj1</item>
         <item>@drawable/africanheritage_obj2</item>
         <item>@drawable/africanheritage_obj3</item>
-        <item>@drawable/austrian_obj1</item> <!--Placeholder for armenian room-->
-        <item>@drawable/austrian_obj2</item> <!--Placeholder for armenian room-->
-        <item>@drawable/austrian_obj3</item> <!--Placeholder for armenian room-->
+        <item></item> <!--Placeholder for armenian room-->
+        <item></item> <!--Placeholder for armenian room-->
+        <item></item> <!--Placeholder for armenian room-->
         <item>@drawable/austrian_obj1</item>
         <item>@drawable/austrian_obj2</item>
         <item>@drawable/austrian_obj3</item>
