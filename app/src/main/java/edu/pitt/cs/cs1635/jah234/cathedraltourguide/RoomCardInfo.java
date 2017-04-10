@@ -1,9 +1,5 @@
 package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
-/**
- * Created by A on 4/6/2017.
- */
-
 public class RoomCardInfo {
 
     private String name;
@@ -28,7 +24,7 @@ public class RoomCardInfo {
         return flagID;
     }
 
-    public boolean contains(CharSequence text) {
-        return name.contains(text) || number.contains(text);
+    public boolean contains(String text) {
+        return name.toLowerCase().contains(text.toLowerCase()) || number.indexOf(text) >= 0;
     }
 }
