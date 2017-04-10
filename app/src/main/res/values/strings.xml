@@ -27,7 +27,7 @@
                     \n\t <b>Hours for touring</b>
                     \n\t\t Monday - Friday: 9:00 AM - 2:30 PM (last tour)
                     \n\t\t Saturday: 9:00 AM - 2:30 PM (last tour)
-                    \n\t\t Sunday/ Holidays:  11:00 AM - 2:30 PM (last tour)
+                    \n\t\t Sunday/ Holidays: 11:00 AM - 2:30 PM (last tour)
     </string>
     <string name="promptCodeInput">Input Item Code:</string>
     <string name="wrongCode">Error Incorrect Code Entered!</string>
