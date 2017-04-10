@@ -138,9 +138,9 @@
         <item></item> <!--Placeholder for armenian room-->
         <item>@raw/austrian_text</item>
         <item>@raw/chinese_text</item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item></item> <!--Placeholder for Czechoslovak room-->
+        <item></item> <!--Placeholder for Early American room-->
+        <item>@raw/english_text</item>
         <item></item>
         <item></item>
         <item></item>
@@ -175,12 +175,12 @@
         <item>@raw/austrian_audio_history</item>
         <item>@raw/chinese_audio_intro</item>
         <item>@raw/chinese_audio_history</item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item></item> <!--Placeholder for Czechoslovak room-->
+        <item></item> <!--Placeholder for Czechoslovak room-->
+        <item></item> <!--Placeholder for Early American room-->
+        <item></item> <!--Placeholder for Early American room-->
+        <item>@raw/english_audio_intro</item>
+        <item>@raw/english_audio_history</item>
         <item></item>
         <item></item>
         <item></item>
@@ -232,9 +232,9 @@
         <item></item> <!--Placeholder for armenian room-->
         <item>@raw/austrian_hint</item>
         <item>@raw/chinese_hint</item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item></item> <!--Placeholder for Czechoslovak room-->
+        <item></item> <!--Placeholder for Early American room-->
+        <item>@raw/english_hint</item>
         <item></item>
         <item></item>
         <item></item>
@@ -273,15 +273,15 @@
         <item>@drawable/chinese_obj1</item>
         <item>@drawable/chinese_obj2</item>
         <item>@drawable/chinese_obj3</item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item></item> <!--Placeholder for Czechoslovak room-->
+        <item></item> <!--Placeholder for Czechoslovak room-->
+        <item></item> <!--Placeholder for Czechoslovak room-->
+        <item></item> <!--Placeholder for Early American room-->
+        <item></item> <!--Placeholder for Early American room-->
+        <item></item> <!--Placeholder for Early American room-->
+        <item>@drawable/english_obj1</item>
+        <item>@drawable/english_obj2</item>
+        <item>@drawable/english_obj3</item>
         <item></item>
         <item></item>
         <item></item>
