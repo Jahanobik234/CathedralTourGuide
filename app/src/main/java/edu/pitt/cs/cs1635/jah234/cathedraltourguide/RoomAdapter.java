@@ -73,7 +73,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
     public void onBindViewHolder(RoomViewHolder viewHolder, int i)
     {
-        viewHolder.roomName.setText(rooms.get(i).getName() + " Room\nRoom " + rooms.get(i).getNumber());
+        viewHolder.roomName.setText("\t" + rooms.get(i).getName() + " Room\n\tRoom " + rooms.get(i).getNumber());
         if (rooms.get(i).getFlagID() == 0)
             Glide.with(context).load(R.drawable.africanheritage_flag)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
