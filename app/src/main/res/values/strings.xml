@@ -163,7 +163,7 @@
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Turkish room-->
         <item></item> <!--Placeholder for Ukrainian room-->
-        <item></item> <!--Placeholder for Welsh room-->
+        <item>@raw/welsh_text</item>
         <item></item> <!--Placeholder for Yugoslav room-->
     </array>
     <array name="room_audio">
@@ -189,8 +189,8 @@
         <item></item> <!--Placeholder for Greek room-->
         <item></item> <!--Placeholder for Hungarian room-->
         <item></item> <!--Placeholder for Hungarian room-->
-        <item></item> <!--Placeholder for Indian room-->
-        <item></item> <!--Placeholder for Indian room-->
+        <item>@raw/indian_audio_intro</item>
+        <item>@raw/indian_audio_history</item>
         <item>@raw/irish_audio_intro</item>
         <item>@raw/irish_audio_history</item>
         <item></item> <!--Placeholder for Israel Heritage room-->
@@ -223,8 +223,8 @@
         <item></item> <!--Placeholder for Turkish room-->
         <item></item> <!--Placeholder for Ukrainian room-->
         <item></item> <!--Placeholder for Ukrainian room-->
-        <item></item> <!--Placeholder for Welsh room-->
-        <item></item> <!--Placeholder for Welsh room-->
+        <item>@raw/welsh_audio_intro</item>
+        <item>@raw/welsh_audio_history</item>
         <item></item> <!--Placeholder for Yugoslav room-->
         <item></item> <!--Placeholder for Yugoslav room-->
     </array>
@@ -240,7 +240,7 @@
         <item></item> <!--Placeholder for German room-->
         <item></item> <!--Placeholder for Greek room-->
         <item></item> <!--Placeholder for Hungarian room-->
-        <item></item> <!--Placeholder for Indian room-->
+        <item>@raw/indian_hint</item> <!--Placeholder for Indian room-->
         <item>@raw/irish_hint</item>
         <item></item> <!--Placeholder for Israel Heritage room-->
         <item></item> <!--Placeholder for Italian room-->
@@ -257,7 +257,7 @@
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Turkish room-->
         <item></item> <!--Placeholder for Ukrainian room-->
-        <item></item> <!--Placeholder for Welsh room-->
+        <item>@raw/welsh_hint</item> <!--Placeholder for Welsh room-->
         <item></item> <!--Placeholder for Yugoslav room-->
     </array>
     <array name="room_object">
@@ -294,9 +294,9 @@
         <item></item> <!--Placeholder for Hungarian room-->
         <item></item> <!--Placeholder for Hungarian room-->
         <item></item> <!--Placeholder for Hungarian room-->
-        <item></item> <!--Placeholder for Indian room-->
-        <item></item> <!--Placeholder for Indian room-->
-        <item></item> <!--Placeholder for Indian room-->
+        <item>@drawable/indian_obj1</item> <!--Placeholder for Indian room-->
+        <item>@drawable/indian_obj2</item> <!--Placeholder for Indian room-->
+        <item>@drawable/indian_obj3</item> <!--Placeholder for Indian room-->
         <item>@drawable/irish_obj1</item>
         <item>@drawable/irish_obj2</item>
         <item>@drawable/irish_obj3</item>
@@ -345,9 +345,9 @@
         <item></item> <!--Placeholder for Ukrainian room-->
         <item></item> <!--Placeholder for Ukrainian room-->
         <item></item> <!--Placeholder for Ukrainian room-->
-        <item></item> <!--Placeholder for Welsh room-->
-        <item></item> <!--Placeholder for Welsh room-->
-        <item></item> <!--Placeholder for Welsh room-->
+        <item>@drawable/welsh_obj1</item> <!--Placeholder for Welsh room-->
+        <item>@drawable/welsh_obj2</item> <!--Placeholder for Welsh room-->
+        <item>@drawable/welsh_obj3</item> <!--Placeholder for Welsh room-->
         <item></item> <!--Placeholder for Yugoslav room-->
         <item></item> <!--Placeholder for Yugoslav room-->
         <item></item> <!--Placeholder for Yugoslav room-->
