@@ -75,6 +75,16 @@ public class Room extends Fragment{
         //number = getArguments().getString("Number");
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity activity = (MainActivity)getActivity();
+        if (activity != null) {
+            activity.showUp();
+        }
+
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.viewpager_room, container, false); //creates stuff we can see
@@ -129,6 +139,16 @@ public class Room extends Fragment{
             return selection + " Room";
         }
 
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MainActivity activity = (MainActivity)getActivity();
+        if (activity != null) {
+            activity.hideUp();
+        }
 
     }
 }

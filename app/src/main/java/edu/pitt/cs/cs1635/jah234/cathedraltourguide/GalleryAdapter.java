@@ -68,7 +68,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     {
         //viewHolder.image.setImageBitmap(images.get(i).getImage());
         Glide.with(context).load(images.get(i))
-                .thumbnail(0.5f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.image);
         viewHolder.bind(i, listener);

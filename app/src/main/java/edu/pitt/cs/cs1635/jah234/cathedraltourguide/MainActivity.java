@@ -3,13 +3,11 @@ package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 import android.Manifest;
 import android.widget.ExpandableListView;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -18,27 +16,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+import android.view.LayoutInflater;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static edu.pitt.cs.cs1635.jah234.cathedraltourguide.R.id.roomName;
 
@@ -46,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
 
     FrameLayout main; //where fragments are placed in
     BottomNavigationView menu; //the menu on the bottom
-    ArrayList<String> nameList, numList; //arrays to help pair room name with its number
 
     List<String> listGroupingNames;
     HashMap<String, List<String>> listSubgroupNames;
@@ -57,10 +44,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar = getSupportActionBar();
-
-        //initialize arrays
-        nameList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_names)));
-        numList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_numbers)));
 
         //initialize things we can see
         main = (FrameLayout) findViewById(R.id.mainContent);
@@ -244,7 +227,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_help:
-
                 LayoutInflater li = LayoutInflater.from(this);
                 final View helpView = li.inflate(R.layout.help_layout, null);
 
@@ -253,14 +235,12 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
 
                 // Load up help menu tips
                 prepareListData();
-
                 alertDialogBuilder.setView(helpView);
-
                 ExpandableListView myList = (ExpandableListView) helpView.findViewById(R.id.list_help_tips);
                 ExpandableListAdapter myAdapter = new ExpandableListAdapter(helpView.getContext(), listGroupingNames, listSubgroupNames);
                 myList.setAdapter(myAdapter);
-
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -272,9 +252,10 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
 
                 // Show input alert dialog
                 alertDialog.show();
-
                 return true;
-
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -287,6 +268,14 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
+    }
+
+    public void showUp() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void hideUp() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     private void prepareListData() {
@@ -309,13 +298,13 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
 
         List<String> achievements = new ArrayList<String>();
         achievements.add("\tOne way to earn achievement points is by taking quizzes. Be careful, " +
-                         "only your first attempt will be remembered! You can also earn points by " +
-                         "finding objects in the Object Hunt section of the room. This hunt can be found " +
-                         "under each given room's page");
+                "only your first attempt will be remembered! You can also earn points by " +
+                "finding objects in the Object Hunt section of the room. This hunt can be found " +
+                "under each given room's page");
 
         List<String> search = new ArrayList<String>();
         search.add("\tTo visit a room's page, click on Search in the bottom bar and select the room" +
-                   "you wish to visit.");
+                "you wish to visit.");
 
         List<String> gallery = new ArrayList<String>();
         gallery.add("\tTo view your gallery, click on the Gallery in the bottom bar.");
