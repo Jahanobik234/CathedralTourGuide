@@ -35,7 +35,14 @@
     <string name="item_list_intro">You can find the following three objects in the room. Each one you find will add 10 points that go towards your achievements. If you need help finding an item, click on a hint next to it. There will be three hints to help you find it, but be careful. Each time you click for a hint, you lose 3 points. So if you need all three hints, you\'ll only get 1 point for finding it. If you think you found it, click on the item\'s Found button and enter the code next to the item.</string>
     <string name="quizIntro">Welcome to Quizzes! Test your knowledge by answering 3 questions about a Nationality Room.</string>
     <string name="submitAns">Submit Answers</string>
-
+    <string name="help_welcome_message">Welcome to TourCathy, an application that allows you to have an interactive experience with the Nationality Rooms. Have fun, and happy learning!</string>
+    <string name="howtouse">To visit a room\'s page, click on Search in the bottom bar and select the room you wish to visit.
+                    To view your gallery, click on the Gallery in the bottom bar.
+                    To earn achievement points, take quizzes by clicking on Quiz in the
+                    bottom bar and selecting the room you wished to be tested on. Be careful,
+                    only your first attempt will be remembered! You can also earn points by
+                    finding objects in the Object Hunt section of the room. This hunt can be found\n
+                    under each given room\'s page. Have fun, and happy learning!</string>
     <!--TODO: Everything Below this is for storing resource IDs, fill as able-->
 
     <string-array name="room_names">
