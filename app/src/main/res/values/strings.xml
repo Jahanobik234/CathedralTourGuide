@@ -27,8 +27,7 @@
                     \n\t <b>Hours for touring</b>
                     \n\t\t Monday - Friday: 9:00 AM - 2:30 PM (last tour)
                     \n\t\t Saturday: 9:00 AM - 2:30 PM (last tour)
-                    \n\t\t Sunday/ Holidays: 11:00 AM - 2:30 PM (last tour)
-    </string>
+                    \n\t\t Sunday/ Holidays: 11:00 AM - 2:30 PM (last tour)</string>
     <string name="promptCodeInput">Input Item Code:</string>
     <string name="wrongCode">Error Incorrect Code Entered!</string>
     <string name="rightCode">Item Found!</string>
@@ -36,13 +35,7 @@
     <string name="quizIntro">Welcome to Quizzes! Test your knowledge by answering 3 questions about a Nationality Room.</string>
     <string name="submitAns">Submit Answers</string>
     <string name="help_welcome_message">Welcome to TourCathy, an application that allows you to have an interactive experience with the Nationality Rooms. Have fun, and happy learning!</string>
-    <string name="howtouse">To visit a room\'s page, click on Search in the bottom bar and select the room you wish to visit.
-                    To view your gallery, click on the Gallery in the bottom bar.
-                    To earn achievement points, take quizzes by clicking on Quiz in the
-                    bottom bar and selecting the room you wished to be tested on. Be careful,
-                    only your first attempt will be remembered! You can also earn points by
-                    finding objects in the Object Hunt section of the room. This hunt can be found\n
-                    under each given room\'s page. Have fun, and happy learning!</string>
+
     <!--TODO: Everything Below this is for storing resource IDs, fill as able-->
 
     <string-array name="room_names">
@@ -159,7 +152,7 @@
         <item></item> <!--Placeholder for Italian room-->
         <item></item> <!--Placeholder for Japanese room-->
         <item></item> <!--Placeholder for Korean Heritage room-->
-        <item></item> <!--Placeholder for Lithuanian room-->
+        <item>@raw/lithuanian_text</item>
         <item></item> <!--Placeholder for Norwegian room-->
         <item></item> <!--Placeholder for Polish room-->
         <item></item> <!--Placeholder for Romanian room-->
@@ -208,8 +201,8 @@
         <item></item> <!--Placeholder for Japanese room-->
         <item></item> <!--Placeholder for Korean Heritage room-->
         <item></item> <!--Placeholder for Korean Heritage room-->
-        <item></item> <!--Placeholder for Lithuanian room-->
-        <item></item> <!--Placeholder for Lithuanian room-->
+        <item>@raw/lithuanian_audio_intro</item>
+        <item>@raw/lithuanian_audio_history</item>
         <item></item> <!--Placeholder for Norwegian room-->
         <item></item> <!--Placeholder for Norwegian room-->
         <item></item> <!--Placeholder for Polish room-->
@@ -253,7 +246,7 @@
         <item></item> <!--Placeholder for Italian room-->
         <item></item> <!--Placeholder for Japanese room-->
         <item></item> <!--Placeholder for Korean Heritage room-->
-        <item></item> <!--Placeholder for Lithuanian room-->
+        <item>@raw/lithuanian_hint</item> <!--Placeholder for Lithuanian room-->
         <item></item> <!--Placeholder for Norwegian room-->
         <item></item> <!--Placeholder for Polish room-->
         <item></item> <!--Placeholder for Romanian room-->
@@ -319,9 +312,9 @@
         <item></item> <!--Placeholder for Korean Heritage room-->
         <item></item> <!--Placeholder for Korean Heritage room-->
         <item></item> <!--Placeholder for Korean Heritage room-->
-        <item></item> <!--Placeholder for Lithuanian room-->
-        <item></item> <!--Placeholder for Lithuanian room-->
-        <item></item> <!--Placeholder for Lithuanian room-->
+        <item>@drawable/lithuanian_obj1</item>
+        <item>@drawable/lithuanian_obj2</item>
+        <item>@drawable/lithuanian_obj3</item>
         <item></item> <!--Placeholder for Norwegian room-->
         <item></item> <!--Placeholder for Norwegian room-->
         <item></item> <!--Placeholder for Norwegian room-->
