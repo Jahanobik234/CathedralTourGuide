@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import static android.app.Activity.RESULT_OK;
+import static android.widget.GridLayout.VERTICAL;
 
 public class Gallery extends Fragment {
 
@@ -81,7 +82,8 @@ public class Gallery extends Fragment {
             File[] files = imageDir.listFiles(); //grabs all images currently in folder, puts in array
             for (int i = 0; i < files.length; i++)
             {
-                images.add(getFileUri(files[i]));
+                if (!files[i].isDirectory())
+                    images.add(getFileUri(files[i]));
             }
         }
         else
@@ -95,7 +97,7 @@ public class Gallery extends Fragment {
 
         cameraButton = (ImageButton) view.findViewById(R.id.cameraButton);
         recyclerView = (RecyclerView) view.findViewById(R.id.galleryContent);
-        layoutManager = new GridLayoutManager(getContext(), 3);
+        layoutManager = new GridLayoutManager(getContext(), 3, VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new GalleryAdapter(getContext(), images, new GalleryAdapter.OnItemClickListener() {

@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,6 +109,10 @@ public class Room_Info extends Fragment {
             //}
             if ((line = input.readLine()) != null)
             {
+                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    intro.setText(Html.fromHtml(line, 0));
+                else
+                    intro.setText(Html.fromHtml(line));*/
                 intro.setText(line);
             }
             if ((line = input.readLine()) != null)

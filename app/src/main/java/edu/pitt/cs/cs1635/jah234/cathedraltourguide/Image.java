@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,8 +50,6 @@ public class Image extends AppCompatActivity{
 
         //pulls variables from intent extras
         Intent i = getIntent();
-        //root = i.getStringExtra("From");
-        //room = i.getStringExtra("Room");
         file = Uri.parse(i.getStringExtra("Uri")); //identifier for a file
 
         //keyPair = comment data, kept separate for reasons I'll explain in detail if you want to know
@@ -62,30 +61,19 @@ public class Image extends AppCompatActivity{
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image);
         setTitle(parseDate(file.getLastPathSegment())); //parseDate method below
-        //link.setText("Taken in " + room + " Room (Click to Go To)"); //shows link that takes you to room
 
         //comments are saved in storage as (filename)comment
-        /*if (!keyPair.getString(file.getLastPathSegment() + "comment", "").equals("")){
+        if (!keyPair.getString(file.getLastPathSegment() + "comment", "").equals("")){
             comment.setText(keyPair.getString(file.getLastPathSegment() + "comment", ""));
-        }*/
-
-        //still working on it
-        /*link.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent result = new Intent("RESULT_ACTION");
-                setResult(3, result);
-                finish();
-            }
-        });*/
+        }
 
         //puts what's currently in comment box into storage
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*SharedPreferences.Editor editor = keyPair.edit();
+                SharedPreferences.Editor editor = keyPair.edit();
                 editor.putString(file.getLastPathSegment() + "comment", comment.getText().toString());
-                editor.commit();*/
+                editor.commit();
                 Toast.makeText(Image.this, "Saved", Toast.LENGTH_SHORT).show();
             }
         });
@@ -133,7 +121,20 @@ public class Image extends AppCompatActivity{
         else
             ap = "PM";
 
-        return month + "/" + day + "/" + year + " at " + Integer.toString(hour % 12) + ":" + minute + ":" + second + ap;
+        return month + "/" + day + "/" + year + " at " + Integer.toString((hour + 11) % 12 + 1) + ":" + minute + ":" + second + ap;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 }
