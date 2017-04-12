@@ -64,6 +64,19 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
             getPermissionToWrite(); //get permision to write to external storage
         }
 
+        AlertDialog.Builder userMessage = new AlertDialog.Builder(this);
+        userMessage.setTitle("Welcome to TourCathy!");
+        userMessage.setMessage(R.string.achievements_header);
+        userMessage.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog userDisplay = userMessage.create();
+        userDisplay.show();
+
         //handles navigation menu operations
         menu.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {

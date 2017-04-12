@@ -7,9 +7,9 @@
     <string name="achievements_title">Achievements</string>
     <string name="gallery_title">Gallery</string>
     <string name="quiz_title">Quiz</string>
-    <string name="achievements_header">Welcome to the Cathedral of Learning National Room Tour App (or TourCathy for short). Browse a room, take pictures, test your knowledge, and earn points along the way! What are the points for? For fun, of course! And bragging rights, but mostly fun. Or you can just use this app as a reference as you take a tour of the rooms at your own leisure. Have fun exploring and learning different cultures!</string>
+    <string name="achievements_header">Welcome to TourCathy, an application that allows you to have an interactive and informative experience at the Cathedral of Learning Nationality Rooms. Browse a room, take pictures, test your knowledge, and earn points along the way! If you ever need help, click the "Help" icon at the top-right of the screen. Have fun exploring and learning different cultures!</string>
     <string name="your_points">Points Earned: </string>
-    <string name="your_achievements">Here\'s what you\'ve done so far:</string>
+    <string name="your_achievements">Your Recent Achievements:</string>
     <string name="gallery_header">Your Gallery Of Images From Today\'s Visit</string>
     <string name="item_list_header">Notable Items in the Room</string>
     <string name="found_label">Found</string>
@@ -31,7 +31,7 @@
     <string name="promptCodeInput">Input Item Code:</string>
     <string name="wrongCode">Error Incorrect Code Entered!</string>
     <string name="rightCode">Item Found!</string>
-    <string name="item_list_intro">You can find the following three objects in the room. Each one you find will add 10 points that go towards your achievements. If you need help finding an item, click on a hint next to it. There will be three hints to help you find it, but be careful. Each time you click for a hint, you lose 3 points. So if you need all three hints, you\'ll only get 1 point for finding it. If you think you found it, click on the item\'s Found button and enter the code next to the item.</string>
+    <string name="item_list_intro">Search for the three items in this room! Hints are available if you are not able to find the item. You will be able to earn achievement points after validating your find with the specific code for each item.</string>
     <string name="quizIntro">Welcome to Quizzes! Test your knowledge by answering 3 questions about a Nationality Room.</string>
     <string name="submitAns">Submit Answers</string>
     <string name="help_welcome_message">Welcome to TourCathy, an application that allows you to have an interactive experience with the Nationality Rooms. Have fun, and happy learning!</string>

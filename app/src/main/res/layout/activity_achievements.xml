@@ -11,17 +11,6 @@
         android:orientation="vertical"
         android:padding="3dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/achievements_header"
-            android:textSize="16sp"
-            android:padding="3dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#000000" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +22,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/your_points"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/points"
@@ -61,9 +51,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="3dp"
                     android:text="@string/your_achievements"
                     android:textSize="20sp"
-                    android:padding="3dp"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/userAchievements"
