@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,14 +28,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 public class Image extends AppCompatActivity{
 
     //Relevant objects we can see
-    ImageView image;
+    ImageView image, flag;
+    TextView label;
     EditText comment;
-    Button save, add, delete;
+    Button save, delete;
+    ImageButton add;
 
-    LinearLayout card;
-
-    //variables pulled from intent extras
-    String root, room;
     Uri file;
 
     //holds saved data
@@ -47,11 +46,12 @@ public class Image extends AppCompatActivity{
 
         //initialize objects in view
         image = (ImageView) findViewById(R.id.image);
+        flag = (ImageView) findViewById(R.id.flagImage);
+        label = (TextView) findViewById(R.id.name);
         comment = (EditText) findViewById(R.id.comment);
         save = (Button) findViewById(R.id.save);
-        add = (Button) findViewById(R.id.location);
+        add = (ImageButton) findViewById(R.id.location);
         delete = (Button) findViewById(R.id.delete);
-        card = (LinearLayout) findViewById(R.id.card);
 
         //pulls variables from intent extras
         Intent i = getIntent();
@@ -72,6 +72,19 @@ public class Image extends AppCompatActivity{
             comment.setText(keyPair.getString(file.getLastPathSegment() + "comment", ""));
         }
 
+        String name = keyPair.getString(file.getLastPathSegment() + "name", "(Cancel)");
+        int flagID = keyPair.getInt(file.getLastPathSegment() + "flag", 0);
+
+        if (name.equals("(Cancel)"))
+            label.setText("\t(none");
+        else
+            label.setText("\t" + name + " Room");
+
+        if (flagID != 0)
+            Glide.with(this).load(flagID)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(flag);
+
         //puts what's currently in comment box into storage
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,12 +96,13 @@ public class Image extends AppCompatActivity{
             }
         });
 
-        /*add.setOnClickListener(new View.OnClickListener() {
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getLayoutInflater().inflate(R.layout.room_card, card);
+                Intent i = new Intent(Image.this, LocationSelector.class);
+                startActivityForResult(i, 3);
             }
-        });*/
+        });
 
         //still working on it
         delete.setOnClickListener(new View.OnClickListener() {
@@ -149,4 +163,27 @@ public class Image extends AppCompatActivity{
         }
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 3 && resultCode == RESULT_OK)
+        {
+            String name = data.getExtras().getString("Name");
+            int flagID = data.getExtras().getInt("Flag", 0);
+            int position = data.getExtras().getInt("Position", 0);
+
+            if (name == null || name.equals("(Cancel)"))
+                label.setText("\t(none)");
+            else
+                label.setText("\t" + name + " Room");
+
+            Glide.with(this).load(flagID)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(flag);
+
+            SharedPreferences.Editor editor = keyPair.edit();
+            editor.putInt(file.getLastPathSegment() + "flag", flagID);
+            editor.putInt(file.getLastPathSegment() + "location", position);
+            editor.putString(file.getLastPathSegment() + "name", name);
+            editor.commit();
+        }
+    }
 }

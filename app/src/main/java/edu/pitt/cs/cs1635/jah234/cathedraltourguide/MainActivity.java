@@ -1,6 +1,8 @@
 package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
 import android.Manifest;
+import android.content.Context;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ExpandableListView;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;

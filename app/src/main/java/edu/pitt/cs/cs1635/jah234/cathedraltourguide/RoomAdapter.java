@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -73,16 +74,17 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
     public void onBindViewHolder(RoomViewHolder viewHolder, int i)
     {
-        viewHolder.roomName.setText("\t" + rooms.get(i).getName() + " Room\n\tRoom " + rooms.get(i).getNumber());
-        if (rooms.get(i).getFlagID() == 0)
-            Glide.with(context).load(R.drawable.africanheritage_flag)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(viewHolder.flagImage);
+        if (rooms.get(i).getNumber().equals(""))
+            viewHolder.roomName.setText("\t" + rooms.get(i).getName());
         else
+            viewHolder.roomName.setText("\t" + rooms.get(i).getName() + " Room\n\tRoom " + rooms.get(i).getNumber());
+
+        if (rooms.get(i).getFlagID() != 0)
             Glide.with(context).load(rooms.get(i).getFlagID())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(viewHolder.flagImage);
-        viewHolder.bind(i, listener);
+
+        viewHolder.bind(rooms.get(i).getPosition(), listener);
 
     }
 

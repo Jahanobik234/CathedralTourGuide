@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -63,7 +64,7 @@ public class NationalitySelector extends Fragment
 
         for (int i = 0; i < names.length; i++)
         {
-            rooms.add(new RoomCardInfo(names[i], nums[i], idArray.getResourceId(i, 0)));
+            rooms.add(new RoomCardInfo(names[i], nums[i], idArray.getResourceId(i, 0), i));
         }
         fRooms = new ArrayList<>(rooms);
         //roomNames = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_names)));

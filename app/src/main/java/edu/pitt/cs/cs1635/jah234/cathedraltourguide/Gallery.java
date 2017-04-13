@@ -152,10 +152,10 @@ public class Gallery extends Fragment {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             current = images.size();
             images.add(getFileUri(photoFile)); //saves in array
-            Intent i = new Intent(getContext(), Image.class);
-            i.putExtra("Uri", getFileUri(photoFile));
-            startActivityForResult(i, 2);
             adapter.notifyDataSetChanged();
+            Intent i = new Intent(getContext(), Image.class);
+            i.putExtra("Uri", getFileUri(photoFile).toString());
+            startActivityForResult(i, 2);
         }
         if (requestCode == 2 && resultCode == RESULT_OK)
         {
