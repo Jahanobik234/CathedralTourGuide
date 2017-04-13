@@ -73,11 +73,11 @@ public class Gallery extends Fragment {
             //checks if make succeeded
             if (!imageDir.mkdirs())
                 //should never go here
-                Toast.makeText(getContext(), "Error: Failed to Make Save Directory in " + imageDir.getPath(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Error: Write Permission Required to make Save Directory", Toast.LENGTH_LONG).show();
         }
 
         //checks if can write to folder, which it should if we made the folder, but just in case
-        if (imageDir.canWrite())
+        if (imageDir.canRead())
         {
             File[] files = imageDir.listFiles(); //grabs all images currently in folder, puts in array
             for (int i = 0; i < files.length; i++)
@@ -87,7 +87,7 @@ public class Gallery extends Fragment {
             }
         }
         else
-            Toast.makeText(getContext(), "Error: Cannot Write to " + imageDir.getPath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Error: Read Permission Required to Load Images", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -115,14 +115,17 @@ public class Gallery extends Fragment {
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) { //check if system has camera
+                if (!getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA))  //check if system has camera
+                    Toast.makeText(getContext(), "No Camera Detected", Toast.LENGTH_SHORT).show();
+                else if (!imageDir.canWrite())
+                    Toast.makeText(getContext(), "Write Permission Required to Take Pictures", Toast.LENGTH_SHORT).show();
+                else
+                {
                     try {
                         takePicture(); //take a picture
                     } catch (IOException e) {
-                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show(); //some error happend
+                        Toast.makeText(getContext(), "File Location Error", Toast.LENGTH_SHORT).show(); //some error happend
                     }
-                } else {
-                    Toast.makeText(getContext(), "No Camera Detected", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -147,8 +150,11 @@ public class Gallery extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            //Bitmap image = getBitmapFromFile(options, photoFile.getPath(), 100, 100);
+            current = images.size();
             images.add(getFileUri(photoFile)); //saves in array
+            Intent i = new Intent(getContext(), Image.class);
+            i.putExtra("Uri", getFileUri(photoFile));
+            startActivityForResult(i, 2);
             adapter.notifyDataSetChanged();
         }
         if (requestCode == 2 && resultCode == RESULT_OK)

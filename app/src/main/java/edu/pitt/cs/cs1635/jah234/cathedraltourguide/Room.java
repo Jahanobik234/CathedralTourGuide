@@ -92,6 +92,7 @@ public class Room extends Fragment{
         viewPager = (ViewPager) view.findViewById(R.id.roomContent);
         adapter = new RoomPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(1);
 
         return view;
     }
@@ -107,11 +108,14 @@ public class Room extends Fragment{
             Fragment newFragment;
 
             switch (i) {
-                case 0:
+                case 1:
                     newFragment = new Room_Info();
                     break;
-                case 1:
+                case 0:
                     newFragment = new Room_Interact();
+                    break;
+                case 2:
+                    newFragment = new Quiz();
                     break;
                 default:
                     newFragment = new Room_Info();
@@ -124,16 +128,18 @@ public class Room extends Fragment{
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0:
-                    return "Information";
                 case 1:
+                    return "Information";
+                case 0:
                     return "Notable Items";
+                case 2:
+                    return "Quiz";
 
             }
             return selection + " Room";

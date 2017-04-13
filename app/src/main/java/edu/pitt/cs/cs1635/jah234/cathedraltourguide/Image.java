@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,9 @@ public class Image extends AppCompatActivity{
     //Relevant objects we can see
     ImageView image;
     EditText comment;
-    Button save, delete;
+    Button save, add, delete;
+
+    LinearLayout card;
 
     //variables pulled from intent extras
     String root, room;
@@ -46,7 +49,9 @@ public class Image extends AppCompatActivity{
         image = (ImageView) findViewById(R.id.image);
         comment = (EditText) findViewById(R.id.comment);
         save = (Button) findViewById(R.id.save);
+        add = (Button) findViewById(R.id.location);
         delete = (Button) findViewById(R.id.delete);
+        card = (LinearLayout) findViewById(R.id.card);
 
         //pulls variables from intent extras
         Intent i = getIntent();
@@ -54,7 +59,7 @@ public class Image extends AppCompatActivity{
 
         //keyPair = comment data, kept separate for reasons I'll explain in detail if you want to know
         //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
-        keyPair = getSharedPreferences("comment_data", MODE_PRIVATE);
+        keyPair = getSharedPreferences("saved_data", MODE_PRIVATE);
 
 
         Glide.with(this).load(file)
@@ -77,6 +82,13 @@ public class Image extends AppCompatActivity{
                 Toast.makeText(Image.this, "Saved", Toast.LENGTH_SHORT).show();
             }
         });
+
+        /*add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getLayoutInflater().inflate(R.layout.room_card, card);
+            }
+        });*/
 
         //still working on it
         delete.setOnClickListener(new View.OnClickListener() {

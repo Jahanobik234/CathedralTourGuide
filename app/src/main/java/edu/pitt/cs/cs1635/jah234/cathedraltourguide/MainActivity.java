@@ -43,15 +43,13 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActionBar actionBar = getSupportActionBar();
-
         //initialize things we can see
         main = (FrameLayout) findViewById(R.id.mainContent);
         menu = (BottomNavigationView) findViewById(R.id.tabMenu);
 
         //normally, bottomnavigationview hides the text on menu items if they're not focused, I think it looks ugly
         //admittedly, I don't fully understand this code
-        BottomNavigationViewHelper.disableShiftMode(menu);
+        //BottomNavigationViewHelper.disableShiftMode(menu);
 
         //initial appearance of the app when first started
         if (savedInstanceState == null) {
@@ -104,11 +102,11 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                                 colorId = R.color.Green;
                                 title = "Gallery";
                                 break;
-                            case R.id.quiz:
+                            /*case R.id.quiz:
                                 newFragment = new Quiz();
                                 colorId = R.color.Orange;
                                 title = "Quiz";
-                                break;
+                                break;*/
                             default: //shouldn't ever reach default but compiler required I put stuff here
                                 newFragment = new Search();
                                 colorId = R.color.Purple;
@@ -167,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                 handler.commit();
                 break;
             //called from Room fragment, loads Quiz fragment and goes straight to specific quiz
-            case "Room Quiz":
+            /*case "Room Quiz":
                 newFragment = new Quiz();
                 args = new Bundle();
                 args.putString("Room Name", data.getString("Room Name"));
@@ -181,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                 menu.setItemBackgroundResource(R.color.Orange);
                 menu.getMenu().findItem(R.id.quiz).setChecked(true);
                 setTitle("Quiz");
-                break;
+                break;*/
             default:
                 break;
         }
