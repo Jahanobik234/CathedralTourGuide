@@ -50,6 +50,7 @@ public class Quiz extends Fragment {
     Question[] questions; //array of question objects to randomly choose from
     int[] indices; //array of indices holding which number questions were randomly chosen
     String roomName; //name of room currently focused on
+    int roomNum;
 
     //Array to Spinner things
     ArrayAdapter<String> spinnerArrayAdapt;
@@ -69,7 +70,7 @@ public class Quiz extends Fragment {
 
         //initializes arraylist of rooms, current room to null
         roomsAL = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_names)));
-        roomName = null;
+        roomNum = -1;
 
         //keyPair = save data
         //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
@@ -110,7 +111,7 @@ public class Quiz extends Fragment {
         //quiz was opened from Room fragment
         if (getArguments() != null)
         {
-            roomName = getArguments().getString("Room Name");
+            //roomName = getArguments().getString("Room Name");
             spinner.setSelection(roomsAL.indexOf(roomName));
         }
         else //quiz was opened from navigation menu
@@ -119,7 +120,7 @@ public class Quiz extends Fragment {
         }
 
         //quiz was opened from navigation menu
-        if (roomName == null)
+        if (roomNum == -1)
         {
             questionLayout.setVisibility(View.GONE);
             quizIntro.setVisibility(View.VISIBLE);
@@ -137,7 +138,8 @@ public class Quiz extends Fragment {
             @Override
             public void onClick(View v) {
 
-                roomName = spinner.getSelectedItem().toString();
+                roomNum = spinner.getSelectedItemPosition();
+                roomName = (getResources().getStringArray(R.array.room_names))[roomNum];
                 questionLayout.setVisibility(View.VISIBLE);
                 quizIntro.setVisibility(View.GONE);
                 loadQuestions();
@@ -194,7 +196,7 @@ public class Quiz extends Fragment {
 
                     //store results to save data
                     SharedPreferences.Editor editor = keyPair.edit();
-                    if (keyPair.getInt(roomName, -1) == -1) //returning -1 means this is the first time attempting submission of points
+                    if (keyPair.getInt("quiz" + roomNum, -1) == -1) //returning -1 means this is the first time attempting submission of points
                     {
                         Set<String> temp = keyPair.getStringSet("achievementSet", null); //pulls list of achievements if exists
                         if (temp == null)
@@ -213,14 +215,14 @@ public class Quiz extends Fragment {
                             editor.putInt("Total Score", (userScore + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
                         }
                     }
-                    editor.putInt(roomName, (userScore / 10)); //puts recent score in storage
+                    editor.putInt("quiz" + roomNum, (userScore / 10)); //puts recent score in storage
                     //puts questions and answers into storage, only relevant if got all correct
-                    editor.putString(roomName + " Q1", questions[indices[0]].getQuestion());
-                    editor.putString(roomName + " A1", questions[indices[0]].getAnswer());
-                    editor.putString(roomName + " Q2", questions[indices[1]].getQuestion());
-                    editor.putString(roomName + " A2", questions[indices[1]].getAnswer());
-                    editor.putString(roomName + " Q3", questions[indices[2]].getQuestion());
-                    editor.putString(roomName + " A3", questions[indices[2]].getAnswer());
+                    editor.putString(roomNum + " Q1", questions[indices[0]].getQuestion());
+                    editor.putString(roomNum + " A1", questions[indices[0]].getAnswer());
+                    editor.putString(roomNum + " Q2", questions[indices[1]].getQuestion());
+                    editor.putString(roomNum + " A2", questions[indices[1]].getAnswer());
+                    editor.putString(roomNum + " Q3", questions[indices[2]].getQuestion());
+                    editor.putString(roomNum + " A3", questions[indices[2]].getAnswer());
                     editor.commit(); //finalize saves
 
                     //make dialog box to notify user
@@ -268,7 +270,7 @@ public class Quiz extends Fragment {
 
     private void loadQuestions() {
 
-        if (keyPair.getInt(roomName, 0) == 3) //got all correct last time, just show questions and correct answers
+        if (keyPair.getInt("quiz" + roomNum, 0) == 3) //got all correct last time, just show questions and correct answers
         {
             correctLayout1.setVisibility(View.VISIBLE);
             correctLayout2.setVisibility(View.VISIBLE);
@@ -300,7 +302,8 @@ public class Quiz extends Fragment {
     private void readQuestions() {
         try {
             //read from quiz file, put into question array
-            BufferedReader reader = new BufferedReader(new InputStreamReader(view.getContext().getAssets().open(roomName + "_quiz.txt")));
+            //BufferedReader reader = new BufferedReader(new InputStreamReader(view.getContext().getAssets().open(roomName + "_quiz.txt")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(getResources().openRawResource(getResources().obtainTypedArray(R.array.room_quiz).getResourceId(roomNum, 0))));
             for (int i=0; i< 10; i++)
             {
                 String newQuestion = reader.readLine();
@@ -336,12 +339,12 @@ public class Quiz extends Fragment {
     }
 
     private void readAnswers() {
-        ((TextView) view.findViewById(R.id.q1)).setText(keyPair.getString(roomName + " Q1", null));
-        ((TextView) view.findViewById(R.id.q2)).setText(keyPair.getString(roomName + " Q2", null));
-        ((TextView) view.findViewById(R.id.q3)).setText(keyPair.getString(roomName + " Q3", null));
-        ((TextView) view.findViewById(R.id.correct1)).setText(keyPair.getString(roomName + " A1", null));
-        ((TextView) view.findViewById(R.id.correct2)).setText(keyPair.getString(roomName + " A2", null));
-        ((TextView) view.findViewById(R.id.correct3)).setText(keyPair.getString(roomName + " A3", null));
+        ((TextView) view.findViewById(R.id.q1)).setText(keyPair.getString(roomNum + " Q1", null));
+        ((TextView) view.findViewById(R.id.q2)).setText(keyPair.getString(roomNum + " Q2", null));
+        ((TextView) view.findViewById(R.id.q3)).setText(keyPair.getString(roomNum + " Q3", null));
+        ((TextView) view.findViewById(R.id.correct1)).setText(keyPair.getString(roomNum + " A1", null));
+        ((TextView) view.findViewById(R.id.correct2)).setText(keyPair.getString(roomNum + " A2", null));
+        ((TextView) view.findViewById(R.id.correct3)).setText(keyPair.getString(roomNum + " A3", null));
     }
 
     //not sure this actually does anything anymore, but doesn't cause problems so for now
