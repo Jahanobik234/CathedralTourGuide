@@ -203,16 +203,17 @@ public class Quiz extends Fragment {
                         }
                         temp.add("First Try at " + roomName + " Quiz: " + Integer.toString(userScore) + " Points"); //adds to list
                         editor.putStringSet("achievementSet", temp); //puts set in storage
+
+                        if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
+                        {
+                            editor.putInt("Total Score", userScore); //adds new if not
+                        }
+                        else
+                        {
+                            editor.putInt("Total Score", (userScore + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
+                        }
                     }
                     editor.putInt(roomName, (userScore / 10)); //puts recent score in storage
-                    if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
-                    {
-                        editor.putInt("Total Score", userScore); //adds new if not
-                    }
-                    else
-                    {
-                        editor.putInt("Total Score", (userScore + keyPair.getInt("Total Score", -1))); //adds to total score and puts in storage
-                    }
                     //puts questions and answers into storage, only relevant if got all correct
                     editor.putString(roomName + " Q1", questions[indices[0]].getQuestion());
                     editor.putString(roomName + " A1", questions[indices[0]].getAnswer());

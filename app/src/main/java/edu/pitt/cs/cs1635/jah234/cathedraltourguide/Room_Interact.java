@@ -34,6 +34,7 @@ import java.util.Set;
 public class Room_Interact extends Fragment {
 
     ImageView item_pic1, item_pic2, item_pic3;
+    TextView item_name1, item_name2, item_name3;
     View view;
 
     LinearLayout objectInfo;
@@ -84,6 +85,9 @@ public class Room_Interact extends Fragment {
         hint1 = (Button) view.findViewById(R.id.hint1);
         hint2 = (Button) view.findViewById(R.id.hint2);
         hint3 = (Button) view.findViewById(R.id.hint3);
+        item_name1 = (TextView) view.findViewById(R.id.name1);
+        item_name2 = (TextView) view.findViewById(R.id.name2);
+        item_name3 = (TextView) view.findViewById(R.id.name3);
         item_pic1 = (ImageView)view.findViewById(R.id.item_pic_1);
         item_pic2 = (ImageView)view.findViewById(R.id.item_pic_2);
         item_pic3 = (ImageView)view.findViewById(R.id.item_pic_3);
@@ -100,6 +104,9 @@ public class Room_Interact extends Fragment {
 
             InputStream stream = getResources().openRawResource(getResources().obtainTypedArray(R.array.room_hint).getResourceId(position, 0)); //creates new inputStream
             input = new BufferedReader(new InputStreamReader(stream)); //creates new bufferedreader
+            item_name1.setText(input.readLine());
+            item_name2.setText(input.readLine());
+            item_name3.setText(input.readLine());
             itemCode1 = input.readLine();
             itemCode2 = input.readLine();
             itemCode3 = input.readLine();
