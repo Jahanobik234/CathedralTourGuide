@@ -71,6 +71,7 @@ public class Quiz extends Fragment {
         //initializes arraylist of rooms, current room to null
         //roomsAL = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_names)));
         roomNum = getArguments().getInt("Position");
+        roomName = (getResources().getStringArray(R.array.room_names))[roomNum];
 
         //keyPair = save data
         //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
