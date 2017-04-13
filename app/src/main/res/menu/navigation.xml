@@ -16,10 +16,10 @@
         android:icon="@drawable/ic_action_gallery"
         android:title="@string/gallery_title"
         app:showAsAction="ifRoom"/>
-    <item
+    <!--<item
         android:id="@+id/quiz"
         android:icon="@drawable/ic_action_quiz"
         android:title="@string/quiz_title"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"/>-->
 
 </menu>
