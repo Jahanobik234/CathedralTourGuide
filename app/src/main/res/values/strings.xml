@@ -36,6 +36,15 @@
     <string name="submitAns">Submit Answers</string>
     <string name="help_welcome_message">Welcome to TourCathy, an application that allows you to have an interactive experience with the Nationality Rooms. Have fun, and happy learning!</string>
 
+    <string-array name="category">
+        <item>By Date</item>
+        <item>By Room</item>
+    </string-array>
+    <string-array name="direction">
+        <item>Ascending Order</item>
+        <item>Descending Order</item>
+    </string-array>
+
     <!--TODO: Everything Below this is for storing resource IDs, fill as able-->
 
     <string-array name="room_names">
