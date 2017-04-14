@@ -112,9 +112,13 @@ public class Gallery extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        orderResults();
-        if (view != null)
-            adapter.notifyDataSetChanged();
+        if (view != null) {
+            category.setSelection(keyPair.getInt("CategorySpinner", 0));
+            direction.setSelection(keyPair.getInt("DirectionSpinner", 0));
+            enter.performClick();
+            //orderResults();
+            //adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -278,5 +282,14 @@ public class Gallery extends Fragment {
         public int compare(GalleryCardInfo e1, GalleryCardInfo e2) {
             return e1.compare(e2);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences.Editor editor = keyPair.edit();
+        editor.putInt("CategorySpinner", category.getSelectedItemPosition());
+        editor.putInt("DirectionSpinner", direction.getSelectedItemPosition());
+        editor.commit();
     }
 }
