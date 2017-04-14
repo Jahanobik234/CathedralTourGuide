@@ -19,9 +19,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
  * Created by A on 4/7/2017.
  */
 
-public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>
+public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-    private LinkedList<Uri> images;
+    private LinkedList<GalleryCardInfo> images;
     private Context context;
 
     private final GalleryAdapter.OnItemClickListener listener;
@@ -30,10 +30,22 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         void onImageClick(int position);
     }
 
-    public GalleryAdapter(Context context, LinkedList<Uri> images, GalleryAdapter.OnItemClickListener listener) {
+    public GalleryAdapter(Context context, LinkedList<GalleryCardInfo> images, GalleryAdapter.OnItemClickListener listener) {
         this.listener = listener;
         this.images = images;
         this.context = context;
+    }
+
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder
+    {
+        private TextView header;
+
+        public HeaderViewHolder(View v)
+        {
+            super(v);
+            header = (TextView)v.findViewById(R.id.galleryHeader);
+        }
+
     }
 
     public static class GalleryViewHolder extends RecyclerView.ViewHolder
@@ -58,19 +70,36 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     }
 
-    public GalleryAdapter.GalleryViewHolder onCreateViewHolder(ViewGroup viewGroup, int i)
-    {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.gallery_card, viewGroup, false);
-        return new GalleryAdapter.GalleryViewHolder(v);
+    @Override
+    public int getItemViewType(int position) {
+        if (images.get(position).getHeader() == null)
+            return 1;
+        else
+            return 0;
     }
 
-    public void onBindViewHolder(GalleryAdapter.GalleryViewHolder viewHolder, int i)
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
+    {
+        if (viewType == 0)
+            return new GalleryAdapter.HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.gallery_header, viewGroup, false));
+        else
+            return new GalleryAdapter.GalleryViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.gallery_card, viewGroup, false));
+    }
+
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i)
     {
         //viewHolder.image.setImageBitmap(images.get(i).getImage());
-        Glide.with(context).load(images.get(i))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(viewHolder.image);
-        viewHolder.bind(i, listener);
+        if (images.get(i).getHeader() == null)
+        {
+            Glide.with(context).load(images.get(i).getUri())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .override(100, 100)
+                    .centerCrop()
+                    .into(((GalleryViewHolder)viewHolder).image);
+            ((GalleryViewHolder)viewHolder).bind(images.get(i).getPosition(), listener);
+        }
+        else
+            ((HeaderViewHolder)viewHolder).header.setText(images.get(i).getHeader());
 
     }
 
