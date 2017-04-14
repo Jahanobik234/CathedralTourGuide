@@ -26,6 +26,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name=".LocationSelector"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="edu.pitt.cs.cs1635.jah234.cathedraltourguide.fileprovider"
