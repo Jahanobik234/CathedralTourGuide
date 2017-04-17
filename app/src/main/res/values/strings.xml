@@ -35,6 +35,7 @@
     <string name="quizIntro">Welcome to Quizzes! Test your knowledge by answering 3 questions about a Nationality Room.</string>
     <string name="submitAns">Submit Answers</string>
     <string name="help_welcome_message">Welcome to TourCathy, an application that allows you to have an interactive experience with the Nationality Rooms. Have fun, and happy learning!</string>
+    <string name="selectTopic">Select Topic</string>
 
     <string-array name="category">
         <item>By Date</item>
@@ -143,25 +144,31 @@
         <item>@drawable/welsh_flag</item>
         <item>@drawable/yugoslav_flag</item>
     </array>
-    <array name="room_text">
-        <item>@raw/african_heritage_text</item>
+    <array name="room_intro">
+        <item>Welcome to the African Heritage room! Upon entering, each guest will find themselves
+            transported to the middle of an Asante temple in Ghana. In this room, carvings play a
+            large part in telling the story to all who come to listen. Almost everything has some
+            sort of illustrative work that symbolizes African\'s beliefs and contributions in our
+            world. Before taking a seat in one of the agba in the middle of the room, check out the
+            display cases full of artifacts. As you gather in this courtyard, immerse yourself in
+            this collection of cultures.</item>
         <item></item> <!--Placeholder for armenian room-->
-        <item>@raw/austrian_text</item>
-        <item>@raw/chinese_text</item>
+        <item></item> <!--Placeholder for Austrian room-->
+        <item></item> <!--Placeholder for Chinese room-->
         <item></item> <!--Placeholder for Czechoslovak room-->
         <item></item> <!--Placeholder for Early American room-->
-        <item>@raw/english_text</item>
+        <item></item> <!--Placeholder for English room-->
         <item></item> <!--Placeholder for French room-->
         <item></item> <!--Placeholder for German room-->
         <item></item> <!--Placeholder for Greek room-->
         <item></item> <!--Placeholder for Hungarian room-->
-        <item>@raw/indian_text</item>
-        <item>@raw/irish_text</item>
+        <item></item> <!--Placeholder for Indian room-->
+        <item></item> <!--Placeholder for Irish room-->
         <item></item> <!--Placeholder for Israel Heritage room-->
         <item></item> <!--Placeholder for Italian room-->
         <item></item> <!--Placeholder for Japanese room-->
         <item></item> <!--Placeholder for Korean Heritage room-->
-        <item>@raw/lithuanian_text</item>
+        <item></item> <!--Placeholder for Lithuanian room-->
         <item></item> <!--Placeholder for Norwegian room-->
         <item></item> <!--Placeholder for Polish room-->
         <item></item> <!--Placeholder for Romanian room-->
@@ -172,7 +179,7 @@
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Turkish room-->
         <item></item> <!--Placeholder for Ukrainian room-->
-        <item>@raw/welsh_text</item>
+        <item></item> <!--Placeholder for Welsh room-->
         <item></item> <!--Placeholder for Yugoslav room-->
     </array>
     <array name="room_audio">
@@ -393,5 +400,44 @@
         <item></item> <!--Placeholder for Welsh room-->
         <item></item> <!--Placeholder for Yugoslav room-->
     </array>
-
+    <array name="roomInfoArrays">
+        <item>@array/african_heritage_info</item>
+        <item></item> <!--Placeholder for armenian room-->
+        <item></item> <!--Placeholder for Austrian room-->
+        <item></item> <!--Placeholder for Chinese room-->
+        <item></item> <!--Placeholder for Czechoslovak room-->
+        <item></item> <!--Placeholder for Early American room-->
+        <item></item> <!--Placeholder for English room-->
+        <item></item> <!--Placeholder for French room-->
+        <item></item> <!--Placeholder for German room-->
+        <item></item> <!--Placeholder for Greek room-->
+        <item></item> <!--Placeholder for Hungarian room-->
+        <item></item> <!--Placeholder for Indian room-->
+        <item></item> <!--Placeholder for Irish room-->
+        <item></item> <!--Placeholder for Israel Heritage room-->
+        <item></item> <!--Placeholder for Italian room-->
+        <item></item> <!--Placeholder for Japanese room-->
+        <item></item> <!--Placeholder for Korean Heritage room-->
+        <item></item> <!--Placeholder for Lithuanian room-->
+        <item></item> <!--Placeholder for Norwegian room-->
+        <item></item> <!--Placeholder for Polish room-->
+        <item></item> <!--Placeholder for Romanian room-->
+        <item></item> <!--Placeholder for Russian room-->
+        <item></item> <!--Placeholder for Scottish room-->
+        <item></item> <!--Placeholder for Syria-Lebanon room-->
+        <item></item> <!--Placeholder for Swedish room-->
+        <item></item> <!--Placeholder for Swiss room-->
+        <item></item> <!--Placeholder for Turkish room-->
+        <item></item> <!--Placeholder for Ukrainian room-->
+        <item></item> <!--Placeholder for Welsh room-->
+        <item></item> <!--Placeholder for Yugoslav room-->
+    </array>
+    <array name="african_heritage_info">
+        <item></item>
+        <item>History</item>
+        <item>african_heritage_text2</item>
+        <item>african_heritage_text3</item>
+        <item>african_heritage_text4</item>
+        <item>african_heritage_text5</item>
+    </array>
 </resources>

@@ -1,6 +1,7 @@
 package edu.pitt.cs.cs1635.jah234.cathedraltourguide;
 
 import android.content.Context;
+import android.widget.*;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.media.MediaPlayer;
@@ -12,6 +13,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,22 +21,29 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Room_Info extends Fragment {
 
-    TextView roomName, roomNum, intro, history, intro_timer, history_timer;
+    TextView roomName, roomNum, intro, intro_timer, history_timer;
     View view;
     ImageView flag;
     ImageButton audio_intro, history_audio;
     SeekBar intro_progress, history_progress;
     LinearLayout fullScreen;
+    Button selectTopic;
+    WebView history;
+    Spinner topicList;
+    String[] listTopics;
+    CharSequence[] selectedRoomSpinnerInfo;
 
     MediaPlayer mpIntro, mpHistory;
 
@@ -83,7 +92,6 @@ public class Room_Info extends Fragment {
         roomNum = (TextView) view.findViewById(R.id.roomNum);
         intro = (TextView) view.findViewById(R.id.intro);
         flag = (ImageView) view.findViewById(R.id.flag);
-        history = (TextView) view.findViewById(R.id.history);
         audio_intro = (ImageButton) view.findViewById(R.id.audio_intro);
         intro_progress = (SeekBar) view.findViewById(R.id.intro_seekBar);
         intro_timer = (TextView) view.findViewById(R.id.intro_timer);
@@ -91,6 +99,18 @@ public class Room_Info extends Fragment {
         history_progress = (SeekBar) view.findViewById(R.id.history_seekBar);
         history_timer = (TextView) view.findViewById(R.id.history_timer);
         fullScreen = (LinearLayout) view.findViewById(R.id.fullScreen);
+        selectTopic = (Button) view.findViewById(R.id.selectSection);
+        history = (WebView) view.findViewById(R.id.history);
+
+        TypedArray typeArray = getResources().obtainTypedArray(R.array.roomInfoArrays);
+        selectedRoomSpinnerInfo = typeArray.getTextArray(position);
+        typeArray.recycle();
+
+        topicList = (Spinner) view.findViewById(R.id.topic);
+
+        ArrayAdapter<CharSequence> adapterPackType = new ArrayAdapter<CharSequence>(getContext(), android.R.layout.simple_spinner_item, selectedRoomSpinnerInfo);
+        adapterPackType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        topicList.setAdapter(adapterPackType);
 
         //tries to grab relevant info from assets
         try
@@ -98,28 +118,7 @@ public class Room_Info extends Fragment {
             roomName.setText(getResources().obtainTypedArray(R.array.room_names).getString(position) + " Room");
             roomNum.setText("Room " + getResources().obtainTypedArray(R.array.room_numbers).getString(position));
 
-            InputStream stream = getResources().openRawResource(getResources().obtainTypedArray(R.array.room_text).getResourceId(position, 0));
-            BufferedReader input = new BufferedReader(new InputStreamReader(stream)); //creates new bufferedreader
-            String line;
-            //stream = getContext().getAssets().open(selection + "_text.txt"); //creates new inputStream
-            //large_text = new StringBuilder(stream.available()); //creates stringbuilder to store info from stream
-            //while ((line = input.readLine()) != null) //keep reading lines
-            //{
-            //    large_text.append(line).append("\n");
-            //}
-            if ((line = input.readLine()) != null)
-            {
-                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    intro.setText(Html.fromHtml(line, 0));
-                else
-                    intro.setText(Html.fromHtml(line));*/
-                intro.setText(line);
-            }
-            if ((line = input.readLine()) != null)
-            {
-                history.setText(line);
-            }
-            stream.close();
+            intro.setText(getResources().getStringArray(R.array.room_intro)[position]);
 
             //stream = getContext().getAssets().open(selection + "_flag.png"); //creates new inputStream
             //flag_image = Drawable.createFromStream(stream, null); //creates drawable from stream
@@ -192,12 +191,19 @@ public class Room_Info extends Fragment {
         });
 
         if (mpIntro != null)
-        mpIntro.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                audio_intro.setImageResource(R.drawable.ic_action_play);
-                intro_progress.setProgress(0);
-                intro_timer.setText("00:00");
-                handler.removeCallbacks(updateIntroTime);
+            mpIntro.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    audio_intro.setImageResource(R.drawable.ic_action_play);
+                    intro_progress.setProgress(0);
+                    intro_timer.setText("00:00");
+                    handler.removeCallbacks(updateIntroTime);
+                }
+            });
+
+        selectTopic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -246,12 +252,27 @@ public class Room_Info extends Fragment {
         });
 
         if (mpHistory != null)
-        mpHistory.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                history_audio.setImageResource(R.drawable.ic_action_play);
-                history_progress.setProgress(0);
-                history_timer.setText("00:00");
-                handler.removeCallbacks(updateHistoryTime);
+            mpHistory.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    history_audio.setImageResource(R.drawable.ic_action_play);
+                    history_progress.setProgress(0);
+                    history_timer.setText("00:00");
+                    handler.removeCallbacks(updateHistoryTime);
+                }
+            });
+
+        selectTopic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String topChoice = topicList.getSelectedItem().toString();
+
+                //Notes: Make sure that the file name contains the room name and the specific topic in the html file
+                // Example: African Heritage History.html
+
+                if(!topChoice.equals("")) {
+                    history.loadUrl("file:///android_asset/" + getResources().obtainTypedArray(R.array.room_names).getString(position) + " " + topChoice + ".html");
+                }
+
             }
         });
 
@@ -301,4 +322,3 @@ public class Room_Info extends Fragment {
         }
     };
 }
-

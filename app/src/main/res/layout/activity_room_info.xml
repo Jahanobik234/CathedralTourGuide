@@ -150,13 +150,31 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/history"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="HistoryTempText" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <Spinner
+                    android:id="@+id/topic"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.95" />
+
+                <Button
+                    android:id="@+id/selectSection"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/selectTopic" />
+            </LinearLayout>
 
         </LinearLayout>
+
+        <WebView
+            android:id="@+id/history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <Space
             android:layout_width="match_parent"
