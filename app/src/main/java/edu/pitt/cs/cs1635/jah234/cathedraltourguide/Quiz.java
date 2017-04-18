@@ -79,6 +79,7 @@ public class Quiz extends Fragment {
         incorrectLayout2 = (LinearLayout) view.findViewById(R.id.incorrectLayout2);
         correctLayout3 = (LinearLayout) view.findViewById(R.id.correctLayout3);
         incorrectLayout3 = (LinearLayout) view.findViewById(R.id.incorrectLayout3);
+        questionLayout = (ScrollView) view.findViewById(R.id.linearLayout3);
         q1answers = (RadioGroup)view.findViewById(R.id.q1answers);
         q2answers = (RadioGroup)view.findViewById(R.id.q2answers);
         q3answers = (RadioGroup)view.findViewById(R.id.q3answers);

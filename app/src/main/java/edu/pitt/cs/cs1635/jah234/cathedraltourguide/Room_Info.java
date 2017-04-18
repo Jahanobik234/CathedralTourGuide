@@ -100,19 +100,19 @@ public class Room_Info extends Fragment {
         selectTopic = (Button) view.findViewById(R.id.selectSection);
         history = (WebView) view.findViewById(R.id.history);
 
-        TypedArray typeArray = getResources().obtainTypedArray(R.array.roomInfoArrays);
-        selectedRoomSpinnerInfo = typeArray.getTextArray(position);
-        typeArray.recycle();
-
         topicList = (Spinner) view.findViewById(R.id.topic);
-
-        ArrayAdapter<CharSequence> adapterPackType = new ArrayAdapter<CharSequence>(getContext(), android.R.layout.simple_spinner_item, selectedRoomSpinnerInfo);
-        adapterPackType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        topicList.setAdapter(adapterPackType);
 
         //tries to grab relevant info from assets
         try
         {
+            TypedArray typeArray = getResources().obtainTypedArray(R.array.roomInfoArrays);
+            selectedRoomSpinnerInfo = typeArray.getTextArray(position);
+            typeArray.recycle();
+
+            ArrayAdapter<CharSequence> adapterPackType = new ArrayAdapter<CharSequence>(getContext(), android.R.layout.simple_spinner_item, selectedRoomSpinnerInfo);
+            adapterPackType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            topicList.setAdapter(adapterPackType);
+
             roomName.setText(getResources().obtainTypedArray(R.array.room_names).getString(position) + " Room");
             roomNum.setText("Room " + getResources().obtainTypedArray(R.array.room_numbers).getString(position));
 
