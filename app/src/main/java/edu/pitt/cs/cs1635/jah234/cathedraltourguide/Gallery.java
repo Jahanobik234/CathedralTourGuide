@@ -181,6 +181,10 @@ public class Gallery extends Fragment {
                 downOrder = (direction.getSelectedItemPosition() == 0);
                 orderResults();
                 adapter.notifyDataSetChanged();
+                SharedPreferences.Editor editor = keyPair.edit();
+                editor.putInt("CategorySpinner", category.getSelectedItemPosition());
+                editor.putInt("DirectionSpinner", direction.getSelectedItemPosition());
+                editor.commit();
             }
         });
 
@@ -282,14 +286,5 @@ public class Gallery extends Fragment {
         public int compare(GalleryCardInfo e1, GalleryCardInfo e2) {
             return e1.compare(e2);
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        SharedPreferences.Editor editor = keyPair.edit();
-        editor.putInt("CategorySpinner", category.getSelectedItemPosition());
-        editor.putInt("DirectionSpinner", direction.getSelectedItemPosition());
-        editor.commit();
     }
 }
