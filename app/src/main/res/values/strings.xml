@@ -231,8 +231,8 @@
         <item></item> <!--Placeholder for Scottish room-->
         <item></item> <!--Placeholder for Syria-Lebanon room-->
         <item></item> <!--Placeholder for Syria-Lebanon room-->
-        <item></item> <!--Placeholder for Swedish room-->
-        <item></item> <!--Placeholder for Swedish room-->
+        <item>@raw/swedish_audio_intro</item>
+        <item>@raw/swedish_audio_history</item> 
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Turkish room-->
@@ -269,7 +269,7 @@
         <item></item> <!--Placeholder for Russian room-->
         <item></item> <!--Placeholder for Scottish room-->
         <item></item> <!--Placeholder for Syria-Lebanon room-->
-        <item></item> <!--Placeholder for Swedish room-->
+        <item>@raw/swedish_hint</item>
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Turkish room-->
         <item></item> <!--Placeholder for Ukrainian room-->
@@ -349,9 +349,9 @@
         <item></item> <!--Placeholder for Syria-Lebanon room-->
         <item></item> <!--Placeholder for Syria-Lebanon room-->
         <item></item> <!--Placeholder for Syria-Lebanon room-->
-        <item></item> <!--Placeholder for Swedish room-->
-        <item></item> <!--Placeholder for Swedish room-->
-        <item></item> <!--Placeholder for Swedish room-->
+        <item>@drawable/swedish_obj1</item>
+        <item>@drawable/swedish_obj2</item>
+        <item>@drawable/swedish_obj3</item>
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Swiss room-->
@@ -393,7 +393,7 @@
         <item></item> <!--Placeholder for Russian room-->
         <item></item> <!--Placeholder for Scottish room-->
         <item></item> <!--Placeholder for Syria-Lebanon room-->
-        <item></item> <!--Placeholder for Swedish room-->
+        <item>@raw/swedish_quiz</item>
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Turkish room-->
         <item></item> <!--Placeholder for Ukrainian room-->
