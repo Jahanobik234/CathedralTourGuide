@@ -191,13 +191,6 @@ public class Room_Info extends Fragment {
                 }
             });
 
-        selectTopic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         //plays history audio
         history_audio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,7 +253,7 @@ public class Room_Info extends Fragment {
                 //Notes: Make sure that the file name contains the room name and the specific topic in the html file
                 // Example: African Heritage History.html
 
-                if(!topChoice.equals("")) {
+                if(!topChoice.equals("Tap to select topic")) {
                     history.loadUrl("file:///android_asset/" + getResources().obtainTypedArray(R.array.room_names).getString(position) + " " + topChoice + ".html");
                 }
 
