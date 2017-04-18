@@ -152,35 +152,35 @@
             world. Before taking a seat in one of the agba in the middle of the room, check out the
             display cases full of artifacts. As you gather in this courtyard, immerse yourself in
             this collection of cultures.</item>
-        <item></item> <!--Placeholder for armenian room-->
-        <item></item> <!--Placeholder for Austrian room-->
-        <item></item> <!--Placeholder for Chinese room-->
-        <item></item> <!--Placeholder for Czechoslovak room-->
-        <item></item> <!--Placeholder for Early American room-->
-        <item></item> <!--Placeholder for English room-->
-        <item></item> <!--Placeholder for French room-->
-        <item></item> <!--Placeholder for German room-->
-        <item></item> <!--Placeholder for Greek room-->
-        <item></item> <!--Placeholder for Hungarian room-->
-        <item></item> <!--Placeholder for Indian room-->
-        <item></item> <!--Placeholder for Irish room-->
-        <item></item> <!--Placeholder for Israel Heritage room-->
-        <item></item> <!--Placeholder for Italian room-->
-        <item></item> <!--Placeholder for Japanese room-->
-        <item></item> <!--Placeholder for Korean Heritage room-->
-        <item></item> <!--Placeholder for Lithuanian room-->
-        <item></item> <!--Placeholder for Norwegian room-->
-        <item></item> <!--Placeholder for Polish room-->
-        <item></item> <!--Placeholder for Romanian room-->
-        <item></item> <!--Placeholder for Russian room-->
-        <item></item> <!--Placeholder for Scottish room-->
-        <item></item> <!--Placeholder for Syria-Lebanon room-->
-        <item></item> <!--Placeholder for Swedish room-->
-        <item></item> <!--Placeholder for Swiss room-->
-        <item></item> <!--Placeholder for Turkish room-->
-        <item></item> <!--Placeholder for Ukrainian room-->
-        <item></item> <!--Placeholder for Welsh room-->
-        <item></item> <!--Placeholder for Yugoslav room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for armenian room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Austrian room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Chinese room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Czechoslovak room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Early American room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for English room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for French room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for German room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Greek room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Hungarian room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Indian room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Irish room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Israel Heritage room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Italian room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Japanese room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Korean Heritage room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Lithuanian room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Norwegian room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Polish room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Romanian room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Russian room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Scottish room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Syria-Lebanon room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Swedish room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Swiss room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Turkish room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Ukrainian room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Welsh room-->
+        <item>Temporary Intro Text</item> <!--Placeholder for Yugoslav room-->
     </array>
     <array name="room_audio">
         <item>@raw/african_heritage_audio_architecture</item>
@@ -223,8 +223,8 @@
         <item></item> <!--Placeholder for Norwegian room-->
         <item></item> <!--Placeholder for Polish room-->
         <item></item> <!--Placeholder for Polish room-->
-        <item></item> <!--Placeholder for Romanian room-->
-        <item></item> <!--Placeholder for Romanian room-->
+        <item>@raw/romanian_audio_intro</item>
+        <item>@raw/romanian_audio_history</item>
         <item></item> <!--Placeholder for Russian room-->
         <item></item> <!--Placeholder for Russian room-->
         <item></item> <!--Placeholder for Scottish room-->
@@ -256,16 +256,16 @@
         <item></item> <!--Placeholder for German room-->
         <item></item> <!--Placeholder for Greek room-->
         <item></item> <!--Placeholder for Hungarian room-->
-        <item>@raw/indian_hint</item> <!--Placeholder for Indian room-->
+        <item>@raw/indian_hint</item>
         <item>@raw/irish_hint</item>
         <item></item> <!--Placeholder for Israel Heritage room-->
         <item></item> <!--Placeholder for Italian room-->
         <item></item> <!--Placeholder for Japanese room-->
         <item></item> <!--Placeholder for Korean Heritage room-->
-        <item>@raw/lithuanian_hint</item> <!--Placeholder for Lithuanian room-->
+        <item>@raw/lithuanian_hint</item>
         <item></item> <!--Placeholder for Norwegian room-->
         <item></item> <!--Placeholder for Polish room-->
-        <item></item> <!--Placeholder for Romanian room-->
+        <item>@raw/romanian_hint</item>
         <item></item> <!--Placeholder for Russian room-->
         <item></item> <!--Placeholder for Scottish room-->
         <item></item> <!--Placeholder for Syria-Lebanon room-->
@@ -310,9 +310,9 @@
         <item></item> <!--Placeholder for Hungarian room-->
         <item></item> <!--Placeholder for Hungarian room-->
         <item></item> <!--Placeholder for Hungarian room-->
-        <item>@drawable/indian_obj1</item> <!--Placeholder for Indian room-->
-        <item>@drawable/indian_obj2</item> <!--Placeholder for Indian room-->
-        <item>@drawable/indian_obj3</item> <!--Placeholder for Indian room-->
+        <item>@drawable/indian_obj1</item>
+        <item>@drawable/indian_obj2</item>
+        <item>@drawable/indian_obj3</item>
         <item>@drawable/irish_obj1</item>
         <item>@drawable/irish_obj2</item>
         <item>@drawable/irish_obj3</item>
@@ -337,9 +337,9 @@
         <item></item> <!--Placeholder for Polish room-->
         <item></item> <!--Placeholder for Polish room-->
         <item></item> <!--Placeholder for Polish room-->
-        <item></item> <!--Placeholder for Romanian room-->
-        <item></item> <!--Placeholder for Romanian room-->
-        <item></item> <!--Placeholder for Romanian room-->
+        <item>@drawable/romanian_obj1</item>
+        <item>@drawable/romanian_obj2</item>
+        <item>@drawable/romanian_obj3</item>
         <item></item> <!--Placeholder for Russian room-->
         <item></item> <!--Placeholder for Russian room-->
         <item></item> <!--Placeholder for Russian room-->
@@ -361,9 +361,9 @@
         <item></item> <!--Placeholder for Ukrainian room-->
         <item></item> <!--Placeholder for Ukrainian room-->
         <item></item> <!--Placeholder for Ukrainian room-->
-        <item>@drawable/welsh_obj1</item> <!--Placeholder for Welsh room-->
-        <item>@drawable/welsh_obj2</item> <!--Placeholder for Welsh room-->
-        <item>@drawable/welsh_obj3</item> <!--Placeholder for Welsh room-->
+        <item>@drawable/welsh_obj1</item>
+        <item>@drawable/welsh_obj2</item>
+        <item>@drawable/welsh_obj3</item>
         <item></item> <!--Placeholder for Yugoslav room-->
         <item></item> <!--Placeholder for Yugoslav room-->
         <item></item> <!--Placeholder for Yugoslav room-->
@@ -371,8 +371,8 @@
     <array name="room_quiz">
         <item>@raw/african_heritage_quiz</item>
         <item>@raw/armenian_quiz</item> <!--Placeholder for armenian room-->
-        <item>@raw/austrian_hint</item>
-        <item>@raw/chinese_hint</item>
+        <item>@raw/austrian_quiz</item>
+        <item>@raw/chinese_quiz</item>
         <item></item> <!--Placeholder for Czechoslovak room-->
         <item></item> <!--Placeholder for Early American room-->
         <item>@raw/english_quiz</item>
@@ -386,10 +386,10 @@
         <item></item> <!--Placeholder for Italian room-->
         <item></item> <!--Placeholder for Japanese room-->
         <item></item> <!--Placeholder for Korean Heritage room-->
-        <item>@raw/lithuanian_quiz</item> <!--Placeholder for Lithuanian room-->
+        <item>@raw/lithuanian_quiz</item>
         <item></item> <!--Placeholder for Norwegian room-->
         <item></item> <!--Placeholder for Polish room-->
-        <item></item> <!--Placeholder for Romanian room-->
+        <item>@raw/romanian_quiz</item>
         <item></item> <!--Placeholder for Russian room-->
         <item></item> <!--Placeholder for Scottish room-->
         <item></item> <!--Placeholder for Syria-Lebanon room-->
@@ -402,34 +402,34 @@
     </array>
     <array name="roomInfoArrays">
         <item>@array/african_heritage_info</item>
-        <item></item> <!--Placeholder for armenian room-->
-        <item></item> <!--Placeholder for Austrian room-->
-        <item></item> <!--Placeholder for Chinese room-->
+        <item>@array/armenian_info</item>
+        <item>@array/austrian_info</item>
+        <item>@array/chinese_info</item>
         <item></item> <!--Placeholder for Czechoslovak room-->
         <item></item> <!--Placeholder for Early American room-->
-        <item></item> <!--Placeholder for English room-->
+        <item>@array/english_info</item>
         <item></item> <!--Placeholder for French room-->
         <item></item> <!--Placeholder for German room-->
         <item></item> <!--Placeholder for Greek room-->
         <item></item> <!--Placeholder for Hungarian room-->
-        <item></item> <!--Placeholder for Indian room-->
-        <item></item> <!--Placeholder for Irish room-->
-        <item></item> <!--Placeholder for Israel Heritage room-->
+        <item>@array/indian_info</item>
+        <item>@array/irish_info</item>
+        <item>@array/israel_heritage_info</item>
         <item></item> <!--Placeholder for Italian room-->
         <item></item> <!--Placeholder for Japanese room-->
         <item></item> <!--Placeholder for Korean Heritage room-->
-        <item></item> <!--Placeholder for Lithuanian room-->
-        <item></item> <!--Placeholder for Norwegian room-->
-        <item></item> <!--Placeholder for Polish room-->
-        <item></item> <!--Placeholder for Romanian room-->
-        <item></item> <!--Placeholder for Russian room-->
+        <item>@array/lithuanian_info</item>
+        <item>@array/norwegian_info</item>
+        <item>@array/polish_info</item>
+        <item>@array/romanian_info</item>
+        <item>@array/russian_info</item>
         <item></item> <!--Placeholder for Scottish room-->
         <item></item> <!--Placeholder for Syria-Lebanon room-->
-        <item></item> <!--Placeholder for Swedish room-->
+        <item>@array/swedish_info</item>
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Turkish room-->
-        <item></item> <!--Placeholder for Ukrainian room-->
-        <item></item> <!--Placeholder for Welsh room-->
+        <item>@array/ukrainian_info</item>
+        <item>@array/welsh_info</item>
         <item></item> <!--Placeholder for Yugoslav room-->
     </array>
     <array name="african_heritage_info">
@@ -439,5 +439,110 @@
         <item>african_heritage_text3</item>
         <item>african_heritage_text4</item>
         <item>african_heritage_text5</item>
+    </array>
+
+    <array name="armenian_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="austrian_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="chinese_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="english_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="indian_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="irish_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="israel_heritage_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="lithuanian_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="norwegian_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="polish_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="romanian_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="russian_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="swedish_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="ukrainian_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
+    </array>
+
+    <array name="welsh_info">
+        <item></item>
+        <item>text1</item>
+        <item>text2</item>
+        <item>text3</item>
     </array>
 </resources>
