@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
         gallery.add("\tTo view your gallery, click on the Gallery in the bottom bar.");
 
         List<String> quiz = new ArrayList<String>();
-        quiz.add("\tTake quizzes by clicking on Quiz in the bottom bar and selecting the room you wish to be tested on.");
+        quiz.add("\tTake quizzes by searching for a specific nationality room and then swiping left on the room's information page.");
 
         // Associate group name with subgroup
         listSubgroupNames.put(listGroupingNames.get(0), tabmenu);
