@@ -237,8 +237,8 @@
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Turkish room-->
         <item></item> <!--Placeholder for Turkish room-->
-        <item></item> <!--Placeholder for Ukrainian room-->
-        <item></item> <!--Placeholder for Ukrainian room-->
+        <item>@raw/ukrainian_audio_intro</item>
+        <item>@raw/ukrainian_audio_history</item>
         <item>@raw/welsh_audio_intro</item>
         <item>@raw/welsh_audio_history</item>
         <item></item> <!--Placeholder for Yugoslav room-->
@@ -272,7 +272,7 @@
         <item>@raw/swedish_hint</item>
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Turkish room-->
-        <item></item> <!--Placeholder for Ukrainian room-->
+        <item>@raw/ukrainian_hint</item>
         <item>@raw/welsh_hint</item> <!--Placeholder for Welsh room-->
         <item></item> <!--Placeholder for Yugoslav room-->
     </array>
@@ -358,9 +358,9 @@
         <item></item> <!--Placeholder for Turkish room-->
         <item></item> <!--Placeholder for Turkish room-->
         <item></item> <!--Placeholder for Turkish room-->
-        <item></item> <!--Placeholder for Ukrainian room-->
-        <item></item> <!--Placeholder for Ukrainian room-->
-        <item></item> <!--Placeholder for Ukrainian room-->
+        <item>@drawable/ukrainian_obj1</item>
+        <item>@drawable/ukrainian_obj2</item>
+        <item>@drawable/ukrainian_obj3</item>
         <item>@drawable/welsh_obj1</item>
         <item>@drawable/welsh_obj2</item>
         <item>@drawable/welsh_obj3</item>
@@ -396,7 +396,7 @@
         <item>@raw/swedish_quiz</item>
         <item></item> <!--Placeholder for Swiss room-->
         <item></item> <!--Placeholder for Turkish room-->
-        <item></item> <!--Placeholder for Ukrainian room-->
+        <item>@raw/ukrainian_quiz</item>
         <item></item> <!--Placeholder for Welsh room-->
         <item></item> <!--Placeholder for Yugoslav room-->
     </array>
