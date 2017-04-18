@@ -18,7 +18,7 @@
     <string name="additional_resources">Find more information at:
                     \n\t <b>Website</b>
                     \n\t\t http://www.nationalityrooms.pitt.edu/
-                    \n\t www.
+                    \n\t\t https://commons.wikimedia.org/wiki/Nationality_Rooms
                     \n\t Book:
                     \n\t <b>Information desk</b>
                     \n\t\t Information center phone number: 412-624-6000
@@ -154,7 +154,14 @@
             this collection of cultures.</item>
         <item>Temporary Intro Text</item> <!--Placeholder for armenian room-->
         <item>Temporary Intro Text</item> <!--Placeholder for Austrian room-->
-        <item>Temporary Intro Text</item> <!--Placeholder for Chinese room-->
+        <item>Welcome to the Chinese room! As you enter the room you might find yourself swept away
+            by the design of the imperial palace in Beijing\'s Forbidden City. Go ahead and take a
+            seat at the moon table and gaze up at the Golden Imperial Dragon of the Universe. Don\’t
+            be alarmed by the giant slate portrait of Confucius. He was one of China\’s greatest
+            philosophers and teachers. This rich and colorful room gives a sense of tranquility and
+            peace. If you take a closer look throughout the room you will find many carvings that
+            give you a sense of appreciation for the Chinese culture. Make sure to visit the laughing
+            lions as you make your way back to the entrance. You just might make a wish come true! </item>
         <item>Temporary Intro Text</item> <!--Placeholder for Czechoslovak room-->
         <item>Temporary Intro Text</item> <!--Placeholder for Early American room-->
         <item>Temporary Intro Text</item> <!--Placeholder for English room-->
@@ -458,9 +465,9 @@
 
     <array name="chinese_info">
         <item>Tap to select topic</item>
-        <item>text1</item>
-        <item>text2</item>
-        <item>text3</item>
+        <item>Ceiling</item>
+        <item>Confucius</item>
+        <item>Entrance Door</item>
     </array>
 
     <array name="english_info">
