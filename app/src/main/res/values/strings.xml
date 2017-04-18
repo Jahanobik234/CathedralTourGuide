@@ -432,8 +432,9 @@
         <item>@array/welsh_info</item>
         <item></item> <!--Placeholder for Yugoslav room-->
     </array>
+
     <array name="african_heritage_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>History</item>
         <item>african_heritage_text2</item>
         <item>african_heritage_text3</item>
@@ -442,105 +443,105 @@
     </array>
 
     <array name="armenian_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="austrian_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="chinese_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="english_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="indian_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="irish_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="israel_heritage_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="lithuanian_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="norwegian_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="polish_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="romanian_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="russian_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="swedish_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="ukrainian_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
     </array>
 
     <array name="welsh_info">
-        <item></item>
+        <item>Tap to select topic</item>
         <item>text1</item>
         <item>text2</item>
         <item>text3</item>
