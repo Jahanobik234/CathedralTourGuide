@@ -57,8 +57,6 @@ public class Image extends AppCompatActivity{
         Intent i = getIntent();
         file = Uri.parse(i.getStringExtra("Uri")); //identifier for a file
 
-        //keyPair = comment data, kept separate for reasons I'll explain in detail if you want to know
-        //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
         keyPair = getSharedPreferences("saved_data", MODE_PRIVATE);
 
 
@@ -121,7 +119,6 @@ public class Image extends AppCompatActivity{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent result = new Intent("RESULT_ACTION");
-                        //result.putExtra("Uri", file);
                         setResult(RESULT_OK, result);
                         finish();
                     }

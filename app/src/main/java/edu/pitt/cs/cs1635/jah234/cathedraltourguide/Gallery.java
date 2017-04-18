@@ -49,7 +49,6 @@ public class Gallery extends Fragment {
     boolean dateOrder = true, downOrder = true;
 
     LinkedList<GalleryCardInfo> images, fImages;
-    //LinkedList<String> headers;
 
     OnSendDataListener sendData;
 
@@ -79,7 +78,6 @@ public class Gallery extends Fragment {
 
         images = new LinkedList<>();
         fImages = new LinkedList<>();
-        //headers = new LinkedList<>();
 
         //folder to put new images in
         imageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CathedralLearningTour");
@@ -102,7 +100,6 @@ public class Gallery extends Fragment {
                 if (!files[i].isDirectory())
                     images.add(new GalleryCardInfo(getFileUri(files[i]), i, keyPair));
             }
-            //fImages = new LinkedList<>(images);
             orderResults();
         }
         else
@@ -116,8 +113,6 @@ public class Gallery extends Fragment {
             category.setSelection(keyPair.getInt("CategorySpinner", 0));
             direction.setSelection(keyPair.getInt("DirectionSpinner", 0));
             enter.performClick();
-            //orderResults();
-            //adapter.notifyDataSetChanged();
         }
     }
 
@@ -138,7 +133,6 @@ public class Gallery extends Fragment {
             @Override
             public void onImageClick(int position) {
                 Intent i = new Intent(getContext(), Image.class);
-                //Bitmap image = getBitmapFromFile(options, path, 512, 512);
                 i.putExtra("Uri", images.get(position).getUri().toString());
                 current = position;
                 startActivityForResult(i, 2);
@@ -214,7 +208,6 @@ public class Gallery extends Fragment {
         }
         if (requestCode == 2 && resultCode == RESULT_OK)
         {
-            //Toast.makeText(getContext(), Uri.parse(data.getStringExtra("Uri")).getLastPathSegment(), Toast.LENGTH_SHORT).show();
             if (current == -1)
                 Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
             else
@@ -233,7 +226,6 @@ public class Gallery extends Fragment {
         }
     }
 
-    //getUriForFile params: context, authority (just copy exactly), file object
     private Uri getFileUri(File file)
     {
         return FileProvider.getUriForFile(getContext(), "edu.pitt.cs.cs1635.jah234.cathedraltourguide.fileprovider", file);

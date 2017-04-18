@@ -88,7 +88,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i)
     {
-        //viewHolder.image.setImageBitmap(images.get(i).getImage());
         if (images.get(i).getHeader() == null)
         {
             Glide.with(context).load(images.get(i).getUri())

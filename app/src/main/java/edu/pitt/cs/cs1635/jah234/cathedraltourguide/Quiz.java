@@ -40,21 +40,15 @@ public class Quiz extends Fragment {
     View view; //everything you can see
 
     //objects in view
-    //Spinner spinner;
-    Button enterButton, submitAnswers;
+    Button submitAnswers;
     LinearLayout correctLayout1, incorrectLayout1, correctLayout2, incorrectLayout2, correctLayout3, incorrectLayout3;
     ScrollView questionLayout;
     RadioGroup q1answers, q2answers, q3answers;
-    //TextView quizIntro;
 
     Question[] questions; //array of question objects to randomly choose from
     int[] indices; //array of indices holding which number questions were randomly chosen
     String roomName; //name of room currently focused on
     int roomNum;
-
-    //Array to Spinner things
-    //ArrayAdapter<String> spinnerArrayAdapt;
-    //ArrayList<String> roomsAL;
 
     //holds save data
     SharedPreferences keyPair;
@@ -69,12 +63,9 @@ public class Quiz extends Fragment {
         super.onCreate(savedInstanceState);
 
         //initializes arraylist of rooms, current room to null
-        //roomsAL = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_names)));
         roomNum = getArguments().getInt("Position");
         roomName = (getResources().getStringArray(R.array.room_names))[roomNum];
 
-        //keyPair = save data
-        //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
         keyPair = getContext().getSharedPreferences("saved_data", Context.MODE_PRIVATE);
     }
 
@@ -82,12 +73,6 @@ public class Quiz extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.activity_quiz, container, false); //creates everything we can see
 
-        //(a lot of) objects initialized
-        //spinner = (Spinner) view.findViewById(R.id.quizSpinner); //Get Spinner
-        //spinnerArrayAdapt = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, roomsAL); //Create Adapter for Spinner
-        //spinnerArrayAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //Set Drop Down Resource
-        //spinner.setAdapter(spinnerArrayAdapt); //Set Adapter
-        //questionLayout = (ScrollView) view.findViewById(R.id.linearLayout3);
         correctLayout1 = (LinearLayout) view.findViewById(R.id.correctLayout1);
         incorrectLayout1 = (LinearLayout) view.findViewById(R.id.incorrectLayout1);
         correctLayout2 = (LinearLayout) view.findViewById(R.id.correctLayout2);
@@ -97,9 +82,7 @@ public class Quiz extends Fragment {
         q1answers = (RadioGroup)view.findViewById(R.id.q1answers);
         q2answers = (RadioGroup)view.findViewById(R.id.q2answers);
         q3answers = (RadioGroup)view.findViewById(R.id.q3answers);
-        //enterButton = (Button)view.findViewById(R.id.quizEnter);
         submitAnswers = (Button)view.findViewById(R.id.submitAnswers);
-        //quizIntro = (TextView) view.findViewById(R.id.quizIntro);
 
         //hides textviews showing correct answers and incorrect chosen answers for now
         correctLayout1.setVisibility(View.GONE);
@@ -109,46 +92,7 @@ public class Quiz extends Fragment {
         correctLayout3.setVisibility(View.GONE);
         incorrectLayout3.setVisibility(View.GONE);
 
-        //quiz was opened from Room fragment
-        /*if (getArguments() != null)
-        {
-            //roomName = getArguments().getString("Room Name");
-            spinner.setSelection(roomsAL.indexOf(roomName));
-        }
-        else //quiz was opened from navigation menu
-        {
-            spinner.setSelection(0); //Select First Item
-        }
-
-        //quiz was opened from navigation menu
-        if (roomNum == -1)
-        {
-            questionLayout.setVisibility(View.GONE);
-            quizIntro.setVisibility(View.VISIBLE);
-        }
-        else //quiz was opened from Room fragment
-        {
-            quizIntro.setVisibility(View.GONE);
-            loadQuestions();
-        }*/
-
         loadQuestions();
-
-        //set value of roomName, make questions and choices visible, make intro info invisible, loadQuestions method below
-        /*enterButton.setOnClickListener(new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View v) {
-
-                roomNum = spinner.getSelectedItemPosition();
-                roomName = (getResources().getStringArray(R.array.room_names))[roomNum];
-                questionLayout.setVisibility(View.VISIBLE);
-                quizIntro.setVisibility(View.GONE);
-                loadQuestions();
-
-            }
-        });*/
 
         submitAnswers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,13 +155,6 @@ public class Quiz extends Fragment {
                             }
                         }
                         editor.putInt("quiz" + roomNum, (userScore / 10)); //puts recent score in storage
-                        //puts questions and answers into storage, only relevant if got all correct
-                        /*editor.putString(roomNum + " Q1", questions[indices[0]].getQuestion());
-                        editor.putString(roomNum + " A1", questions[indices[0]].getAnswer());
-                        editor.putString(roomNum + " Q2", questions[indices[1]].getQuestion());
-                        editor.putString(roomNum + " A2", questions[indices[1]].getAnswer());
-                        editor.putString(roomNum + " Q3", questions[indices[2]].getQuestion());
-                        editor.putString(roomNum + " A3", questions[indices[2]].getAnswer());*/
 
                         if (userScore == 30) {
                             submitAnswers.setEnabled(false);
@@ -247,8 +184,6 @@ public class Quiz extends Fragment {
                                 q1answers.clearCheck();
                                 q2answers.clearCheck();
                                 q3answers.clearCheck();
-                                //quizIntro.setVisibility(View.VISIBLE); //makes intro visible again
-                                //questionLayout.setVisibility(View.GONE); //makes questions invisible again
                             }
                         });
 
@@ -291,7 +226,6 @@ public class Quiz extends Fragment {
 
         if (keyPair.getInt("quiz" + roomNum, 0) == 3) //got all correct last time, just show questions and correct answers
         {
-            //readAnswers();
             correctLayout1.setVisibility(View.VISIBLE);
             correctLayout2.setVisibility(View.VISIBLE);
             correctLayout3.setVisibility(View.VISIBLE);
@@ -318,7 +252,6 @@ public class Quiz extends Fragment {
     private void readQuestions() {
         try {
             //read from quiz file, put into question array
-            //BufferedReader reader = new BufferedReader(new InputStreamReader(view.getContext().getAssets().open(roomName + "_quiz.txt")));
             BufferedReader reader = new BufferedReader(new InputStreamReader(getResources().openRawResource(getResources().obtainTypedArray(R.array.room_quiz).getResourceId(roomNum, 0))));
             for (int i=0; i< 10; i++)
             {
@@ -362,16 +295,6 @@ public class Quiz extends Fragment {
         ((TextView) view.findViewById(R.id.correct2)).setText(keyPair.getString(roomNum + " A2", null));
         ((TextView) view.findViewById(R.id.correct3)).setText(keyPair.getString(roomNum + " A3", null));
     }
-
-    //not sure this actually does anything anymore, but doesn't cause problems so for now
-    /*@Override
-    public void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-        outState.putStringArrayList("RemainingQuizzes", roomsAL); //Save Array List
-        //outState.putSerializable("RemainingQuizzes", roomsAL);
-        outState.putString("LastRoom", roomName);
-    }*/
 
     //get a random number, check if already picked earlier, repeat
     private int[] getThreeRandom()

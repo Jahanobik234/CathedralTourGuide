@@ -75,8 +75,6 @@ public class Room_Info extends Fragment {
         }
 
         position = getArguments().getInt("Position");
-        //keyPair = saved data
-        //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
         keyPair = getContext().getSharedPreferences("saved_data", Context.MODE_PRIVATE);
         audioHelper = new AudioHelper();
         handler = new Handler();
@@ -120,19 +118,12 @@ public class Room_Info extends Fragment {
 
             intro.setText(getResources().getStringArray(R.array.room_intro)[position]);
 
-            //stream = getContext().getAssets().open(selection + "_flag.png"); //creates new inputStream
-            //flag_image = Drawable.createFromStream(stream, null); //creates drawable from stream
-            //flag.setImageDrawable(Drawable.createFromStream(stream, null));
-            //flag.setImageResource(getResources().obtainTypedArray(R.array.room_flag).getResourceId(position, 0));
             Glide.with(getContext()).load(getResources().obtainTypedArray(R.array.room_flag).getResourceId(position, 0))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(flag);
 
             mpIntro = MediaPlayer.create(getContext(), getResources().obtainTypedArray(R.array.room_audio).getResourceId(position * 2, 0));
             mpHistory = MediaPlayer.create(getContext(), getResources().obtainTypedArray(R.array.room_audio).getResourceId(position * 2 + 1, 0));
-            //stream.close();
-
-            //Toast.makeText(getContext(), Integer.toString(R.raw.african_heritage_text) + "\t" + Integer.toString(R.drawable.africanheritage_flag), Toast.LENGTH_LONG).show();
         }
         catch (Exception e)
         {

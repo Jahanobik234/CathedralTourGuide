@@ -32,7 +32,6 @@ public class NationalitySelector extends Fragment
     RecyclerView.Adapter adapter;
 
     ArrayList<RoomCardInfo> rooms, fRooms;
-    //ArrayList<String> roomNames;
 
     OnSendDataListener sendData;
 
@@ -67,7 +66,6 @@ public class NationalitySelector extends Fragment
             rooms.add(new RoomCardInfo(names[i], nums[i], idArray.getResourceId(i, 0), i));
         }
         fRooms = new ArrayList<>(rooms);
-        //roomNames = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.room_names)));
     }
 
     @Override

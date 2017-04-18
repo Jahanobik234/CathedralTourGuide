@@ -69,10 +69,6 @@ public class Room extends Fragment{
         {
             throw new ClassCastException(context.toString() + " must implement OnSendDataListener");
         }
-
-        //initializes value of current room
-        //selection = getArguments().getString("Selection");
-        //number = getArguments().getString("Number");
     }
 
     @Override

@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder>
 {
     private ArrayList<RoomCardInfo> rooms;
-    //private ArrayList<String> roomNames;
     private Context context;
 
     private final OnItemClickListener listener;

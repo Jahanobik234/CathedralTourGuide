@@ -49,10 +49,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
         main = (FrameLayout) findViewById(R.id.mainContent);
         menu = (BottomNavigationView) findViewById(R.id.tabMenu);
 
-        //normally, bottomnavigationview hides the text on menu items if they're not focused, I think it looks ugly
-        //admittedly, I don't fully understand this code
-        //BottomNavigationViewHelper.disableShiftMode(menu);
-
         //initial appearance of the app when first started
         if (savedInstanceState == null) {
             Achievements startFragment = new Achievements(); //create a new fragment of the proper type (Achievements, Gallery, Quiz, Room, Search)
@@ -94,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                                 title = "Achievements";
                                 break;
                             case R.id.search:
-                                //newFragment = new Search();
                                 newFragment = new NationalitySelector();
                                 colorId = R.color.Purple;
                                 title = "Room Search";
@@ -104,11 +99,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                                 colorId = R.color.Green;
                                 title = "Gallery";
                                 break;
-                            /*case R.id.quiz:
-                                newFragment = new Quiz();
-                                colorId = R.color.Orange;
-                                title = "Quiz";
-                                break;*/
                             default: //shouldn't ever reach default but compiler required I put stuff here
                                 newFragment = new Search();
                                 colorId = R.color.Purple;
@@ -144,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
     public void send(Bundle data)
     {
         Fragment newFragment; //new fragment to replace with (if any)
-        Bundle args; //arguments to send to new fragment (if any)
         FragmentTransaction handler;
 
         //key that pairs with what the app should do with the data
@@ -154,9 +143,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
         {
             //called from Search fragment, replaces with Room fragment and loads info from specific room files
             case "New Room":
-                String roomNum, roomName; //room name and number
-                int index; //index of room in arrays
-
                 newFragment = new Room();
 
                 newFragment.setArguments(data);
@@ -166,22 +152,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                 handler.setTransition(handler.TRANSIT_FRAGMENT_CLOSE);
                 handler.commit();
                 break;
-            //called from Room fragment, loads Quiz fragment and goes straight to specific quiz
-            /*case "Room Quiz":
-                newFragment = new Quiz();
-                args = new Bundle();
-                args.putString("Room Name", data.getString("Room Name"));
-                newFragment.setArguments(args);
-
-                handler = getSupportFragmentManager().beginTransaction();
-                handler.replace(R.id.mainContent, newFragment);
-                handler.setTransition(handler.TRANSIT_FRAGMENT_CLOSE);
-                handler.commit();
-
-                menu.setItemBackgroundResource(R.color.Orange);
-                menu.getMenu().findItem(R.id.quiz).setChecked(true);
-                setTitle("Quiz");
-                break;*/
             default:
                 break;
         }

@@ -31,8 +31,6 @@ public class Achievements extends Fragment {
     {
         super.onCreate(savedInstanceState);
 
-        //keyPair = saved data
-        //keyPair.get Params: key to identify value to fetch, value to return if can't find in saved data
         keyPair = getContext().getSharedPreferences("saved_data", Context.MODE_PRIVATE);
     }
 

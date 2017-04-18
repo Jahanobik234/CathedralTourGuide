@@ -125,9 +125,6 @@ public class Room_Interact extends Fragment {
             Glide.with(getContext()).load(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3 + 2, 0))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(item_pic3);
-            /*item_pic1.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3, 0));
-            item_pic2.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3 + 1, 0));
-            item_pic3.setImageResource(getResources().obtainTypedArray(R.array.room_object).getResourceId(position * 3 + 2, 0));*/
         }
         catch (Exception e)
         {
@@ -161,13 +158,9 @@ public class Room_Interact extends Fragment {
         hint1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int index = keyPair.getInt(position + "Hint1", 0);
                 String text = hint[index1 % 3] + "\n\nStill Can't Find it?\nTap for Another Hint!";
                 hint1.setText(text);
                 index1++;
-                /*SharedPreferences.Editor editor = keyPair.edit();
-                editor.putInt(position + "Hint1", index);
-                editor.commit();*/
             }
         });
 
@@ -175,13 +168,9 @@ public class Room_Interact extends Fragment {
         hint2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int index = keyPair.getInt(position + "Hint2", 0);
                 String text = hint[(index2 % 3) + 3] + "\n\nStill Can't Find it?\nTap for Another Hint!";
                 hint2.setText(text);
                 index2++;
-                /*SharedPreferences.Editor editor = keyPair.edit();
-                editor.putInt(position + "Hint2", index);
-                editor.commit();*/
             }
         });
 
@@ -189,26 +178,11 @@ public class Room_Interact extends Fragment {
         hint3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int index = keyPair.getInt(position + "Hint3", 0);
                 String text = hint[(index3 % 3) + 6] + "\n\nStill Can't Find it?\nTap for Another Hint!";
                 hint3.setText(text);
                 index3++;
-                /*SharedPreferences.Editor editor = keyPair.edit();
-                editor.putInt(position + "Hint3", index);
-                editor.commit();*/
             }
         });
-
-        //tell MainActivity go to Quiz fragment
-        /*quiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle data = new Bundle();
-                data.putString("Action", "Room Quiz");
-                data.putString("Room Name", selection);
-                sendData.send(data);
-            }
-        });*/
 
         //found first item
         found1.setOnClickListener(new View.OnClickListener() {
@@ -235,9 +209,7 @@ public class Room_Interact extends Fragment {
                                     hint1.setEnabled(false);
 
                                     SharedPreferences.Editor editor = keyPair.edit();
-                                    /*int score = 10 - 3 * keyPair.getInt(position + "Hint1", 0);
-                                    if (score < 0)
-                                        score = 0;*/
+
                                     editor.putInt(position + "Item1", 10);
                                     if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
                                     {
@@ -328,9 +300,7 @@ public class Room_Interact extends Fragment {
                                     hint2.setEnabled(false);
 
                                     SharedPreferences.Editor editor = keyPair.edit();
-                                    /*int score = 10 - 3 * keyPair.getInt(position + "Hint2", 0);
-                                    if (score < 0)
-                                        score = 0;*/
+
                                     editor.putInt(position + "Item2", 10);
                                     if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
                                     {
@@ -420,9 +390,7 @@ public class Room_Interact extends Fragment {
                                     hint3.setEnabled(false);
 
                                     SharedPreferences.Editor editor = keyPair.edit();
-                                    /*int score = 10 - 3 * keyPair.getInt(position + "Hint3", 0);
-                                    if (score < 0)
-                                        score = 0;*/
+
                                     editor.putInt(position + "Item3", 10);
                                     if (keyPair.getInt("Total Score", -1) == -1) //checks if total score exists
                                     {
@@ -487,7 +455,7 @@ public class Room_Interact extends Fragment {
             }
         });
 
-        //always return view*/
+        //always return view
         return view;
     }
 }
