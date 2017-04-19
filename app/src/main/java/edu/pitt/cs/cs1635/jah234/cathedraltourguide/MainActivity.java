@@ -115,19 +115,6 @@ public class MainActivity extends AppCompatActivity implements OnSendDataListene
                         return true;
                     }
                 });
-
-        //developer tool to retake quizzes and stuff, thinking of implementing delete save data option for users
-        main.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Toast.makeText(MainActivity.this, "Deleting Saved Data", Toast.LENGTH_LONG).show();
-                SharedPreferences.Editor editor = getSharedPreferences("saved_data", MODE_PRIVATE).edit();
-                editor.clear();
-                editor.commit();
-                return true;
-            }
-        });
-
     }
 
     //receives data from fragments
